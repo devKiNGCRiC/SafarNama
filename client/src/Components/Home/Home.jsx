@@ -3,7 +3,8 @@ import './Home.scss';
 import { Link } from 'react-router-dom';
 
 // Imported Assets
-import heroVideo from '../../Assets/bg2-video.mp4';
+// Videos now hosted on Cloudinary (too large for GitHub)
+const heroVideo = 'https://res.cloudinary.com/dxyclus0f/video/upload/v1761919410/safarnama/videos/safarnama/videos/bg2-video.mp4';
 import heroImage from '../../Assets/chandratal-lake.jpg'; // Fallback image
 
 // Imported Icons
