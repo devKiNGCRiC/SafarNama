@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const heroVideo =
   "https://res.cloudinary.com/dxyclus0f/video/upload/q_auto:low,f_auto/v1761919410/safarnama/videos/safarnama/videos/bg2-video.mp4";
 import heroImage from "../../Assets/chandratal-lake.jpg"; // Fallback image
+import logo from "../../Assets/logo.jpg"; // Logo image
 
 // Imported Icons
 import { FiSearch, FiMapPin, FiCalendar, FiTrendingUp } from "react-icons/fi";
@@ -128,10 +129,9 @@ const Home = () => {
         {/* Hero Banner */}
         <div className="hero-banner" data-aos="zoom-in">
           <div className="hero-badge">🌿 Eco-Tourism Pioneer</div>
-          <h1 className="hero-title">
-            <span className="safar">Safar</span>
-            <span className="nama">Nama</span>
-          </h1>
+          <div className="hero-logo-container">
+            <img src={logo} alt="SafarNama" className="hero-logo" />
+          </div>
           <p className="hero-tagline">
             <span className="hindi">यात्रा का आनंद लें</span>
             <span className="tagline-separator">•</span>

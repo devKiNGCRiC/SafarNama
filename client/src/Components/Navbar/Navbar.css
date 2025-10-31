@@ -1,7 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
-/* Root Variables */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap");
+
+/* 🇮🇳 Indian Theme Root Variables */
 :root {
-  --primaryColor: hsl(14, 90%, 53%);
+  /* Indian Flag Colors */
+  --saffron-primary: #FF9933;
+  --forest-green: #138808;
+  --white-lotus: #FFFFFF;
+  
+  /* Nature Palette */
+  --sky-blue: #87CEEB;
+  --golden-yellow: #FFD700;
+  --terracotta: #C1502E;
+  --earth-brown: #654321;
+  
+  /* Legacy Variables (for compatibility) */
+  --primaryColor: #FF9933;
   --PrimaryColorLight: hsl(14, 88%, 92%);
   --bgColor: hsl(2, 0%, 100%);
   --formColor: hsl(28, 46%, 88%);
@@ -25,7 +38,7 @@
   position: relative;
 }
 
-/* Main Navbar */
+/* Main Navbar - Indian Theme Enhanced */
 .navBar {
   position: fixed;
   top: 0;
@@ -36,12 +49,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  background: rgba(255, 255, 255, 0.28);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, 
+    rgba(255, 153, 51, 0.15) 0%, 
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(19, 136, 8, 0.15) 100%
+  );
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+  border-image-slice: 1;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
+              0 0 40px rgba(255, 153, 51, 0.05);
+  transition: all 0.3s ease;
   /* Logo Styles */
   /* Desktop Navigation */
   /* Mobile Menu Toggle */
@@ -54,28 +75,42 @@
   text-decoration: none;
 }
 .navBar .navBarLogo a .logoimg {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 12px rgba(255, 153, 51, 0.3));
 }
 .navBar .navBarLogo a .logoimg:hover {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 6px 20px rgba(255, 153, 51, 0.5));
 }
 .navBar .navBarLogo a .first {
   font-family: "Shrikhand", serif;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
-  color: rgb(234, 7, 34);
-  text-shadow: 2px 2px 1px black;
+  color: #FF9933;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+               0 0 20px rgba(255, 153, 51, 0.4);
   margin-left: 0.8rem;
+  transition: all 0.3s ease;
+}
+.navBar .navBarLogo a .first:hover {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+               0 0 30px rgba(255, 153, 51, 0.6);
 }
 .navBar .navBarLogo a .second {
   font-family: "Shrikhand", serif;
-  font-size: 1.8rem;
-  color: rgb(244, 232, 9);
+  font-size: 1.9rem;
+  color: #FFD700;
   font-weight: 800;
-  text-shadow: 2px 2px 1px black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+               0 0 20px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}
+.navBar .navBarLogo a .second:hover {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+               0 0 30px rgba(255, 215, 0, 0.6);
 }
 .navBar .navBarDesktop {
   display: flex;
@@ -92,15 +127,32 @@
 .navBar .navBarDesktop .navLinks li a {
   color: var(--blackColor);
   text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 0.5rem 0;
-  transition: all 0.3s ease;
-  border-bottom: 2px solid transparent;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-bottom: 3px solid transparent;
+  border-radius: 8px;
+  position: relative;
+}
+.navBar .navBarDesktop .navLinks li a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF9933, #FFD700);
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 .navBar .navBarDesktop .navLinks li a:hover {
-  color: var(--primaryColor);
-  border-bottom-color: var(--primaryColor);
+  color: #FF9933;
+  background: rgba(255, 153, 51, 0.08);
+}
+.navBar .navBarDesktop .navLinks li a:hover::before {
+  width: 80%;
 }
 .navBar .navBarDesktop .searchBar {
   position: relative;
@@ -110,33 +162,46 @@
 }
 .navBar .navBarDesktop .searchBar input {
   width: 100%;
-  padding: 0.8rem 2.5rem 0.8rem 1rem;
-  border: 1px solid var(--formColor);
-  border-radius: 8px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  background: var(--whiteColor);
+  padding: 0.9rem 3rem 0.9rem 1.2rem;
+  border: 2px solid rgba(255, 153, 51, 0.2);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
 }
 .navBar .navBarDesktop .searchBar input:focus {
   outline: none;
-  border-color: var(--primaryColor);
-  box-shadow: 0 0 0 2px var(--PrimaryColorLight);
+  border-color: #FF9933;
+  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.15),
+              0 4px 12px rgba(255, 153, 51, 0.2);
+  background: var(--whiteColor);
+  transform: translateY(-2px);
+}
+.navBar .navBarDesktop .searchBar input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
 }
 .navBar .navBarDesktop .searchBar button {
   position: absolute;
-  right: 1rem;
+  right: 0.8rem;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--greyText);
+  color: #FF9933;
+  transition: all 0.3s ease;
+  padding: 0.4rem;
+  border-radius: 6px;
 }
 .navBar .navBarDesktop .searchBar button:hover {
-  color: var(--primaryColor);
+  color: #FFD700;
+  background: rgba(255, 153, 51, 0.1);
+  transform: translateY(-50%) scale(1.1);
 }
 .navBar .navBarDesktop .searchBar button .icon {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .navBar .navBarDesktop .navActions {
   display: flex;
@@ -147,39 +212,63 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
-  border: none;
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(255, 153, 51, 0.2);
   border-radius: 50%;
-  background: none;
+  background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .navBar .navBarDesktop .navActions .iconBtn .icon {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
 }
 .navBar .navBarDesktop .navActions .iconBtn .icon.robot {
-  color: var(--primaryColor);
+  color: #FF9933;
 }
 .navBar .navBarDesktop .navActions .iconBtn:hover {
-  background: var(--PrimaryColorLight);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(255, 215, 0, 0.15));
+  border-color: #FF9933;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 153, 51, 0.3);
+}
+.navBar .navBarDesktop .navActions .iconBtn:hover .icon {
+  color: #FF9933;
+  transform: rotate(10deg);
 }
 .navBar .navBarDesktop .navActions .signUpBtn {
-  padding: 0.6rem 1.2rem;
-  background: var(--primaryColor);
+  padding: 0.7rem 1.8rem;
+  background: linear-gradient(135deg, #FF9933 0%, #E63946 50%, #C1502E 100%);
   color: var(--whiteColor);
-  border-radius: 8px;
+  border-radius: 25px;
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.navBar .navBarDesktop .navActions .signUpBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
 }
 .navBar .navBarDesktop .navActions .signUpBtn:hover {
-  background: var(--blackColor);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 153, 51, 0.5);
+}
+.navBar .navBarDesktop .navActions .signUpBtn:hover::before {
+  left: 100%;
 }
 .navBar .mobileControls {
   display: none;
