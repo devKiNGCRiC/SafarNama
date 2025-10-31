@@ -59,6 +59,7 @@ git status
 **CHECK:** `.env` files should NOT appear in the list!
 
 **If you see .env files listed:**
+
 ```cmd
 # Add to .gitignore
 echo Server/.env >> .gitignore
@@ -75,11 +76,13 @@ git add .
 ```
 
 **Verify what's being added:**
+
 ```cmd
 git status
 ```
 
 **You should see:**
+
 - ✅ All .js, .jsx, .json files
 - ✅ .gitignore
 - ✅ .env.example (safe template)
@@ -113,9 +116,10 @@ git commit -m "Initial commit: MERN stack with security implementation
 **Go to:** https://github.com/new
 
 **Fill in:**
+
 - **Repository name:** `Safarnama` or `safarnama-ecotourism`
 - **Description:** `🇮🇳 India's First Eco-Tourism Platform - MERN Stack | Sustainable Travel, Carbon Footprint Calculator, PWA`
-- **Visibility:** 
+- **Visibility:**
   - ✅ **Public** (for portfolio/showcase)
   - OR **Private** (if you want privacy for now)
 - **Initialize:** ❌ DON'T check any boxes (we already have code)
@@ -143,6 +147,7 @@ git push -u origin main
 **Go to:** https://github.com/devKiNGCRiC/Safarnama
 
 **Check:**
+
 - ✅ All files are there
 - ✅ .gitignore is present
 - ✅ .env.example is there
@@ -211,7 +216,7 @@ git push                             # Always push before closing
 Go to repository → About (settings icon) → Add topics:
 
 ```
-mern-stack, react, nodejs, mongodb, express, eco-tourism, 
+mern-stack, react, nodejs, mongodb, express, eco-tourism,
 travel, india, pwa, sustainable-travel, portfolio-project
 ```
 
@@ -219,13 +224,14 @@ travel, india, pwa, sustainable-travel, portfolio-project
 
 ```
 🇮🇳 Safarnama - India's First Eco-Tourism Platform | Built with MERN Stack
-Features: Interactive Maps 🗺️, Carbon Footprint Calculator 🌱, PWA 📱, 
+Features: Interactive Maps 🗺️, Carbon Footprint Calculator 🌱, PWA 📱,
 Real-time Bookings 💰, Community Forums 👥
 ```
 
 ### **Add README.md:**
 
 We'll create an impressive README later with:
+
 - Project overview
 - Features list
 - Tech stack
@@ -298,6 +304,7 @@ git push origin --force --all
 ## 🎓 GIT COMMANDS CHEAT SHEET
 
 ### **Daily Use:**
+
 ```cmd
 git status          # What changed?
 git add .           # Stage all
@@ -308,6 +315,7 @@ git pull            # Download from GitHub
 ```
 
 ### **Branches (Later):**
+
 ```cmd
 git branch feature-name     # Create branch
 git checkout feature-name   # Switch to branch
@@ -316,6 +324,7 @@ git branch -d feature-name  # Delete branch
 ```
 
 ### **Undo Changes:**
+
 ```cmd
 git checkout -- file.js     # Discard changes in file
 git reset HEAD file.js      # Unstage file
@@ -323,6 +332,7 @@ git reset --hard HEAD       # Discard ALL changes (careful!)
 ```
 
 ### **View History:**
+
 ```cmd
 git log                     # Full history
 git log --oneline           # Compact history
@@ -334,21 +344,25 @@ git log --graph --oneline   # Visual graph
 ## 💡 PRO TIPS
 
 ### **Commit Often:**
+
 - Small, frequent commits > Large, rare commits
 - Easier to track changes
 - Easier to revert if needed
 
 ### **Write Good Messages:**
+
 - Use present tense: "Add feature" not "Added feature"
 - Be specific: What and why
 - First line: Summary (50 chars)
 - Body: Details (if needed)
 
 ### **Use .gitignore:**
+
 - Already set up for you!
 - Add more patterns as needed
 
 ### **GitHub Profile:**
+
 - Pin important projects
 - Write good READMEs
 - Regular activity = active developer
@@ -383,6 +397,7 @@ git log --graph --oneline   # Visual graph
 ## 🎉 BENEFITS OF HAVING IT ON GITHUB
 
 **For You:**
+
 - ✅ Backup of your work
 - ✅ Version history
 - ✅ Can revert mistakes
@@ -390,6 +405,7 @@ git log --graph --oneline   # Visual graph
 - ✅ Showcase to employers
 
 **For Employers:**
+
 - ✅ See your coding style
 - ✅ Check commit frequency
 - ✅ Read documentation
@@ -397,6 +413,7 @@ git log --graph --oneline   # Visual graph
 - ✅ Verify skills
 
 **For Community:**
+
 - ✅ Others can learn
 - ✅ Potential contributions
 - ✅ Star your project
@@ -407,6 +424,7 @@ git log --graph --oneline   # Visual graph
 ## ⚠️ REMEMBER
 
 **Before EVERY push:**
+
 ```cmd
 git status
 ```
@@ -414,6 +432,7 @@ git status
 **Check:** No .env files listed!
 
 **If you see .env:**
+
 ```cmd
 # DON'T PUSH! Fix gitignore first!
 echo "*.env" >> .gitignore
@@ -427,6 +446,7 @@ git status
 **You're 100% safe to create your GitHub repo now!**
 
 **All protections are in place:**
+
 - ✅ .gitignore configured
 - ✅ .env.example for reference
 - ✅ No credentials in code

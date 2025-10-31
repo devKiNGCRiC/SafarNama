@@ -9,6 +9,7 @@
 ## ✅ WHAT I JUST DID (Last 30 Minutes)
 
 ### **1. Created MVP Roadmap** ✅
+
 - **File:** `MVP_ROADMAP.md`
 - 4-week plan to deploy Safarnama
 - Day-by-day breakdown
@@ -16,13 +17,16 @@
 - Zero-budget deployment strategy
 
 ### **2. Security Audit Completed** ✅
+
 - **File:** `SECURITY_AUDIT_REPORT.md`
 - Found CRITICAL security issues
 - Current security score: 40/100
 - Target score: 85/100
 
 ### **3. Security Infrastructure Created** ✅
+
 Created files:
+
 - ✅ `.gitignore` (root) - Prevents .env from being committed
 - ✅ `Server/.gitignore` - Server-specific ignores
 - ✅ `Server/.env.example` - Template for environment variables
@@ -30,7 +34,9 @@ Created files:
 - ✅ `setup-security.bat` - Automated security setup script
 
 ### **4. Security Middleware Implemented** ✅
+
 Updated `Server/index.js` with:
+
 - ✅ Helmet.js for security headers
 - ✅ Rate limiting (general + auth-specific)
 - ✅ NoSQL injection protection
@@ -46,17 +52,20 @@ Updated `Server/index.js` with:
 ### **IMMEDIATE (Next 15 Minutes):**
 
 #### **1. Check if .env is exposed on GitHub** ⚠️
+
 ```bash
 # Run this command in your project folder:
 git log --all --full-history -- "*/.env"
 ```
 
 **If it shows results:**
+
 - Your credentials are PUBLIC on GitHub! 😱
 - Anyone can access your database, email, and Cloudinary
 - **ACTION:** Follow "Credential Rotation" steps below
 
 **If it shows nothing:**
+
 - Good! Your credentials are safe
 - **ACTION:** Continue to step 2
 
@@ -65,12 +74,14 @@ git log --all --full-history -- "*/.env"
 #### **2. Install Security Packages**
 
 **Option A: Run the automated script** (RECOMMENDED)
+
 ```cmd
 # Double-click this file:
 setup-security.bat
 ```
 
 **Option B: Manual installation**
+
 ```cmd
 cd Server
 npm install helmet express-rate-limit express-mongo-sanitize hpp xss-clean
@@ -81,21 +92,25 @@ npm install helmet express-rate-limit express-mongo-sanitize hpp xss-clean
 #### **3. Generate New JWT Secret**
 
 **Run this command:**
+
 ```cmd
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
 **Copy the output and update `Server/.env`:**
+
 ```
 JWT_SECRET_KEY=<paste_the_generated_secret_here>
 ```
 
 **Current weak secret:**
+
 ```
 ❌ JWT_SECRET_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
 **New strong secret (example):**
+
 ```
 ✅ JWT_SECRET_KEY=a4f8c9d2e1b6a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2
 ```
@@ -105,6 +120,7 @@ JWT_SECRET_KEY=<paste_the_generated_secret_here>
 ### **IF CREDENTIALS ARE EXPOSED (15-30 Minutes):**
 
 #### **1. MongoDB Password Reset**
+
 1. Go to https://cloud.mongodb.com/
 2. Navigate to: Database Access → Users
 3. Click "Edit" on user `kingraj28roy`
@@ -113,6 +129,7 @@ JWT_SECRET_KEY=<paste_the_generated_secret_here>
 6. Update `MONGO_DB` in `Server/.env`
 
 #### **2. Email App Password Reset**
+
 1. Go to https://myaccount.google.com/security
 2. Navigate to: "App passwords"
 3. Delete old "Safarnama" password
@@ -120,6 +137,7 @@ JWT_SECRET_KEY=<paste_the_generated_secret_here>
 5. Update `EMAIL_PASSWORD` in `Server/.env`
 
 #### **3. Cloudinary API Keys Reset**
+
 1. Go to https://cloudinary.com/console
 2. Navigate to: Settings → Security
 3. Click "Regenerate" on API Key
@@ -132,6 +150,7 @@ JWT_SECRET_KEY=<paste_the_generated_secret_here>
    ```
 
 #### **4. Remove .env from Git History**
+
 ```bash
 # WARNING: This rewrites Git history!
 git filter-branch --force --index-filter \
@@ -146,6 +165,7 @@ git push origin --force --all
 ## 🧪 TESTING YOUR SECURITY FIXES
 
 ### **1. Restart Development Server**
+
 ```cmd
 # Kill existing server (Ctrl+C)
 cd Server
@@ -155,15 +175,17 @@ npm start
 ### **2. Test Rate Limiting**
 
 **Test general API rate limit (100 requests/15 min):**
+
 ```javascript
 // In browser console or Postman:
 for (let i = 0; i < 101; i++) {
-  fetch('http://localhost:5000/api/v1/tours');
+  fetch("http://localhost:5000/api/v1/tours");
 }
 // Request 101 should fail with "Too many requests"
 ```
 
 **Test auth rate limit (5 attempts/15 min):**
+
 ```javascript
 // Try login with wrong password 6 times
 // 6th attempt should fail with rate limit error
@@ -176,6 +198,7 @@ for (let i = 0; i < 101; i++) {
 **Open browser DevTools → Network → Select any request → Headers**
 
 **You should see:**
+
 ```
 X-Content-Type-Options: nosniff
 X-Frame-Options: SAMEORIGIN
@@ -190,6 +213,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 ## 📋 SECURITY CHECKLIST
 
 ### **Completed ✅**
+
 - [x] Created .gitignore files
 - [x] Created .env.example templates
 - [x] Implemented helmet.js
@@ -200,6 +224,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 - [x] Added request size limits
 
 ### **You Must Complete 🔴**
+
 - [ ] Install security packages (run setup-security.bat)
 - [ ] Generate new JWT secret
 - [ ] Update JWT_SECRET_KEY in .env
@@ -210,6 +235,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 - [ ] Test authentication flow
 
 ### **This Week ⚠️**
+
 - [ ] Review password validation strength
 - [ ] Test file upload security
 - [ ] Remove console.log from production code
@@ -221,26 +247,31 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 ## 🎯 NEXT STEPS (After Security)
 
 ### **Tomorrow (Day 2):**
+
 1. Apply design system to Destinations component
 2. Replace all $ with ₹
 3. Test on mobile
 
 ### **Day 3-4:**
+
 4. Apply design system to Tours
 5. Apply design system to Bookings/Payments
 6. Update all components with Indian theme
 
 ### **Week 2:**
+
 - Mobile responsiveness testing
 - Basic SEO setup
 - Performance optimization
 
 ### **Week 3:**
+
 - Interactive map implementation
 - Carbon footprint calculator
 - PWA support
 
 ### **Week 4:**
+
 - Affiliate links integration
 - Final testing
 - **DEPLOYMENT! 🚀**
@@ -254,6 +285,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 **Security:** 40/100 → 75/100 (after you complete checklist)
 
 **Timeline:**
+
 - **Today:** Security fixes (2-3 hours)
 - **This Week:** Design system application
 - **Next 3 Weeks:** Features + Testing
@@ -264,6 +296,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 ## 💡 IMPORTANT REMINDERS
 
 ### **✅ ALWAYS:**
+
 - Keep .env files LOCAL ONLY
 - Use .env.example for sharing configuration structure
 - Rotate credentials if exposed
@@ -271,6 +304,7 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 - Use strong passwords/secrets
 
 ### **❌ NEVER:**
+
 - Commit .env files to Git
 - Share credentials in chat/email
 - Use weak JWT secrets
@@ -282,12 +316,14 @@ Strict-Transport-Security: max-age=15552000; includeSubDomains
 ## 🆘 IF YOU NEED HELP
 
 ### **Security Issues:**
+
 1. Read `SECURITY_AUDIT_REPORT.md` first
 2. Google the specific error message
 3. Check Stack Overflow
 4. Ask me (I'm here to help!)
 
 ### **Installation Issues:**
+
 ```cmd
 # If npm install fails, try:
 npm cache clean --force
@@ -295,6 +331,7 @@ npm install
 ```
 
 ### **Server Won't Start:**
+
 1. Check if MongoDB is accessible
 2. Verify .env has all required values
 3. Check console for error messages
@@ -307,6 +344,7 @@ npm install
 **You've just made Safarnama MUCH MORE SECURE!** 🔒
 
 With these fixes:
+
 - ✅ Protected against brute-force attacks
 - ✅ Protected against NoSQL injection
 - ✅ Protected against XSS attacks
@@ -315,6 +353,7 @@ With these fixes:
 - ✅ Production-ready security posture
 
 **This is the difference between:**
+
 - ❌ Hobby project → ✅ Professional application
 - ❌ Security vulnerability → ✅ Industry standard
 - ❌ Can't deploy → ✅ Deployment-ready
@@ -324,6 +363,7 @@ With these fixes:
 ## 📞 QUICK REFERENCE
 
 ### **Files Created Today:**
+
 1. `MVP_ROADMAP.md` - Your 4-week plan
 2. `SECURITY_AUDIT_REPORT.md` - Security analysis
 3. `.gitignore` - Git ignore rules
@@ -334,9 +374,11 @@ With these fixes:
 8. `IMMEDIATE_ACTIONS.md` - This file!
 
 ### **Files Modified:**
+
 1. `Server/index.js` - Added security middleware
 
 ### **Commands You'll Need:**
+
 ```cmd
 # Install security packages
 cd Server

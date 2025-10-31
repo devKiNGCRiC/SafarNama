@@ -1,0 +1,326 @@
+/* ============================================
+   🇮🇳 SAFARNAMA - LEGENDARY INDIAN NATURE THEME
+   Eco-Tourism Design System
+   ============================================ */
+
+:root {
+  /* ========== INDIAN NATURE COLORS ========== */
+  
+  /* Primary - Saffron & Sunset */
+  --saffron-primary: #FF9933;        /* Indian Flag Saffron */
+  --saffron-light: #FFB366;
+  --saffron-dark: #E68A2E;
+  --sunset-orange: #FF6B35;
+  --terracotta: #C1502E;
+  
+  /* Secondary - Forest & Nature */
+  --forest-green: #138808;           /* Indian Flag Green */
+  --leaf-green: #2ECC71;
+  --sage-green: #8FBC8F;
+  --moss-green: #6B8E23;
+  --bamboo-green: #4A7C59;
+  
+  /* Sky & Water */
+  --sky-blue: #87CEEB;
+  --peacock-blue: #00A5CF;
+  --ocean-blue: #006994;
+  --navy-chakra: #000080;            /* Indian Flag Chakra Blue */
+  
+  /* Earth & Terracotta */
+  --clay-brown: #8B4513;
+  --sandstone: #D4A574;
+  --earth-brown: #654321;
+  
+  /* Sacred & Spiritual */
+  --turmeric-yellow: #FFD700;
+  --marigold-yellow: #FFA500;
+  --holy-saffron: #FF7F00;
+  
+  /* Neutrals - Nature Inspired */
+  --white-lotus: #FFFFFF;
+  --cream-marble: #FFF8E7;
+  --beige-sand: #F5F5DC;
+  --stone-grey: #808080;
+  --charcoal: #36454F;
+  --deep-black: #1A1A1A;
+  
+  /* Accent - Vibrant India */
+  --red-sindoor: #E63946;
+  --crimson-red: #DC143C;
+  --rose-pink: #FF69B4;
+  --lotus-pink: #FFB6C1;
+  
+  /* Gradients - Natural Phenomena */
+  --gradient-sunset: linear-gradient(135deg, #FF9933 0%, #FF6B35 50%, #E63946 100%);
+  --gradient-forest: linear-gradient(135deg, #138808 0%, #2ECC71 50%, #8FBC8F 100%);
+  --gradient-sky: linear-gradient(180deg, #87CEEB 0%, #00A5CF 100%);
+  --gradient-earth: linear-gradient(135deg, #8B4513 0%, #D4A574 100%);
+  --gradient-tricolor: linear-gradient(180deg, #FF9933 0%, #FFFFFF 33%, #FFFFFF 66%, #138808 100%);
+  
+  /* ========== GLASSMORPHISM ========== */
+  --glass-white: rgba(255, 255, 255, 0.1);
+  --glass-dark: rgba(0, 0, 0, 0.2);
+  --glass-saffron: rgba(255, 153, 51, 0.15);
+  --glass-green: rgba(19, 136, 8, 0.15);
+  
+  --blur-sm: blur(8px);
+  --blur-md: blur(16px);
+  --blur-lg: blur(24px);
+  
+  /* ========== SHADOWS ========== */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.25);
+  
+  --shadow-saffron: 0 8px 32px rgba(255, 153, 51, 0.3);
+  --shadow-green: 0 8px 32px rgba(19, 136, 8, 0.3);
+  --shadow-blue: 0 8px 32px rgba(0, 165, 207, 0.3);
+  
+  /* ========== TYPOGRAPHY ========== */
+  --font-primary: 'Montserrat', 'Noto Sans Devanagari', sans-serif;
+  --font-display: 'Poppins', 'Noto Serif Devanagari', serif;
+  --font-hindi: 'Noto Sans Devanagari', sans-serif;
+  
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
+  --text-7xl: 4.5rem;      /* 72px */
+  
+  --weight-light: 300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  
+  /* ========== SPACING ========== */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  
+  /* ========== BORDER RADIUS ========== */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-3xl: 2rem;      /* 32px */
+  --radius-full: 9999px;
+  
+  /* ========== TRANSITIONS ========== */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+  
+  /* ========== Z-INDEX ========== */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+  
+  /* ========== BREAKPOINTS ========== */
+  --mobile: 320px;
+  --tablet: 768px;
+  --laptop: 1024px;
+  --desktop: 1280px;
+  --wide: 1536px;
+}
+
+/* ========== DARK MODE COLORS ========== */
+[data-theme="dark"] {
+  --saffron-primary: #FFB366;
+  --forest-green: #2ECC71;
+  --white-lotus: #1A1A1A;
+  --deep-black: #FFFFFF;
+  --charcoal: #F5F5F5;
+}
+
+/* ========== UTILITY CLASSES ========== */
+
+/* Indian Flag Inspired */
+.tricolor-border {
+  border-top: 3px solid var(--saffron-primary);
+  border-bottom: 3px solid var(--forest-green);
+}
+
+.chakra-pattern {
+  background-image: radial-gradient(circle, var(--navy-chakra) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Nature Textures */
+.leaf-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-11 9-20 20-20v20H30z' fill='%23138808' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.mandala-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FF9933' fill-opacity='0.05'%3E%3Ccircle cx='40' cy='40' r='5'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--glass-white);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.glass-saffron {
+  background: var(--glass-saffron);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 153, 51, 0.3);
+}
+
+.glass-green {
+  background: var(--glass-green);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(19, 136, 8, 0.3);
+}
+
+/* Gradient Backgrounds */
+.bg-sunset {
+  background: var(--gradient-sunset);
+}
+
+.bg-forest {
+  background: var(--gradient-forest);
+}
+
+.bg-sky {
+  background: var(--gradient-sky);
+}
+
+.bg-tricolor {
+  background: var(--gradient-tricolor);
+}
+
+/* Text Gradients */
+.text-gradient-saffron {
+  background: var(--gradient-sunset);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-forest {
+  background: var(--gradient-forest);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+.hover-glow-saffron:hover {
+  box-shadow: var(--shadow-saffron);
+}
+
+.hover-glow-green:hover {
+  box-shadow: var(--shadow-green);
+}
+
+/* Indian Typography */
+.hindi-text {
+  font-family: var(--font-hindi);
+  font-weight: var(--weight-medium);
+}
+
+.devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+}
+
+/* Decorative Elements */
+.om-symbol::before {
+  content: "ॐ";
+  font-size: var(--text-3xl);
+  color: var(--saffron-primary);
+}
+
+.lotus-icon {
+  position: relative;
+}
+
+.lotus-icon::after {
+  content: "🪷";
+  position: absolute;
+  font-size: var(--text-2xl);
+}
+
+/* Responsive Text */
+@media (max-width: 768px) {
+  :root {
+    --text-6xl: 2.5rem;
+    --text-5xl: 2rem;
+    --text-4xl: 1.75rem;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 153, 51, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 153, 51, 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}

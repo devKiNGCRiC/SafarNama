@@ -9,9 +9,11 @@
 ## ❌ CRITICAL ISSUES FOUND
 
 ### **1. EXPOSED CREDENTIALS IN .ENV FILE** (SEVERITY: CRITICAL)
+
 **Location:** `Server/.env`
 
 **Issues:**
+
 - ❌ MongoDB credentials are hardcoded in connection string
 - ❌ Email password is visible in plain text
 - ❌ Cloudinary API secrets are exposed
@@ -19,6 +21,7 @@
 - ❌ If this .env is committed to GitHub, ALL CREDENTIALS ARE PUBLIC!
 
 **Impact:**
+
 - Anyone with access to your repo can:
   - Access your database (read/write/delete ALL data)
   - Send emails from your account
@@ -26,6 +29,7 @@
   - Generate fake authentication tokens
 
 **Current Exposed Credentials:**
+
 ```
 MongoDB: kingraj28roy:KiNG28RaJ06@cluster0.uuume.mongodb.net
 Email: safarnama252935@gmail.com (password: garo uwsg souf fnkd)
@@ -34,6 +38,7 @@ JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
 **IMMEDIATE ACTIONS REQUIRED:**
+
 1. ✅ Check if `.env` is in `.gitignore`
 2. ✅ If committed to GitHub, rotate ALL credentials immediately
 3. ✅ Use stronger JWT secret
@@ -42,14 +47,17 @@ JWT: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ---
 
 ### **2. WEAK JWT SECRET** (SEVERITY: HIGH)
+
 **Current:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`
 
 **Issues:**
+
 - This looks like a JWT token, not a secret!
 - Too short and predictable
 - Can be brute-forced
 
 **Recommended:**
+
 ```bash
 # Generate strong secret with Node.js
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
@@ -58,9 +66,11 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ---
 
 ### **3. NO RATE LIMITING** (SEVERITY: HIGH)
+
 **Current:** No rate limiting detected in `Server/index.js`
 
 **Impact:**
+
 - Vulnerable to brute-force attacks on login
 - Can be DDoS attacked easily
 - API abuse (spam registrations)
@@ -70,9 +80,11 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ---
 
 ### **4. NO HELMET.JS SECURITY HEADERS** (SEVERITY: MEDIUM)
+
 **Current:** No helmet.js detected
 
 **Impact:**
+
 - Missing security headers (XSS protection, etc.)
 - Vulnerable to common attacks
 - Fails security best practices
@@ -82,9 +94,11 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ---
 
 ### **5. WEAK PASSWORD REQUIREMENTS** (SEVERITY: MEDIUM)
+
 **Needs Review:** Check password validation in auth controller
 
 **Recommendations:**
+
 - Minimum 8 characters
 - At least 1 uppercase, 1 lowercase, 1 number, 1 special char
 - No common passwords (use zxcvbn library - already installed!)
@@ -92,18 +106,21 @@ node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ---
 
 ### **6. CORS MISCONFIGURATION** (SEVERITY: MEDIUM)
+
 **Current:** `app.use(cors())` - allows ALL origins
 
 **Impact:**
+
 - Any website can make requests to your API
 - CSRF attacks possible
 
 **Solution:** Configure CORS properly:
+
 ```javascript
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 ```
@@ -111,9 +128,11 @@ app.use(cors(corsOptions));
 ---
 
 ### **7. FILE UPLOAD VULNERABILITIES** (SEVERITY: MEDIUM)
+
 **Location:** `Server/Middleware/uploadMiddleware.js`
 
 **Potential Issues:**
+
 - Check if file type validation exists
 - Check if file size limits are set
 - Check for malicious file uploads
@@ -121,9 +140,11 @@ app.use(cors(corsOptions));
 ---
 
 ### **8. NO INPUT SANITIZATION** (SEVERITY: MEDIUM)
+
 **Current:** Using `express-validator` but need to verify implementation
 
 **Potential Impact:**
+
 - NoSQL injection attacks
 - XSS attacks
 - SQL injection (if ever migrated to SQL)
@@ -131,9 +152,11 @@ app.use(cors(corsOptions));
 ---
 
 ### **9. CONSOLE.LOG IN PRODUCTION** (SEVERITY: LOW)
+
 **Found:** 50+ console.log statements in code
 
 **Impact:**
+
 - Performance overhead
 - Exposes sensitive data in logs
 - Unprofessional
@@ -155,6 +178,7 @@ app.use(cors(corsOptions));
 ## 🛠️ IMMEDIATE FIX CHECKLIST
 
 ### **Priority 1 (Do NOW - 30 mins):**
+
 - [ ] Check if `.env` is in `.gitignore`
 - [ ] Check if `.env` was ever committed to GitHub
 - [ ] If yes, rotate ALL credentials:
@@ -169,6 +193,7 @@ app.use(cors(corsOptions));
   ```
 
 ### **Priority 2 (Today - 2 hours):**
+
 - [ ] Implement helmet.js
 - [ ] Add rate limiting to all routes
 - [ ] Configure CORS properly
@@ -177,6 +202,7 @@ app.use(cors(corsOptions));
 - [ ] Test file upload security
 
 ### **Priority 3 (This Week):**
+
 - [ ] Remove all console.log statements
 - [ ] Add proper logging system
 - [ ] Add CSRF protection
@@ -188,19 +214,22 @@ app.use(cors(corsOptions));
 ## 📋 SECURITY IMPLEMENTATION PLAN
 
 ### **Step 1: Install Security Packages**
+
 ```bash
 cd Server
 npm install helmet express-rate-limit express-mongo-sanitize hpp xss-clean cors
 ```
 
 ### **Step 2: Update Server/index.js**
+
 Add security middleware before routes:
+
 ```javascript
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
-import mongoSanitize from 'express-mongo-sanitize';
-import hpp from 'hpp';
-import xss from 'xss-clean';
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import hpp from "hpp";
+import xss from "xss-clean";
 
 // Security middleware
 app.use(helmet()); // Security headers
@@ -209,18 +238,18 @@ app.use(helmet()); // Security headers
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
+  message: "Too many requests from this IP, please try again later.",
 });
-app.use('/api', limiter);
+app.use("/api", limiter);
 
 // Auth rate limiting (stricter)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5, // 5 attempts per 15 minutes
-  message: 'Too many login attempts, please try again later.'
+  message: "Too many login attempts, please try again later.",
 });
-app.use('/api/v1/auth/login', authLimiter);
-app.use('/api/v1/auth/signup', authLimiter);
+app.use("/api/v1/auth/login", authLimiter);
+app.use("/api/v1/auth/signup", authLimiter);
 
 // Data sanitization against NoSQL injection
 app.use(mongoSanitize());
@@ -233,22 +262,26 @@ app.use(hpp());
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 ```
 
 ### **Step 3: Generate Strong JWT Secret**
+
 ```bash
 # Run this command
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
+
 Copy output to `.env` as `JWT_SECRET_KEY`
 
 ### **Step 4: Create .env.example**
+
 Create a template file WITHOUT sensitive data:
+
 ```
 PORT=5000
 MONGO_DB=your_mongodb_connection_string_here
@@ -265,7 +298,9 @@ BASE_URL=http://localhost:5000
 ```
 
 ### **Step 5: Update .gitignore**
+
 Ensure these are listed:
+
 ```
 .env
 .env.local
@@ -279,6 +314,7 @@ node_modules/
 ## 🔒 GITHUB SECURITY CHECK
 
 ### **Check if .env was committed:**
+
 ```bash
 # Run in project root
 git log --all --full-history -- "*/.env"
@@ -287,18 +323,21 @@ git log --all --full-history -- "*/.env"
 If it shows results, your credentials are in Git history!
 
 ### **If credentials are exposed:**
+
 1. **Immediately rotate:**
+
    - MongoDB password (in Atlas dashboard)
    - Email app password (Google Account settings)
    - Cloudinary API keys (regenerate in dashboard)
    - JWT secret (generate new one)
 
 2. **Remove from Git history:**
+
    ```bash
    git filter-branch --force --index-filter \
    "git rm --cached --ignore-unmatch Server/.env" \
    --prune-empty --tag-name-filter cat -- --all
-   
+
    git push origin --force --all
    ```
 
@@ -317,6 +356,7 @@ If it shows results, your credentials are in Git history!
 **Current Score: 40/100** ⚠️
 
 **Breakdown:**
+
 - Authentication: 6/10 (JWT works, but weak secret)
 - Authorization: 5/10 (Need to verify role-based access)
 - Data Protection: 4/10 (Exposed credentials)
@@ -333,6 +373,7 @@ If it shows results, your credentials are in Git history!
 ## ✅ AFTER FIXES (Expected Score: 85/100)
 
 With all fixes implemented:
+
 - Authentication: 9/10
 - Authorization: 8/10
 - Data Protection: 9/10

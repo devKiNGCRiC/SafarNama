@@ -7,6 +7,7 @@ All dependencies have been successfully installed on your new system.
 ## 📦 Installed Dependencies Summary
 
 ### **Server (Backend) - 30+ packages**
+
 ✅ **Express.js** - Web framework
 ✅ **MongoDB/Mongoose** - Database
 ✅ **Axios** - HTTP client
@@ -29,6 +30,7 @@ All dependencies have been successfully installed on your new system.
 ✅ **Dotenv** - Environment variables
 
 ### **Client (Frontend) - 40+ packages**
+
 ✅ **React 18** - UI library
 ✅ **Vite 7** - Build tool (updated from v5)
 ✅ **React Router DOM** - Navigation
@@ -50,6 +52,7 @@ All dependencies have been successfully installed on your new system.
 ✅ **Prettier** - Code formatting
 
 ### **Root**
+
 ✅ **Concurrently** - Run client + server simultaneously
 
 ## 🔧 VS Code Extensions Recommended
@@ -57,6 +60,7 @@ All dependencies have been successfully installed on your new system.
 Open VS Code and it will prompt you to install these extensions:
 
 ### **Essential Extensions:**
+
 1. **ESLint** - JavaScript linting
 2. **Prettier** - Code formatter
 3. **MongoDB for VS Code** - Database management
@@ -69,6 +73,7 @@ Open VS Code and it will prompt you to install these extensions:
 10. **Import Cost** - Display import sizes
 
 ### **Recommended Extensions:**
+
 - **GitHub Copilot** - AI pair programmer (if you have access)
 - **Live Server** - Local development server
 - **Code Runner** - Run code snippets
@@ -77,15 +82,18 @@ Open VS Code and it will prompt you to install these extensions:
 ## 🎯 Quick Start Commands
 
 ### **Start Everything (Recommended)**
+
 ```bash
 # From project root
 npm run dev
 ```
+
 This runs both client and server concurrently!
 
 ### **Or Start Separately:**
 
 **Terminal 1 - Server:**
+
 ```bash
 cd Server
 npm start
@@ -93,6 +101,7 @@ npm start
 ```
 
 **Terminal 2 - Client:**
+
 ```bash
 cd client
 npm run dev
@@ -124,6 +133,7 @@ npm run build
 Make sure your `.env` files are properly configured:
 
 ### **Server/.env**
+
 ```env
 PORT=5000
 MONGO_DB=your_mongodb_connection_string
@@ -137,6 +147,7 @@ CLIENT_URL=http://localhost:5173
 ```
 
 ### **Client/.env** (if needed)
+
 ```env
 VITE_API_URL=http://localhost:5000
 ```
@@ -144,6 +155,7 @@ VITE_API_URL=http://localhost:5000
 ## 🐛 Troubleshooting
 
 ### **Issue: Port already in use**
+
 ```bash
 # Windows - Kill process on port 5000
 netstat -ano | findstr :5000
@@ -155,11 +167,13 @@ taskkill /PID <PID> /F
 ```
 
 ### **Issue: MongoDB connection failed**
+
 - Check your MongoDB Atlas connection string
 - Ensure your IP is whitelisted in MongoDB Atlas
 - Verify internet connection
 
 ### **Issue: Module not found**
+
 ```bash
 # Reinstall dependencies
 cd Server
@@ -172,6 +186,7 @@ npm install
 ```
 
 ### **Issue: CORS errors**
+
 - Verify `CLIENT_URL` in Server/.env matches your client URL
 - Check CORS configuration in Server/index.js
 
@@ -215,13 +230,16 @@ git push origin main
 ## 📚 Key Scripts
 
 ### **Root Level:**
+
 - `npm run dev` - Run both client and server
 
 ### **Server:**
+
 - `npm start` - Start server with nodemon
 - `npm run create-admin` - Create admin user
 
 ### **Client:**
+
 - `npm run dev` - Start dev server (Vite)
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build

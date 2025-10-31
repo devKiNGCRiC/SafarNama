@@ -7,6 +7,7 @@
 ## ⚡ QUICK COMMANDS
 
 ### **Start Development Server:**
+
 ```cmd
 # Backend (in one terminal)
 cd c:\devKiNG_Projects\03_Full_Stack_Projects\Safarnama\Server
@@ -21,6 +22,7 @@ npm run dev
 ```
 
 ### **Install New Packages:**
+
 ```cmd
 # Backend
 cd Server
@@ -32,6 +34,7 @@ npm install package-name
 ```
 
 ### **Check for Vulnerabilities:**
+
 ```cmd
 cd Server
 npm audit
@@ -79,19 +82,23 @@ npm audit fix
 ## 🆘 IF SOMETHING BREAKS
 
 ### **Server won't start:**
+
 1. Check if MongoDB is accessible
 2. Verify .env has all values
 3. Check console for errors
 4. Ensure port 5000 is free
 
 ### **npm install fails:**
+
 ```cmd
 npm cache clean --force
 npm install
 ```
 
 ### **"Cannot find module" error:**
+
 Make sure you're in the right directory:
+
 ```cmd
 cd c:\devKiNG_Projects\03_Full_Stack_Projects\Safarnama\Server
 ```
@@ -129,12 +136,14 @@ cd c:\devKiNG_Projects\03_Full_Stack_Projects\Safarnama\Server
 ## 🔥 MOTIVATION
 
 **You just:**
+
 - ✅ Secured a full-stack app
 - ✅ Fixed all vulnerabilities
 - ✅ Made it production-ready
 - ✅ Learned security best practices
 
 **Tomorrow:**
+
 - Make it beautiful
 - Apply Indian theme
 - Replace $ with ₹

@@ -3,10 +3,12 @@
 ## ⚠️ Why Videos Were Removed from Git
 
 GitHub has file size limits:
+
 - **Hard limit:** 100MB per file
 - **Recommendation:** Keep files under 50MB
 
 Your background videos were too large:
+
 - `bg-video.mp4` - 183.08 MB ❌
 - `bg-video2.mp4` - 51.94 MB ⚠️
 - `bg2-video.mp4` - ~50MB ⚠️
@@ -19,10 +21,12 @@ You already have Cloudinary configured in your project. Here's how to host video
 ### **Step 1: Upload Videos to Cloudinary**
 
 1. **Login to Cloudinary Dashboard:**
+
    - Go to: https://cloudinary.com/console
    - Use the credentials from your `Server/.env`
 
 2. **Upload Videos:**
+
    - Click "Media Library" → "Upload"
    - Drag and drop your 4 video files
    - They'll be stored in the cloud with URLs
@@ -36,13 +40,15 @@ You already have Cloudinary configured in your project. Here's how to host video
 Replace local video paths with Cloudinary URLs:
 
 **Before:**
-```jsx
-import bgVideo from '../../Assets/bg-video.mp4';
 
-<video src={bgVideo} />
+```jsx
+import bgVideo from "../../Assets/bg-video.mp4";
+
+<video src={bgVideo} />;
 ```
 
 **After:**
+
 ```jsx
 <video src="https://res.cloudinary.com/YOUR_CLOUD_NAME/video/upload/v1234567890/bg-video.mp4" />
 ```
@@ -58,7 +64,7 @@ import bgVideo from '../../Assets/bg-video.mp4';
 For even better performance, upload to YouTube and embed:
 
 ```jsx
-<iframe 
+<iframe
   src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=YOUR_VIDEO_ID"
   frameBorder="0"
   allow="autoplay; encrypted-media"
@@ -77,6 +83,7 @@ For even better performance, upload to YouTube and embed:
 ## 🚀 Next Steps
 
 After uploading videos to Cloudinary:
+
 1. Update video URLs in components
 2. Test video playback
 3. Commit changes: `git add . && git commit -m "Update video URLs to Cloudinary"`
