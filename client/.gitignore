@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Large video files (host on Cloudinary/YouTube instead)
+*.mp4
+*.mov
+*.avi
+*.webm
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
