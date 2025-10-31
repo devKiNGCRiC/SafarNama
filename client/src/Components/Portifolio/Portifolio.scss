@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", serif;
+    
+}
+
+//All Project Colors
+:root{
+    --primaryColor:hsl(0, 90%, 49%);
+    --PrimaryColorLight: hsl(14 , 88% , 92%);
+    --bgColor: hsl(2 , 0% , 100%);
+    --formColor: hsl(28 , 46% , 88%);
+    --whiteColor: hsl(0 , 0% , 100%);
+    --blackColor: hsl(0 , 0% , 12%);
+    --greyText: hsl(0 , 0% , 52%);
+    --inputColor: hsl(328 , 12% , 96%);
+    --cardColor: hsl(282 , 2% , 94%);   
+
+    /*Font ang Typography */
+    --biggestFontSize: 2.5rem;
+    --h1FontSize: 2rem;
+    --h2FontSize: 1.4rem;
+    --h3FontSize: 1.2rem;
+    --normalFontSize: 1rem;
+    --smallFontSize: 0.8rem;
+    --smallestFontSize: 0.75rem;
+    --borderradius: 2.8rem;
+}  
+
+.portifolio{
+    
+    width: 88%;
+    .secContainer{
+        gap: 2rem;
+    }
+
+    .leftContent{
+        width: 100%;
+        .grid{
+            .singlePortifolio{
+                gap: 2rem;
+                align-items: flex-start;
+
+                .iconDiv{
+                    
+                    padding-right: 1rem;
+                    img{
+                        padding-left: 1rem;
+                        height: 50px;
+                        width: 50px;
+                    }
+                }
+
+                .info{
+        
+                    h4{   
+                        align-items: center;
+                        justify-content: center;
+                        
+                        width: 28rem;
+                        text-align: left;
+                        padding-right: 0.8rem;
+                        padding-bottom: 0.5rem;
+                    }
+                    p{
+                        text-align: justify;
+                        padding-left: 0.8rem;
+                        padding-bottom: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .rightContent{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img{
+            width: 50%;
+            height: 50%;
+        }
+    }
+}
+
+//Media queries
+
+@media screen and (min-width: 480px){
+    .portifolio{
+        .secContainer{
+            grid-template-columns: repeat(1,1fr);
+            .leftContent{
+                .secHeading{
+                    h3{ 
+                        font-size: var(--h2FontSize);
+                    }
+
+                    p{
+                        text-align: justify;
+                        font-size: var(--smallFontSize);
+                        padding: 0.5rem 0;
+                    }
+                }
+
+                .grid{
+                    text-align: justify;
+                    .singlePortifolio{
+                        gap: 1.5rem;
+
+                        .iconDiv{
+                            img{
+                                height: 60px;
+                                width: 60px;
+                            }
+                        }
+
+                        .info{
+                            h4{
+                                padding-bottom: 0.5rem;
+                                font-size: var(--h3FontSize);
+                            }
+                            p{
+                                font-size: var(--normalFontSize);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 660px){
+    .portifolio{
+        .secContainer{
+            .leftContent{
+                .secHeading{
+                    h3{
+                        font-size: 2rem;
+                    }
+                    p{
+                        font-size: var(--h3FontSize);
+                    }
+                }
+
+                .grid{
+                    grid-template-columns: repeat(2, 1fr);
+                    .singlePortifolio { 
+                        gap: 1.5rem;
+                    
+                    }
+                }
+            }
+
+            .rightContent{
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img{
+                    margin: auto;
+                    max-width: 80%;
+                    height: 50%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 820px){
+    .portifolio{
+        .secContainer{
+            grid-template-columns: repeat(2,1fr);
+            .leftContent{
+                .secHeading{
+                    h3{
+                        font-size: var(--h2FontSize);
+                    }
+
+                    p{
+                        font-size: var(--h3FontSize);
+                    }
+                }
+
+                .grid{
+                    grid-template-columns: repeat(1 ,1fr);
+                    .singlePortifolio{
+                        gap: 1.5rem;
+                    }
+                }
+            }
+
+            .rightContent{
+                img{
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1240px){
+    .portifolio{
+        .secContainer{
+            gap: 3rem;
+            .leftContent{
+                .secHeading{
+                    h3{
+                        font-size: 2rem;
+                    }
+
+                    p{
+                        font-size: var(--h3FontSize);
+                    }
+                }
+
+                .grid{
+                    gap: 2.5rem;
+                    margin-top: 3rem;
+                    .singlePortifolio{
+                        gap: 2rem;
+                    }
+                }
+            }
+
+            .rightContent{
+                img{
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

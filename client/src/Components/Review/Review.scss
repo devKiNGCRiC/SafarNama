@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap');
+
+
+//All Project Colors
+root{
+    --primaryColor:hsl(0, 90%, 49%);
+    --PrimaryColorLight: hsl(14 , 88% , 92%);
+    --bgColor: hsl(2 , 0% , 100%);
+    --formColor: hsl(28 , 46% , 88%);
+    --whiteColor: hsl(0 , 0% , 100%);
+    --blackColor: hsl(0 , 0% , 12%);
+    --greyText: hsl(0 , 0% , 52%);
+    --inputColor: hsl(328 , 12% , 96%);
+    --cardColor: hsl(282 , 2% , 94%);   
+
+    /*Font ang Typography */
+    --biggestFontSize: 2.5rem;
+    --h1FontSize: 2rem;
+    --h2FontSize: 1.4rem;
+    --h3FontSize: 1.2rem;
+    --normalFontSize: 1rem;
+    --smallFontSize: 0.8rem;
+    --smallestFontSize: 0.75rem;
+    --borderradius: 2.8rem;
+}   
+
+.reviews{
+    width: 82%;
+    .secContainer{
+        overflow: hidden;
+        .textDiv{
+            .redText{
+                font-size: var(--smallFontSize);
+                display: block;
+                color: var(--primaryColor);
+                font-weight: 800;
+            }
+
+            h3{
+                font-size: var(--h2FontSize);
+                color: var(--blackColor);
+                padding: 1rem 0;
+            }
+
+            p{
+                text-align: justify;
+                color: black;
+                font-weight: 600;
+            }
+
+            .stars{
+                gap: 0.4rem;
+                padding: 1rem 0;
+
+                .icon{
+                    color: var(--primaryColor);
+                    font-size: var(--h3FontSize);
+                }
+            }
+
+            .clientsImages{
+                gap: 1rem;
+                
+                img{
+                    height: 60px;
+                    width: 60px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 2px solid rgb(255, 255, 255);
+                    box-shadow: 0 0 2px 2px rgb(251 , 212 , 194);
+                }
+            }
+        }
+
+        .imgDiv{
+            height: 250px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+
+            img{
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+
+//Media Queries
+
+@media screen and (max-width: 480px) {
+    .reviews{
+        .secContainer{
+            .textDiv{
+                .redText {
+                    font-size: var(--normalFontSize);
+                }
+
+                h3{
+                    font-size: 20px;
+                    color: black;
+                }
+
+                p{
+                    font-size: var(--normalFontSize);
+                    color: black;
+                }
+
+                .stars{
+                    .icon{
+                        font-size: var(--h2FontSize);
+                    }
+                }
+
+                .clientsImages{
+                    img{
+                        height: 50px;
+                        width: 50px;
+                    }
+                }
+            }
+
+            .imgDiv{
+                height: 250px;
+                width: 100%;
+                border-radius: 15px;
+                img{
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 15px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 740px) {
+    .reviews{
+        .secContainer{
+            grid-template-columns: repeat(2,1fr);
+            .textDiv{
+                .redText {
+                    font-size: var(--normalFontSize);
+                }
+
+                h3{
+                    font-size: 20px;
+                    color: black;
+                }
+
+                p{
+                    font-size: var(--normalFontSize);
+                    color: black;
+                }
+
+                .stars{
+                    .icon{
+                        font-size: var(--h2FontSize);
+                    }
+                }
+
+                .clientsImages{
+                    img{
+                        height: 100px;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1240px) {
+    .reviews{
+        .secContainer{
+            gap: 3rem;
+            .textDiv{
+                .redText {
+                    font-size: var(--h3FontSize);
+                }
+
+                h3{
+                    font-size: var(--h1FontSize);
+                    color: black;
+                }
+
+                p{
+                    font-size: var(--h3FontSize);
+                    color: black;
+                    line-height: 1;
+                }
+            }
+            
+            .imgDiv{
+                height: 300px;
+            }
+        }
+    }
+}

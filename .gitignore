@@ -1,0 +1,69 @@
+# Environment Variables (CRITICAL - NEVER COMMIT!)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
+Server/.env
+client/.env
+
+# Dependencies
+node_modules/
+Server/node_modules/
+client/node_modules/
+
+# Build outputs
+dist/
+build/
+dist-ssr/
+.next/
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Uploads (if storing locally)
+Server/uploads/
+uploads/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Misc
+.turbo/
+.vercel/
+*.pem

@@ -1,0 +1,172 @@
+.saved-posts {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.saved-posts .saved-header {
+  margin-bottom: 2rem;
+}
+.saved-posts .saved-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.saved-posts .saved-header .category-filters {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.saved-posts .saved-header .category-filters::-webkit-scrollbar {
+  height: 4px;
+}
+.saved-posts .saved-header .category-filters::-webkit-scrollbar-track {
+  background: var(--background-light);
+  border-radius: 2px;
+}
+.saved-posts .saved-header .category-filters::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+.saved-posts .saved-header .category-filters .category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 30px;
+  background: var(--background-light);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.saved-posts .saved-header .category-filters .category-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+.saved-posts .saved-header .category-filters .category-btn.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+}
+.saved-posts .saved-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.saved-posts .saved-grid .saved-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
+}
+.saved-posts .saved-grid .saved-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.saved-posts .saved-grid .saved-item:hover .item-image img {
+  transform: scale(1.05);
+}
+.saved-posts .saved-grid .saved-item .item-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.saved-posts .saved-grid .saved-item .item-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.saved-posts .saved-grid .saved-item .item-image .item-type {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+.saved-posts .saved-grid .saved-item .item-content {
+  padding: 1.5rem;
+}
+.saved-posts .saved-grid .saved-item .item-content h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  display: box; /* Standard property */
+  -webkit-line-clamp: 2; /* Vendor-prefixed property */
+  line-clamp: 2; /* Standard property */
+  -webkit-box-orient: vertical;
+  box-orient: vertical; /* Standard property */
+  overflow: hidden; /* Clips overflow text */
+}
+.saved-posts .saved-grid .saved-item .item-content p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: box; /* Standard property */
+  -webkit-line-clamp: 3; /* Vendor-prefixed property */
+  line-clamp: 3; /* Standard property */
+  -webkit-box-orient: vertical;
+  box-orient: vertical; /* Standard property */
+  overflow: hidden; /* Clips overflow text */
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions {
+  display: flex;
+  gap: 1rem;
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions button, .saved-posts .saved-grid .saved-item .item-content .item-actions a {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions .remove-btn {
+  background: var(--background-light);
+  border: none;
+  color: var(--text-secondary);
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions .remove-btn:hover {
+  background: var(--warning-color);
+  color: white;
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions .view-btn {
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+}
+.saved-posts .saved-grid .saved-item .item-content .item-actions .view-btn:hover {
+  background: #25a25a;
+  transform: translateY(-2px);
+}
+.saved-posts .no-saved-items {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+.saved-posts .no-saved-items svg {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+.saved-posts .no-saved-items h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+.saved-posts .no-saved-items p {
+  font-size: 0.95rem;
+}/*# sourceMappingURL=SavedPosts.css.map */

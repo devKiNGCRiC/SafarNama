@@ -1,0 +1,100 @@
+.admin-destinations {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+}
+.admin-destinations .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+}
+.admin-destinations .header h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.admin-destinations .header .add-button {
+  background: #2ecc71;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.admin-destinations .header .add-button:hover {
+  background: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.admin-destinations .destinations-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.admin-destinations .destinations-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-destinations .destinations-table table th, .admin-destinations .destinations-table table td {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+.admin-destinations .destinations-table table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+.admin-destinations .destinations-table table td {
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+.admin-destinations .destinations-table table tbody tr {
+  transition: background-color 0.3s ease;
+}
+.admin-destinations .destinations-table table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+.admin-destinations .destinations-table table .actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.admin-destinations .destinations-table table .actions .edit-button {
+  background: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.admin-destinations .destinations-table table .actions .edit-button:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+.admin-destinations .destinations-table table .actions .delete-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.admin-destinations .destinations-table table .actions .delete-button:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}/*# sourceMappingURL=AdminDestinations.css.map */

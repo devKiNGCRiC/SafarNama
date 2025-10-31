@@ -1,0 +1,158 @@
+/* src/Pages/EcoGuides/EcoGuides.css */
+.eco-guides-container {
+  width: 88%;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.guides-header {
+  text-align: center;
+  padding-top: 12vh;
+  margin-bottom: 3rem;
+}
+
+.guides-header h1 {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.guides-header p {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.guides-search-filter {
+  margin-bottom: 3rem;
+}
+
+.search-bar {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.category-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  background: #f8f9fa;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+  background: #e9ecef;
+}
+
+.category-btn.active {
+  background: #2980b9;
+  color: white;
+}
+
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.guide-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.guide-card:hover {
+  transform: translateY(-5px);
+}
+
+.guide-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.guide-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.guide-content {
+  padding: 1.5rem;
+}
+
+.guide-category {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: #e3f2fd;
+  color: #2980b9;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.guide-content h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.guide-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.guide-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .eco-guides-container {
+    padding: 1rem;
+  }
+  .guides-header h1 {
+    font-size: 2.5rem;
+  }
+  .category-filters {
+    justify-content: center;
+  }
+  .category-btn {
+    padding: 0.6rem 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .guides-header h1 {
+    font-size: 2rem;
+  }
+  .category-btn {
+    width: 100%;
+  }
+}/*# sourceMappingURL=EcoGuides.css.map */

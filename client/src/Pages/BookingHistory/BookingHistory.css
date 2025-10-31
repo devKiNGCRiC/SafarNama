@@ -1,0 +1,90 @@
+.booking-history-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.booking-history-container h1 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.bookings-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.booking-details h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.booking-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.booking-info span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.cancel-btn {
+  background: #ff5252;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #ff1744;
+}
+
+.no-bookings {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 8px;
+}
+
+.explore-btn {
+  background: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.explore-btn:hover {
+  background: #1976d2;
+}
+
+@media (max-width: 768px) {
+  .booking-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+}/*# sourceMappingURL=BookingHistory.css.map */

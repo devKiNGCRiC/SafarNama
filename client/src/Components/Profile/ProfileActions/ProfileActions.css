@@ -1,0 +1,122 @@
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+.profile-actions button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-actions button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.profile-actions button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.profile-actions .follow-button {
+  background: var(--primary-color);
+  color: white;
+}
+.profile-actions .follow-button.following {
+  background: var(--background-light);
+  color: var(--text-primary);
+}
+.profile-actions .follow-button.following:hover {
+  background: var(--warning-color);
+  color: white;
+}
+.profile-actions .follow-button.following:hover span {
+  display: none;
+}
+.profile-actions .follow-button.following:hover::after {
+  content: "Unfollow";
+}
+.profile-actions .message-button {
+  background: var(--background-light);
+  color: var(--text-primary);
+}
+.profile-actions .message-button:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+.profile-actions .share-button {
+  padding: 0.75rem;
+  background: var(--background-light);
+  color: var(--text-primary);
+}
+.profile-actions .share-button:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+.profile-actions .more-actions {
+  position: relative;
+}
+.profile-actions .more-actions .more-button {
+  padding: 0.75rem;
+  background: var(--background-light);
+  color: var(--text-primary);
+}
+.profile-actions .more-actions .more-button:hover {
+  background: var(--background-dark);
+}
+.profile-actions .more-actions .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  min-width: 200px;
+  animation: dropdownFadeIn 0.2s ease;
+}
+.profile-actions .more-actions .dropdown-menu .dropdown-item {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  text-align: left;
+}
+.profile-actions .more-actions .dropdown-menu .dropdown-item:hover {
+  background: var(--background-light);
+}
+.profile-actions .more-actions .dropdown-menu .dropdown-item.danger {
+  color: var(--warning-color);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .profile-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .profile-actions button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}/*# sourceMappingURL=ProfileActions.css.map */

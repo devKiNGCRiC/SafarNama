@@ -1,0 +1,25 @@
+# Environment Variables (NEVER COMMIT!)
+.env
+.env.local
+.env.development
+.env.production
+*.env
+
+# Dependencies
+node_modules/
+
+# Uploads (user generated files)
+uploads/
+public/uploads/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

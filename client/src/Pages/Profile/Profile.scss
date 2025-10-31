@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  // Main colors
+  --color-primary: #2ecc71;     // Green
+  --color-secondary: #3498db;   // Sky Blue
+  --color-accent: #e67e22;      // Orange
+  --color-red: #e74c3c;         // Red
+  --color-brown: #8b4513;       // Earth Brown
+  
+  // Gradient colors
+  --gradient-primary: linear-gradient(135deg, #2ecc71, #27ae60);
+  --gradient-secondary: linear-gradient(135deg, #3498db, #2980b9);
+  --gradient-accent: linear-gradient(135deg, #e67e22, #d35400);
+  
+  // Text colors
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --text-light: #ecf0f1;
+  
+  // Background colors
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-accent: #e1e8ed;
+
+    // Expanded nature-inspired colors
+    --color-forest: #2d5a27;
+    --color-leaf: #8bc34a;
+    --color-ocean: #1a237e;
+    --color-sunset: #ff7043;
+    --color-sand: #d7ccc8;
+    --color-mountain: #546e7a;
+    
+    // Additional gradients
+    --gradient-forest: linear-gradient(135deg, #2d5a27, #4caf50);
+    --gradient-ocean: linear-gradient(135deg, #1a237e, #0288d1);
+    --gradient-sunset: linear-gradient(135deg, #ff7043, #ff5722);
+    --gradient-mountain: linear-gradient(135deg, #546e7a, #455a64);
+    
+    // Animation timings
+    --transition-quick: 0.2s;
+    --transition-medium: 0.3s;
+    --transition-slow: 0.5s;
+
+  // Theme colors for eco-tourism
+  --primary-color: #2ecc71;    // Fresh green for eco-theme
+  --secondary-color: #3498db;  // Sky blue for water elements
+  --accent-color: #e67e22;     // Earth tone orange
+  --warning-color: #e74c3c;    // Coral red for alerts
+  --success-color: #27ae60;    // Deep green for success states
+  --text-primary: #2c3e50;     // Dark blue-grey for text
+  --text-secondary: #7f8c8d;   // Medium grey for secondary text
+  --background-light: #ecf0f1; // Light grey background
+  --background-white: #ffffff; // Pure white
+  --border-color: #bdc3c7;    // Light grey for borders
+}
+
+.profile-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding-bottom: 2rem;
+
+  .profile-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-main {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 2rem;
+      padding: 2rem;
+
+      @media (max-width: 968px) {
+          grid-template-columns: 1fr;
+      }
+  }
+
+  .profile-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+  }
+
+  .profile-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+  }
+
+  .profile-loading {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #666;
+  }
+}
+

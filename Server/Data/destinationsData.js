@@ -1,0 +1,162 @@
+export const destinations = [
+    {
+      name: "Valley of Flowers",
+      address: "Chamoli, Uttarakhand, India",
+      description: "The Valley of Flowers is a UNESCO World Heritage site situated in the state of Uttarakhand, India. It is renowned for its vibrant meadows filled with over 500 species of flowers. Surrounded by snow-capped peaks, the valley offers a stunning visual experience, making it a paradise for nature lovers and photographers.",
+      history: "The Valley of Flowers was first discovered by British mountaineer Frank Smith in 1931. It was declared a national park in 1982. The valley is considered sacred and has been part of Indian mythologies. According to local folklore, it is the place where Lord Hanuman collected the Sanjeevani Booti to revive Lord Lakshman during the war in Ramayana.",
+      significance: "The Valley of Flowers is not only famous for its diverse flora but also for its role in conservation. It provides a vital ecosystem for several endangered species, such as the Himalayan musk deer and the Asiatic black bear. The park also plays an important role in educating visitors about ecological preservation and sustainable tourism.",
+      images: [
+        "https://example.com/valley-of-flowers1.jpg",
+        "https://example.com/valley-of-flowers2.jpg"
+      ],
+      activities: [
+        {
+          name: "Trekking",
+          description: "A scenic trek through the valley to explore the breathtaking landscapes and diverse flowers.",
+          duration: "5 hours",
+          image: "https://example.com/trekking.jpg"
+        },
+        {
+          name: "Photography",
+          description: "Capture the stunning views of over 500 species of wildflowers in full bloom.",
+          duration: "Varies",
+          image: "https://example.com/photography.jpg"
+        }
+      ],
+      cuisine: [
+        {
+          name: "Pahari Cuisine",
+          description: "A traditional food of the Uttarakhand region, including dishes like 'Aloo Ke Gutke' and 'Ghaadi'.",
+          image: "https://example.com/pahari-cuisine.jpg"
+        }
+      ],
+      category: "Nature",
+      rating: 4.7,
+      location: {
+        coordinates: [79.616, 30.416],
+        type: "Point"
+      },
+      healthSafety: {
+        guidelines: [
+          "Carry enough water and snacks during the trek.",
+          "Wear appropriate trekking shoes and clothing."
+        ],
+        medicalFacilities: [
+          {
+            name: "Govt. Hospital, Chamoli",
+            address: "Chamoli, Uttarakhand",
+            phone: "+91-1234567890",
+            distance: "50 km"
+          }
+        ],
+        emergencyContacts: [
+          {
+            name: "Forest Ranger, Valley of Flowers",
+            number: "+91-9876543210",
+            type: "Emergency"
+          }
+        ]
+      },
+      travelGear: [
+        {
+          category: "Trekking Gear",
+          items: [
+            {
+              name: "Waterproof Trekking Shoes",
+              importance: "Essential",
+              description: "Trekking shoes that can withstand wet conditions."
+            }
+          ]
+        }
+      ],
+      educationalResources: [
+        {
+          title: "Valley of Flowers National Park: A Natural Wonder",
+          type: "Article",
+          description: "An in-depth guide to the history, flora, and fauna of the Valley of Flowers.",
+          link: "https://example.com/educational-resource"
+        }
+      ],
+      bestTimeToVisit: {
+        season: "Summer",
+        months: ["June", "July", "August"],
+        description: "The best time to visit the Valley of Flowers is during the summer months when the flowers are in full bloom."
+      },
+      seasonality: {
+        peakSeason: {
+          months: ["July", "August"],
+          advantages: [
+            "Optimal flower bloom.",
+            "Best time for photography."
+          ],
+          disadvantages: [
+            "Heavy rainfall possible.",
+            "Crowded tourist season."
+          ],
+          pricing: "Higher during peak season."
+        },
+        offSeason: {
+          months: ["November", "December"],
+          advantages: [
+            "Less crowded.",
+            "Discounted prices on accommodation."
+          ],
+          disadvantages: [
+            "Difficult trekking conditions.",
+            "Limited flower sightings."
+          ],
+          pricing: "Lower during off-season."
+        }
+      },
+      accessibility: {
+        wheelchairAccessible: false,
+        publicTransport: false,
+        parkingAvailable: true,
+        accessibilityNotes: "The trek is difficult and may not be suitable for people with mobility challenges."
+      },
+      sustainabilityInitiatives: [
+        {
+          name: "Plastic-Free Zone",
+          description: "The Valley of Flowers is a plastic-free zone to protect its fragile ecosystem.",
+          impact: "Reduces pollution and maintains natural beauty.",
+          howToParticipate: "Visitors are encouraged to carry reusable items like water bottles and avoid single-use plastics."
+        }
+      ],
+      localCommunity: {
+        traditions: [
+          "The local community follows the tradition of preserving the natural beauty and biodiversity of the area."
+        ],
+        guidelines: [
+          "Do not disturb wildlife or plant life.",
+          "Follow the designated trekking routes."
+        ],
+        localBusinesses: [
+          {
+            name: "Himalayan Eco Tours",
+            type: "Tourism",
+            description: "Provides eco-friendly trekking tours in the Valley of Flowers.",
+            sustainable: true
+          }
+        ]
+      },
+      weather: {
+        climate: "Alpine",
+        averageTemperature: {
+          summer: "15-25°C",
+          winter: "-5°C to 5°C",
+          spring: "10-20°C",
+          fall: "15°C"
+        },
+        rainfallPattern: "Heavy rainfall in the monsoon season, especially from July to September."
+      },
+      permits: [
+        {
+          name: "National Park Entry Permit",
+          required: true,
+          howToObtain: "Permits can be obtained at the park entrance or online.",
+          cost: "INR 150 per person",
+          validityPeriod: "1 day"
+        }
+      ]
+    }
+  ];

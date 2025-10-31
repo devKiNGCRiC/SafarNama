@@ -1,0 +1,270 @@
+/* src/Pages/Itinerary/ItineraryBuilder.css */
+.itinerary-builder-container {
+    width: 88%;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  .itinerary-header {
+    text-align: center;
+    padding-top: 12vh;
+    margin-bottom: 3rem;
+  }
+  
+  .itinerary-header h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+  
+  .itinerary-header p {
+    color: #666;
+    font-size: 1.2rem;
+  }
+  
+  .itinerary-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .destinations-panel,
+  .itinerary-panel {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-input,
+  .itinerary-name-input,
+  .duration-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .destinations-list {
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  .destination-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  
+  .destination-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+  }
+  
+  .destination-info {
+    flex: 1;
+  }
+  
+  .destination-info h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .destination-info p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .destination-item button {
+    padding: 0.5rem 1rem;
+    background: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .selected-destination-card {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    cursor: move;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .selected-destination-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .destination-details {
+    flex: 1;
+  }
+  
+  .destination-details h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .destination-details select {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+  }
+  
+  .destination-details textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  .remove-btn {
+    padding: 0.5rem 1rem;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .save-itinerary-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .save-itinerary-btn:hover {
+    background: #219a52;
+  }
+  
+  @media (max-width: 1024px) {
+    .itinerary-content {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .itinerary-header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .selected-destination-card {
+      flex-direction: column;
+    }
+  
+    .selected-destination-card img {
+      width: 100%;
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .itinerary-header h1 {
+      font-size: 2rem;
+    }
+  
+    .destination-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .destination-item img {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.loading {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #e74c3c;
+  background: #fde8e8;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.no-destinations {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
+
+.add-destination-btn {
+  padding: 0.5rem 1rem;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-destination-btn:hover {
+  background: #2471a3;
+}
+
+.save-itinerary-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .itinerary-name-input:invalid {
+    border-color: #e74c3c;
+  }
+  
+  .duration-select {
+    padding: 0.5rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .required-field::after {
+    content: '*';
+    color: #e74c3c;
+    margin-left: 4px;
+  }

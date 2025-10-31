@@ -1,0 +1,278 @@
+.tour-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Hero Section */
+.tour-hero {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.tour-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.hero-content {
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.destination-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+/* Tour Content */
+.tour-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+/* Tour Information */
+.tour-info {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.description-section,
+.details-section,
+.itinerary-section {
+  margin-bottom: 30px;
+}
+
+.description-section h2,
+.details-section h2,
+.itinerary-section h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.itinerary-day {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.itinerary-day h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Booking Section */
+.booking-section {
+  position: sticky;
+  top: 20px;
+}
+
+.booking-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.booking-card h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.price-info {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.participants-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.participants-input button {
+  padding: 5px 15px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.total-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.book-button {
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.book-button:hover {
+  background: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tour-content {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-section {
+    position: static;
+    margin-top: 20px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour-detail-container {
+    padding: 10px;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
+  }
+
+  .tour-image {
+    height: 300px;
+  }
+}
+
+.group-discount-info {
+  margin: 15px 0;
+  padding: 12px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.group-discount-info svg {
+  color: #2e7d32;
+  flex-shrink: 0;
+}
+
+.group-discount-info p {
+  color: #2e7d32;
+  font-size: 14px;
+  margin: 0;
+}
+
+.price-breakdown {
+  margin: 15px 0;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.price-row.discount {
+  color: #2e7d32;
+}
+
+.price-row.total {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+/* Update the existing price-info class */
+.price-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.price-info .price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.price-info span:last-child {
+  color: #666;
+}

@@ -1,0 +1,77 @@
+/* src/Components/Tours/SimilarTours.css */
+.similar-tours {
+  padding: 2rem 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.similar-tours h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.similar-tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.similar-tour-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.similar-tour-card:hover {
+  transform: translateY(-5px);
+}
+
+.tour-image {
+  position: relative;
+  height: 180px;
+}
+
+.tour-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.tour-price {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.tour-info {
+  padding: 1rem;
+}
+
+.tour-info h3 {
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.tour-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.tour-details span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}/*# sourceMappingURL=SimilarTours.css.map */

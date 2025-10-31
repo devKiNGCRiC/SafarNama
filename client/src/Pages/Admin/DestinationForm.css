@@ -1,0 +1,154 @@
+.destination-form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.destination-form h1 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+}
+.destination-form .form-group {
+  margin-bottom: 1.5rem;
+}
+.destination-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+.destination-form .form-group input[type=text],
+.destination-form .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+.destination-form .form-group input[type=text]:focus,
+.destination-form .form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+.destination-form .form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.destination-form .form-group.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.destination-form .form-group.checkbox label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.destination-form .form-group.checkbox input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.destination-form .array-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.destination-form .array-item input {
+  flex: 1;
+  min-width: 200px;
+}
+.destination-form .array-item .remove-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.destination-form .array-item .remove-button:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
+}
+.destination-form .add-button {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+.destination-form .add-button:hover {
+  background: #27ae60;
+  transform: translateY(-1px);
+}
+.destination-form .form-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+.destination-form .form-actions .submit-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.destination-form .form-actions .submit-button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .destination-form {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .destination-form .array-item {
+    flex-direction: column;
+  }
+  .destination-form .array-item input {
+    width: 100%;
+  }
+  .admin-destinations {
+    padding: 1rem;
+  }
+  .admin-destinations .destinations-table {
+    overflow-x: auto;
+  }
+  .admin-destinations .destinations-table table td, .admin-destinations .destinations-table table th {
+    padding: 0.75rem 0.5rem;
+  }
+  .admin-destinations .destinations-table table .actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .admin-destinations .destinations-table table .actions button, .admin-destinations .destinations-table table .actions a {
+    width: 100%;
+    text-align: center;
+  }
+}/*# sourceMappingURL=DestinationForm.css.map */

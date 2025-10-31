@@ -1,0 +1,143 @@
+.profile-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+
+    button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 30px;
+        border: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+    }
+
+    .follow-button {
+        background: var(--primary-color);
+        color: white;
+
+        &.following {
+            background: var(--background-light);
+            color: var(--text-primary);
+
+            &:hover {
+                background: var(--warning-color);
+                color: white;
+
+                span {
+                    display: none;
+                }
+
+                &::after {
+                    content: 'Unfollow';
+                }
+            }
+        }
+    }
+
+    .message-button {
+        background: var(--background-light);
+        color: var(--text-primary);
+
+        &:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+    }
+
+    .share-button {
+        padding: 0.75rem;
+        background: var(--background-light);
+        color: var(--text-primary);
+
+        &:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+    }
+
+    .more-actions {
+        position: relative;
+
+        .more-button {
+            padding: 0.75rem;
+            background: var(--background-light);
+            color: var(--text-primary);
+
+            &:hover {
+                background: var(--background-dark);
+            }
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            min-width: 200px;
+            animation: dropdownFadeIn 0.2s ease;
+
+            .dropdown-item {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                border: none;
+                background: none;
+                color: var(--text-primary);
+                font-size: 0.9rem;
+                text-align: left;
+
+                &:hover {
+                    background: var(--background-light);
+                }
+
+                &.danger {
+                    color: var(--warning-color);
+                }
+            }
+        }
+    }
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        button {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+}

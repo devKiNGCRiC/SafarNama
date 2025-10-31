@@ -1,0 +1,211 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
+:root {
+  --primaryColor:hsl(0, 90%, 49%);
+  --PrimaryColorLight: hsl(14 , 88% , 92%);
+  --bgColor: hsl(2 , 0% , 100%);
+  --formColor: hsl(28 , 46% , 88%);
+  --whiteColor: hsl(0 , 0% , 100%);
+  --blackColor: hsl(0 , 0% , 12%);
+  --greyText: hsl(0 , 0% , 52%);
+  --inputColor: hsl(328 , 12% , 96%);
+  --cardColor: hsl(282 , 2% , 94%);
+  /*Font ang Typography */
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 1.6rem;
+  --h2FontSize: 1.4rem;
+  --h3FontSize: 1.2rem;
+  --normalFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --smallestFontSize: 0.75rem;
+  --borderradius: 2.8rem;
+}
+
+.destination .secContainer .secTitle .redText {
+  color: var(--primaryColor);
+  font-size: var(--smallFontSize);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.destination .secContainer .secTitle h3 {
+  font-size: var(--h1FontSize);
+}
+.destination .searchField {
+  margin-top: 2rem;
+  gap: 1rem;
+}
+.destination .searchField .inputField {
+  background: var(--PrimaryColorLight);
+  padding: 1rem;
+  border-radius: var(--borderradius);
+  gap: 0.5rem;
+}
+.destination .searchField .inputField input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+.destination .searchField .inputField .icon {
+  color: var(--blackColor);
+}
+.destination .searchField .btn {
+  gap: 0.5rem;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.destination .secMenu {
+  display: none;
+}
+.destination .destinationContainer {
+  margin-top: 2rem;
+}
+.destination .destinationContainer .singleDestination {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 280px;
+}
+.destination .destinationContainer .singleDestination .imgDiv {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.destination .destinationContainer .singleDestination .imgDiv img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: all 0.4s ease-in-out;
+}
+.destination .destinationContainer .singleDestination:hover .imgDiv img {
+  scale: 1.2;
+}
+.destination .destinationContainer .singleDestination .descInfo {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 1rem 1rem;
+  justify-content: space-between;
+}
+.destination .destinationContainer .singleDestination::after {
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.76));
+  z-index: -1;
+}
+.destination .destinationContainer .singleDestination .text {
+  gap: 0.5rem;
+  color: var(--whiteColor);
+}
+.destination .destinationContainer .singleDestination .text .name {
+  display: block;
+  font-weight: 500;
+  padding-bottom: 0.4rem;
+  font-size: var(--h2FontSize);
+}
+.destination .destinationContainer .singleDestination .text .flex, .destination .destinationContainer .singleDestination .text .icon {
+  font-size: var(--normalFontSize);
+}
+.destination .destinationContainer .singleDestination .rating {
+  padding: 8px 1rem;
+  border-radius: var(--borderradius);
+  background: rgba(246, 246, 246, 0.42);
+  border: 1.6px solid rgba(255, 255, 255, 0.282);
+  font-size: var(--h3FontSize);
+  font-weight: 600;
+  color: var(--whiteColor);
+}
+
+@media screen and (min-width: 520px) {
+  /* For screens larger than 520px */
+  .destination .secContainer .searchField {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .destination .destinationContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 640px) {
+  /* For screens larger than 640px */
+  .destination .secContainer .secMenu {
+    display: block;
+  }
+  .destination .secContainer .secMenu .flex {
+    width: 100%;
+    margin: 2rem auto;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .destination .secContainer .secMenu .flex li {
+    background: transparent;
+    padding: 10px 18px;
+    border-radius: var(--borderradius);
+    color: black;
+    border: 1.5px dashed transparent;
+    cursor: pointer;
+  }
+  .destination .secContainer .secMenu .flex li:hover {
+    color: var(--primaryColor);
+    border: 1.5px dashed var(--primaryColor);
+  }
+  .destination .secContainer .secMenu .flex .active {
+    color: var(--primaryColor);
+    border: 1.5px dashed var(--primaryColor);
+  }
+}
+@media screen and (min-width: 1148px) {
+  /* For screens larger than 1148px */
+  .destination .secContainer .secTitle .redText {
+    font-size: var(--normalFontSize);
+  }
+  .destination .secContainer .secTitle h3 {
+    font-size: var(--h1FontSize);
+  }
+  .destination .secContainer .secTitle p {
+    font-size: var(--h3FontSize);
+  }
+  .destination .secContainer .secMenu {
+    display: block;
+  }
+  .destination .secContainer .secMenu .flex {
+    justify-content: left;
+  }
+  .destination .secContainer .secMenu .flex li {
+    background: transparent;
+    padding: 10px 18px;
+    border-radius: var(--borderradius);
+    color: black;
+    border: 1.5px dashed transparent;
+    cursor: pointer;
+  }
+  .destination .secContainer .secMenu .flex li:hover {
+    color: var(--primaryColor);
+    border: 1.5px dashed var(--primaryColor);
+  }
+  .destination .secContainer .searchField {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .destination .secContainer .destinationContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1400px) {
+  /* For screens larger than 1400px */
+  .destination {
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: 6rem;
+    margin-right: 6rem;
+  }
+  .destination .secContainer .destinationContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}/*# sourceMappingURL=Destinations.css.map */

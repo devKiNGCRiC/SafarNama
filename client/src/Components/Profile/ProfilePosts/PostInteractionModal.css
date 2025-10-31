@@ -1,0 +1,361 @@
+.post-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+.post-modal-overlay .post-modal-content {
+  background: white;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  position: relative;
+  animation: scaleIn 0.3s ease;
+}
+.post-modal-overlay .post-modal-content .close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.post-modal-overlay .post-modal-content .close-btn:hover {
+  background: var(--warning-color);
+  transform: rotate(90deg);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid {
+  display: grid;
+  grid-template-columns: auto 400px;
+  height: 90vh;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-image {
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-image img {
+  max-width: 100%;
+  max-height: 90vh;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .user-info .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .user-info .username {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options {
+  position: relative;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-btn:hover {
+  background: var(--background-light);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  z-index: 10;
+  animation: dropdownFadeIn 0.2s ease;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-dropdown button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-dropdown button:hover {
+  background: var(--background-light);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-header .post-options .options-dropdown button:last-child {
+  color: var(--warning-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-content {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-content .caption {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-content .date {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-stats {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-stats .likes-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-stats .likes-btn:hover {
+  text-decoration: underline;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment .comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment .comment-content {
+  flex: 1;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment .comment-content .comment-username {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: 0.5rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment .comment-content p {
+  color: var(--text-primary);
+  margin: 0.25rem 0;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-section .comment .comment-content .comment-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-actions {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-actions .like-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-actions .like-btn:hover {
+  background: var(--background-light);
+  color: var(--warning-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .interaction-actions .like-btn.active {
+  color: var(--warning-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+.post-modal-overlay .post-modal-content .post-modal-grid .post-details .post-interactions .comment-form button:not(:disabled):hover {
+  background: var(--background-light);
+  transform: translateY(-2px);
+}
+.post-modal-overlay .likes-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-modal-overlay .likes-modal .likes-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-header h3 {
+  font-size: 1.1rem;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-header button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-header button:hover {
+  background: var(--background-light);
+  color: var(--warning-color);
+}
+.post-modal-overlay .likes-modal .likes-content .likes-list {
+  padding: 1rem;
+  overflow-y: auto;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-list .like-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  transition: background 0.2s ease;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-list .like-item:hover {
+  background: var(--background-light);
+}
+.post-modal-overlay .likes-modal .likes-content .likes-list .like-item .like-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.post-modal-overlay .likes-modal .likes-content .likes-list .like-item .like-username {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1024px) {
+  .post-modal-overlay {
+    padding: 0;
+  }
+  .post-modal-overlay .post-modal-content {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .post-modal-overlay .post-modal-content .post-modal-grid {
+    grid-template-columns: 1fr;
+    height: 100vh;
+  }
+  .post-modal-overlay .post-modal-content .post-modal-grid .post-image {
+    height: 50vh;
+  }
+}/*# sourceMappingURL=PostInteractionModal.css.map */

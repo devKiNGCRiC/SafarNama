@@ -1,0 +1,95 @@
+.destination-detail-container {
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #444;
+  }
+  
+  .destination-detail-container h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #f5a623;
+  }
+  
+  .destination-address {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #666;
+  }
+  
+  .details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .detail-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .detail-item.reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .detail-text {
+    flex: 1;
+  }
+  
+  .detail-text h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #00cc99;
+  }
+  
+  .detail-text p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  .detail-image {
+    flex: 1;
+  }
+  
+  .detail-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .booking-section {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .booking-section p {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .booking-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #00cc99;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .booking-btn:hover {
+    background-color: #009966;
+  }
+  
+  /* Responsive Styles */
+  @media only screen and (max-width: 768px) {
+    .detail-item, .detail-item.reverse {
+      flex-direction: column;
+    }
+  }
+  

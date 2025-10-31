@@ -1,0 +1,432 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
+/* Root Variables */
+:root {
+  --primaryColor: hsl(14, 90%, 53%);
+  --PrimaryColorLight: hsl(14, 88%, 92%);
+  --bgColor: hsl(2, 0%, 100%);
+  --formColor: hsl(28, 46%, 88%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 12%);
+  --greyText: hsl(0, 0%, 52%);
+  --inputColor: hsl(328, 12%, 96%);
+  --cardColor: hsl(282, 2%, 94%);
+  --borderradius: 2.8rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navBarWrapper {
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Main Navbar */
+.navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Logo Styles */
+  /* Desktop Navigation */
+  /* Mobile Menu Toggle */
+  /* Mobile Menu Overlay */
+  /* Mobile Menu */
+}
+.navBar .navBarLogo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.navBar .navBarLogo a .logoimg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+.navBar .navBarLogo a .logoimg:hover {
+  transform: scale(1.1);
+}
+.navBar .navBarLogo a .first {
+  font-family: "Shrikhand", serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: rgb(234, 7, 34);
+  text-shadow: 2px 2px 1px black;
+  margin-left: 0.8rem;
+}
+.navBar .navBarLogo a .second {
+  font-family: "Shrikhand", serif;
+  font-size: 1.8rem;
+  color: rgb(244, 232, 9);
+  font-weight: 800;
+  text-shadow: 2px 2px 1px black;
+}
+.navBar .navBarDesktop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  margin-left: 8rem;
+}
+.navBar .navBarDesktop .navLinks {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+.navBar .navBarDesktop .navLinks li a {
+  color: var(--blackColor);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+.navBar .navBarDesktop .navLinks li a:hover {
+  color: var(--primaryColor);
+  border-bottom-color: var(--primaryColor);
+}
+.navBar .navBarDesktop .searchBar {
+  position: relative;
+  flex: 1;
+  max-width: 264px;
+  margin: 0 2rem;
+}
+.navBar .navBarDesktop .searchBar input {
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border: 1px solid var(--formColor);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background: var(--whiteColor);
+}
+.navBar .navBarDesktop .searchBar input:focus {
+  outline: none;
+  border-color: var(--primaryColor);
+  box-shadow: 0 0 0 2px var(--PrimaryColorLight);
+}
+.navBar .navBarDesktop .searchBar button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--greyText);
+}
+.navBar .navBarDesktop .searchBar button:hover {
+  color: var(--primaryColor);
+}
+.navBar .navBarDesktop .searchBar button .icon {
+  font-size: 1.2rem;
+}
+.navBar .navBarDesktop .navActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.navBar .navBarDesktop .navActions .iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.navBar .navBarDesktop .navActions .iconBtn .icon {
+  font-size: 1.3rem;
+}
+.navBar .navBarDesktop .navActions .iconBtn .icon.robot {
+  color: var(--primaryColor);
+}
+.navBar .navBarDesktop .navActions .iconBtn:hover {
+  background: var(--PrimaryColorLight);
+  transform: translateY(-2px);
+}
+.navBar .navBarDesktop .navActions .signUpBtn {
+  padding: 0.6rem 1.2rem;
+  background: var(--primaryColor);
+  color: var(--whiteColor);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.navBar .navBarDesktop .navActions .signUpBtn:hover {
+  background: var(--blackColor);
+  transform: translateY(-2px);
+}
+.navBar .mobileControls {
+  display: none;
+}
+.navBar .mobileMenuOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+.navBar .mobileMenuOverlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+.navBar .mobileMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 85%;
+  height: 100vh;
+  background: var(--whiteColor);
+  transition: all 0.3s ease;
+  z-index: 1002;
+  overflow-y: auto;
+}
+.navBar .mobileMenu.show {
+  right: 0;
+}
+.navBar .mobileMenu .mobileMenuContent {
+  padding: 1rem;
+  padding-top: 4rem;
+  max-height: 72%;
+  display: flex;
+  flex-direction: column;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--PrimaryColorLight);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile .avatarContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--primaryColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile .avatarContainer img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile .avatarContainer .avatarIcon {
+  color: var(--whiteColor);
+  font-size: 1.5rem;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile .userInfo h3 {
+  font-size: 1rem;
+  color: var(--blackColor);
+  margin-bottom: 0.2rem;
+}
+.navBar .mobileMenu .mobileMenuContent .userProfile .userInfo p {
+  font-size: 0.8rem;
+  color: var(--greyText);
+}
+.navBar .mobileMenu .mobileMenuContent .mobileSearch {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileSearch input {
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border: 1px solid var(--formColor);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileSearch input:focus {
+  outline: none;
+  border-color: var(--primaryColor);
+}
+.navBar .mobileMenu .mobileMenuContent .mobileSearch button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileSearch button .icon {
+  font-size: 1.2rem;
+  color: var(--greyText);
+}
+.navBar .mobileMenu .mobileMenuContent .mobileNav {
+  margin-bottom: 2rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileNav a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  color: var(--blackColor);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileNav a .icon {
+  font-size: 1.2rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileNav a:hover {
+  background: var(--PrimaryColorLight);
+  color: var(--primaryColor);
+  transform: translateX(5px);
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions {
+  margin-top: auto;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions button, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--PrimaryColorLight);
+  color: var(--blackColor);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions button .icon, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn .icon {
+  font-size: 1.2rem;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions button:hover, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn:hover {
+  background: var(--primaryColor);
+  color: var(--whiteColor);
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn.logoutBtn {
+  background: #ffebeb;
+  color: #ff4d4d;
+}
+.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn:hover, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn.logoutBtn:hover {
+  background: #ff4d4d;
+  color: var(--whiteColor);
+}
+.navBar .mobileMenu .closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1003;
+}
+.navBar .mobileMenu .closeBtn .icon {
+  font-size: 1.5rem;
+  color: var(--blackColor);
+}
+.navBar .mobileMenu .closeBtn .icon:hover {
+  color: var(--primaryColor);
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .navBarWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 100vw;
+    overflow: hidden;
+    z-index: 1000;
+  }
+  .navBar {
+    height: 60px;
+    padding: 0 1rem;
+    background: rgba(255, 255, 255, 0.28);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    width: 100vw;
+  }
+  .navBar .navBarLogo {
+    flex: 1;
+  }
+  .navBar .navBarLogo .logoimg {
+    width: 35px;
+    height: 35px;
+  }
+  .navBar .navBarLogo .first, .navBar .navBarLogo .second {
+    font-size: 1.4rem;
+  }
+  .navBar .navBarDesktop {
+    display: none;
+  }
+  .navBar .mobileControls {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+    font-size: 2rem;
+  }
+  .navBar .mobileMenuOverlay {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  .navBar .mobileMenu {
+    font-size: small;
+    display: block;
+    width: 85%;
+    max-width: 380px;
+    right: -100%;
+    overflow-x: hidden;
+    max-height: -moz-max-content;
+    max-height: max-content;
+    border-radius: 1.2rem;
+    margin: 2.8rem;
+  }
+  .navBar .mobileMenu.show {
+    right: 0;
+  }
+}/*# sourceMappingURL=Navbar.css.map */

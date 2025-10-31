@@ -1,0 +1,493 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+//🇮🇳 SAFARNAMA DESIGN SYSTEM - INDIAN ECO-WARRIOR THEME
+:root{
+    // 🇮🇳 INDIAN FLAG COLORS (Primary Palette)
+    --saffron: #FF9933;              // Saffron - Energy, Courage
+    --saffron-light: #FFB366;        
+    --saffron-dark: #E67300;
+    
+    --india-white: #FFFFFF;          // White - Peace, Truth
+    
+    --india-green: #138808;          // Green - Growth, Prosperity
+    --india-green-light: #1DA512;
+    --india-green-dark: #0D5D05;
+    
+    --ashoka-blue: #000080;          // Navy Blue - Ashoka Chakra
+    
+    // 🌿 NATURE-INSPIRED COLORS (Secondary Palette)
+    --forest-green: #2d5016;         // Deep Forest
+    --forest-green-light: #4a7c2c;
+    --forest-green-dark: #1a3a0f;
+    
+    --earth-brown: #8B4513;          // Earth/Soil
+    --sand-beige: #d4a574;           // Desert Sand
+    
+    --sky-blue: #87ceeb;             // Clear Sky
+    --sky-blue-light: #b0e0f6;
+    
+    --sunset-orange: #f4a460;        // Sunset
+    --golden-yellow: #FFD700;        // Golden Hour
+    
+    // 🎨 UI COLORS
+    --primaryColor: var(--india-green);
+    --primaryColorLight: #e8f5e9;
+    --primaryColorDark: var(--india-green-dark);
+    
+    --secondary-color: var(--saffron);
+    --secondaryLight: var(--saffron-light);
+    --secondaryDark: var(--saffron-dark);
+    
+    --accent-color: var(--golden-yellow);
+    --accent-warm: var(--sunset-orange);
+    
+    // 📄 BACKGROUND COLORS
+    --bgColor: #faf8f5;              // Warm White
+    --bgColorAlt: #f5f5f5;
+    --bgDark: #1a1a1a;
+    --bgCard: rgba(255, 255, 255, 0.9);
+    
+    // 🔤 TEXT COLORS
+    --whiteColor: #ffffff;
+    --blackColor: #1a1a1a;
+    --textDark: #2a2a2a;
+    --textMuted: #6b7280;
+    --greyText: #8e8e8e;
+    --heading-color: var(--india-green-dark);
+    --text-color: #4a4a4a;
+    
+    // 📦 FORM & INPUT COLORS
+    --formColor: #f8f4f0;
+    --inputColor: #f9fafb;
+    --inputBorder: #e5e7eb;
+    --inputFocus: var(--india-green);
+    
+    --cardColor: rgba(255, 255, 255, 0.95);
+    
+    // 🪟 GLASSMORPHISM
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-bg-strong: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    
+    // 🎭 SEMANTIC COLORS
+    --success: #22c55e;
+    --success-light: #86efac;
+    --error: #ef4444;
+    --error-light: #fca5a5;
+    --warning: #f59e0b;
+    --warning-light: #fcd34d;
+    --info: #3b82f6;
+    --info-light: #93c5fd;
+    
+
+
+    // 📝 TYPOGRAPHY SYSTEM
+    --font-primary: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-secondary: "Inter", sans-serif;
+    --font-display: "Island Moments", cursive;
+    --font-name: var(--font-primary);
+    --subtitle-font-name: var(--font-display);
+    
+    // Font Sizes (Responsive)
+    --text-xs: 0.75rem;      // 12px
+    --text-sm: 0.875rem;     // 14px
+    --text-base: 1rem;       // 16px
+    --text-lg: 1.125rem;     // 18px
+    --text-xl: 1.25rem;      // 20px
+    --text-2xl: 1.5rem;      // 24px
+    --text-3xl: 1.875rem;    // 30px
+    --text-4xl: 2.25rem;     // 36px
+    --text-5xl: 3rem;        // 48px
+    --text-6xl: 3.75rem;     // 60px
+    
+    --biggestFontSize: var(--text-5xl);
+    --h1FontSize: var(--text-4xl);
+    --h2FontSize: var(--text-2xl);
+    --h3FontSize: var(--text-xl);
+    --normalFontSize: var(--text-base);
+    --smallFontSize: var(--text-sm);
+    --smallestFontSize: var(--text-xs);
+    
+    // Font Weights
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    
+    // 📐 SPACING SYSTEM
+    --space-xs: 0.25rem;     // 4px
+    --space-sm: 0.5rem;      // 8px
+    --space-md: 1rem;        // 16px
+    --space-lg: 1.5rem;      // 24px
+    --space-xl: 2rem;        // 32px
+    --space-2xl: 3rem;       // 48px
+    --space-3xl: 4rem;       // 64px
+    
+    // 🔘 BORDER RADIUS
+    --radius-sm: 0.375rem;   // 6px
+    --radius-md: 0.5rem;     // 8px
+    --radius-lg: 1rem;       // 16px
+    --radius-xl: 1.5rem;     // 24px
+    --radius-2xl: 2rem;      // 32px
+    --radius-full: 9999px;
+    --borderradius: var(--radius-2xl);
+    
+    // 🎨 GRADIENTS
+    --gradient-india: linear-gradient(135deg, var(--saffron) 0%, var(--india-white) 50%, var(--india-green) 100%);
+    --gradient-primary: linear-gradient(135deg, var(--india-green-light) 0%, var(--india-green-dark) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--saffron-light) 0%, var(--saffron-dark) 100%);
+    --gradient-sunset: linear-gradient(135deg, var(--sunset-orange) 0%, var(--golden-yellow) 100%);
+    --buttonBg: var(--gradient-primary);
+    --buttonBgAlt: var(--gradient-secondary);
+    
+    // 🌑 SHADOWS
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    --profileShadow: var(--shadow-xl);
+    
+    // 🎯 SOCIAL MEDIA STYLING
+    --yellow: var(--golden-yellow);
+    --orange: var(--saffron);
+    --black: var(--blackColor);
+    --gray: var(--textMuted);
+    --hrColor: #e5e7eb;
+    --cardColors: var(--bgCard);
+    --inputColor2: var(--inputColor);
+    --photo: #4CB256;
+    --video: #4A4EB7;
+    --location: #EF5757;
+    --shedule: var(--golden-yellow);
+    
+    // 🎬 TRANSITIONS
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+    --transition-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+}   
+
+
+//Social Media Styling
+.App{
+    overflow: hidden;
+    color: var(--black);
+    background-color: #f2f2f2;
+    //padding: 0 1rem 1rem 1rem;
+}
+
+.blur{
+    position: absolute;
+    width: 22rem;
+    height: 14rem;
+    border-radius: 50%;
+    background-color: #a8ddf2;
+    filter: blur(72px);
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    color: white;
+    background: var(--buttonBg);
+    border: none;
+    outline: none;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    padding: 0.75rem 1.5rem;
+    font-weight: var(--font-semibold);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    
+    // Ripple effect
+    &::before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    &:active::before{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+.button:hover{
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: var(--gradient-secondary);
+}
+
+.button:active{
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.button:disabled{
+    background: var(--textMuted);
+    pointer-events: none;
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+//--------------------------------------------------------------
+
+body{
+    font-family: var(--font-name);
+    background-color: var(--bgColor);
+}
+
+section{
+    padding: 3.2rem 0;
+}
+
+
+//Default Styling
+
+.flex{
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+}
+
+.grid{
+    display: grid;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+p{
+    font-size: var(--smallFontSize);
+}
+
+html{
+    font-size: 90%;
+}
+
+a{
+    text-decoration: none;
+    color: unset;
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+    list-style: none;
+}
+
+.icon{
+    font-size: var(--h2FontSize);
+    cursor: pointer;
+}
+
+img , video{
+    height: auto;
+    width: 100%;
+}
+
+.btn{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: var(--radius-full);
+    padding: 0.8rem 1.8rem;
+    color: var(--whiteColor);
+    background: var(--gradient-primary);
+    font-weight: var(--font-semibold);
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    &:hover{
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-xl);
+        background: var(--gradient-secondary);
+        
+        &::after{
+            left: 100%;
+        }
+    }
+
+    &:active{
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+}
+//---------------------------------------------------------
+.primary_button{
+    background: var(--gradient-secondary) !important;
+    border: none !important;
+    border-radius: var(--radius-full) !important;
+    padding: 0.6rem 1.8rem !important;
+    font-weight: var(--font-semibold) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all var(--transition-base) !important;
+    
+    &:hover{
+        transform: translateY(-2px) !important;
+        box-shadow: var(--shadow-lg) !important;
+    }
+}
+
+.primary_button > a {
+    font-size: var(--text-lg);
+    text-decoration: none;
+    color: #fff;
+    font-weight: var(--font-semibold);
+}
+
+.primary_button > a:hover {
+    color: inherit;
+}
+
+.secondary_button{
+    background: transparent !important;
+    color: var(--india-green) !important;
+    border: 2px solid var(--india-green) !important;
+    border-radius: var(--radius-full) !important;
+    font-weight: var(--font-semibold) !important;
+    padding: 0.6rem 1.8rem !important;
+    transition: all var(--transition-base) !important;
+    
+    &:hover{
+        background: var(--india-green) !important;
+        color: white !important;
+        transform: translateY(-2px) !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+}
+
+.secondary_button > a{
+    text-decoration: none;
+    font-size: var(--text-lg);
+    color: var(--india-green);
+    font-weight: var(--font-semibold);
+}
+
+.secondary_button:hover > a{
+    color: white;
+}
+
+.section_subtitle{
+    background: var(--secondary-color);
+    font-family: var(--subtitle-font-name);
+    width: max-content;
+    padding: 0 0.6rem;
+    padding-right: 1.2rem;
+
+    border-radius: 3.2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color:var(--heading-color);
+}
+//------------------------------------------------
+.secTitle{
+    display: grid;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 25px;
+    font-weight: 800;
+    color : var(--blackColor);
+    flex-direction: column;
+    gap: 1rem;
+
+    p{
+        color: var(--blackColor);
+        font-size: var(--normalFontSize);
+        font-weight: 400;
+    }
+
+    h3{
+        font-size: var(--biggestFontSize);
+    }
+}
+
+.secHeading{
+    padding-bottom: 1.5rem;
+}
+
+.btn , .icon{
+    margin-left: 0.5rem;
+}
+
+.btn:hover{
+    color: var(--PrimaryColor);
+    background-color: var(--primaryColorLight);
+}
+
+.section{
+    padding: 4rem 0 2rem;
+}
+
+.container{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+::selection{
+    background-color: var(--primaryColorLight);
+    color: var(--whiteColor);
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+    background-color: var(--PrimaryColorLight);
+}
+
+::-webkit-scrollbar-thumb{
+    width: 10px;
+    background-color: var(--primaryColor);
+    border-radius: var(--borderradius);
+}
+
+//All this styling will take effect apply in the later stage
+//Media quries
+
+@media screen and (min-width : 840px){
+    .selection{
+        padding: 4rem 0 3rem;
+    }
+
+    .container{
+        width: 75%;
+        margin: auto;
+    }
+}

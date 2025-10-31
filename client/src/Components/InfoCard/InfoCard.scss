@@ -1,0 +1,54 @@
+.InfoCard{
+    display: flex;
+    flex-direction: column;
+    gap: 0.82rem;
+    background-color: var(--cardColors);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 96%;
+    margin:1rem;
+    height: auto;
+}
+
+.InfoHead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 800;
+    padding-bottom: 2rem;
+}
+
+.InfoHead > div:hover{
+    cursor: pointer;
+}
+
+.info{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding-bottom: 1rem;
+}
+
+.info > span:nth-of-type(1){
+    width: 100%;
+    height: auto;
+    //padding-right: 0.5rem;
+    //background-color: yellow;
+
+}
+
+.info > span:nth-of-type(2){
+    width: 80%;
+    height: auto;
+    padding-left: 0.8rem;
+    //background-color: lightgreen;
+}
+
+.logout-button{
+    width: 8rem;
+    height: 2rem;
+    margin-top: 2rem;
+    align-self: flex-end;
+    padding-bottom: 1rem;
+}

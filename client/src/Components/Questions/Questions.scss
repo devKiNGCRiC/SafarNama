@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap');
+
+
+
+//All Project Colors
+:root{
+    --primaryColor:hsl(0, 90%, 49%);
+    --PrimaryColorLight: hsl(14 , 88% , 92%);
+    --bgColor: hsl(2 , 0% , 100%);
+    --formColor: hsl(28 , 46% , 88%);
+    --whiteColor: hsl(0 , 0% , 100%);
+    --blackColor: hsl(0 , 0% , 12%);
+    --greyText: hsl(0 , 0% , 52%);
+    --inputColor: hsl(328 , 12% , 96%);
+    --cardColor: hsl(282 , 2% , 94%);   
+
+    /*Font ang Typography */
+    --biggestFontSize: 2.5rem;
+    --h1FontSize: 2rem;
+    --h2FontSize: 1.4rem;
+    --h3FontSize: 1.2rem;
+    --normalFontSize: 1rem;
+    --smallFontSize: 0.8rem;
+    --smallestFontSize: 0.75rem;
+    --borderradius: 2.8rem;
+}   
+
+.accordionContainer{
+    .title{
+        font-size: var(--normalFontSize);
+        align-items: center;
+        padding: 1rem;
+        border-radius: 10px;
+        justify-content: space-between;
+        background: var(--PrimaryColorLight);
+
+        span{
+            cursor: pointer;
+
+
+            .icon{
+                font-size: 1.2rem;
+                color: var(--blackColor);
+            }
+        }
+    }
+
+    .description{
+        font-size: var(--smallFontSize);
+        display: flex;
+        align-items: center;
+        line-height: 20px;
+        white-space: pre-line;
+        height: 0;
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        padding: 0 1rem;
+        background: var(--cardColor);
+        border-radius: 0 0 10px 10px;
+        color: black;
+    }
+
+    .show{
+        height: 140px;
+        opacity: 1;
+    }
+
+    .activeTitle{
+        background: var(--PrimaryColorLight);
+        border-radius: 10px 10px 0 0;
+
+    }
+}
+
+.questions{
+    width: 82%;
+    .secHeading{
+        h3,h4{
+            padding-bottom: 1.5rem;
+        }
+        p{
+            font-size: var(--smallFontSize);
+            color: var(--blackColor);
+            padding-bottom: 1rem;
+        }
+    }
+
+    .form{
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .formContent{
+            gap:1rem;
+            width: 40rem;
+            input, textarea{
+                background: var(--cardColor);
+                width: 100%;
+                padding: 1rem;
+                border: none;
+                outline: none;
+                border-radius: var(--borderradius);
+
+                &::placeholder{
+                    font-size: var(--smallFontSize);
+                    color: var(--blackColor);
+                }
+            }
+            textarea{
+                height: 100%;
+                border-radius: 10px;
+                
+            }
+        }
+    }
+}
+
+//Media Queries
+
+@media screen and (min-width: 640px){
+    .accordionContainer{
+        .title{
+            font-size: var(--h3FontSize);
+
+            span{
+                .icon{
+                    font-size: 1.5rem;
+                }
+            }
+        }
+        
+        .description{
+            font-size: var(--normalFontSize);
+            padding: 1rem;
+        }
+
+        .show{
+            height: 140px;
+        }
+    }
+
+    .questions{
+       .secHeading{
+            h3,h4{
+                font-size: var(--h2FontSize);
+            }
+
+            p{
+                font-size: var(--normalFontSize);
+            }
+        }
+
+        .secContainer{
+            grid-template-columns: repeat(2,1fr);
+            align-items: flex-start;
+            gap: 2rem;
+
+            .form{
+                .formContent{
+                    input , textarea{
+                        font-size: var(--normalFontSize);
+
+                        &::placeholder{
+                            font-size: var(--normalFontSize);
+                            color: black;
+                        }
+                    }
+
+                    textarea{
+                        height: 100px;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .accordionContainer{
+        .title{
+            font-size: var(--h3FontSize);
+
+            h3{
+                .icon{
+                    font-size: 1.5rem;
+                }
+            }
+        }
+        
+        .description{
+            font-size: var(--normalFontSize);
+            padding: 1rem;
+        }
+
+        .show{
+            height: 140px;
+        }
+    }
+
+    .questions{
+       .secHeading{
+            h3,h4{
+                font-size: 1.5rem;
+            }
+
+            p{
+                font-size: var(--h3FontSize);
+            }
+        }
+
+        .secContainer{
+            gap: 3rem;
+
+            .form{
+                .formContent{
+                    input , textarea{
+                        font-size: var(--normalFontSize);
+
+                        &::placeholder{
+                            font-size: var(--normalFontSize);
+                            color: black;
+                        }
+                    }
+
+                    textarea{
+                        height: 100px;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

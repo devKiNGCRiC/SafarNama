@@ -1,0 +1,250 @@
+.profile-posts {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.profile-posts .posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.profile-posts .posts-header .view-toggles {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--background-light);
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+.profile-posts .posts-header .view-toggles .view-toggle {
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-posts .posts-header .view-toggles .view-toggle.active {
+  background: white;
+  color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.profile-posts .posts-header .view-toggles .view-toggle:hover:not(.active) {
+  color: var(--text-primary);
+}
+.profile-posts .posts-header .filter-section {
+  position: relative;
+}
+.profile-posts .posts-header .filter-section .filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--background-light);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-posts .posts-header .filter-section .filter-toggle:hover {
+  background: var(--primary-color);
+  color: white;
+}
+.profile-posts .posts-header .filter-section .filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  z-index: 10;
+  animation: dropdownFadeIn 0.2s ease;
+}
+.profile-posts .posts-header .filter-section .filter-dropdown button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.profile-posts .posts-header .filter-section .filter-dropdown button:hover {
+  background: var(--background-light);
+}
+.profile-posts .posts-header .filter-section .filter-dropdown button.active {
+  background: var(--primary-color);
+  color: white;
+}
+.profile-posts .posts-container.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.profile-posts .posts-container.grid .post-grid-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.profile-posts .posts-container.grid .post-grid-item:hover .post-overlay {
+  opacity: 1;
+}
+.profile-posts .posts-container.grid .post-grid-item:hover img {
+  transform: scale(1.05);
+}
+.profile-posts .posts-container.grid .post-grid-item img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.profile-posts .posts-container.grid .post-grid-item .post-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 1rem;
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.profile-posts .posts-container.grid .post-grid-item .post-overlay .post-stats {
+  display: flex;
+  gap: 1rem;
+  color: white;
+}
+.profile-posts .posts-container.grid .post-grid-item .post-overlay .post-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.profile-posts .posts-container.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.profile-posts .posts-container.list .post-list-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease;
+}
+.profile-posts .posts-container.list .post-list-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.profile-posts .posts-container.list .post-list-item .post-image {
+  height: 200px;
+  overflow: hidden;
+}
+.profile-posts .posts-container.list .post-list-item .post-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-posts .posts-container.list .post-list-item .post-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-text h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-text p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta .post-actions {
+  display: flex;
+  gap: 1rem;
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta .post-actions .action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta .post-actions .action-btn:hover {
+  color: var(--primary-color);
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta .post-actions .action-btn.active {
+  color: var(--primary-color);
+}
+.profile-posts .posts-container.list .post-list-item .post-content .post-meta .post-actions .action-btn span {
+  font-size: 0.9rem;
+}
+.profile-posts .no-posts {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+.profile-posts .no-posts h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+.profile-posts .no-posts p {
+  font-size: 0.95rem;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .profile-posts {
+    padding: 1rem;
+  }
+  .profile-posts .posts-container.list .post-list-item {
+    grid-template-columns: 1fr;
+  }
+  .profile-posts .posts-container.list .post-list-item .post-image {
+    height: 200px;
+  }
+  .profile-posts .posts-container.list .post-list-item .post-content {
+    padding: 1rem;
+  }
+}/*# sourceMappingURL=ProfilePosts.css.map */

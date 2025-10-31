@@ -1,0 +1,256 @@
+:root{
+    --primaryColor:hsl(0, 90%, 49%);
+    --secondary-color: #faa828; 
+    --PrimaryColorLight: hsl(14 , 88% , 92%);
+    --bgColor: hsl(2 , 0% , 100%);
+    --formColor: hsl(28 , 46% , 88%);
+    --whiteColor: hsl(0 , 0% , 100%);
+    --blackColor: hsl(0 , 0% , 12%);
+    --greyText: hsl(0 , 0% , 52%);
+    --inputColor: hsl(328 , 12% , 96%);
+    --cardColor: hsl(282 , 2% , 94%);   
+    --heading-color: #0b2828;
+    --text-color: #8e8084;
+}
+
+.registerForm {
+    &__container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    &__nameFields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    &__field {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    &__input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: var(--inputColor);
+        border-radius: 12px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        height: 3.2rem;
+
+        &:focus-within {
+            border-color: var(--primaryColor);
+            background-color: var(--whiteColor);
+            box-shadow: 0 2px 8px rgba(255, 75, 31, 0.1);
+
+            .icon {
+                color: var(--primaryColor);
+            }
+        }
+
+        .icon {
+            font-size: 1.4rem;
+            color: var(--greyText);
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            padding: 0 1rem;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 0.95rem;
+            color: var(--blackColor);
+
+            &::placeholder {
+                color: var(--greyText);
+            }
+
+            &.error {
+                color: #ff3b30;
+            }
+        }
+    }
+    &__passwordFields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    &__togglePassword {
+        background: none;
+        border: none;
+        padding: 0 1rem;
+        height: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+
+        // Remove hover background effect
+        &:hover {
+            background: none; // Remove background change on hover
+            
+            .icon {
+                color: var(--primaryColor);
+            }
+        }
+    }
+
+    &__error {
+        color: #ff3b30;
+        font-size: 0.85rem;
+        padding-left: 0.5rem;
+    }
+
+    &__passwordStrength {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+
+        .strengthBar {
+            flex: 1;
+            display: flex;
+            gap: 4px;
+            height: 4px;
+        }
+
+        .strengthSegment {
+            flex: 1;
+            height: 100%;
+            background-color: var(--greyText);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+
+            &.active {
+                &:nth-child(1) { background-color: #ff3b30; }
+                &:nth-child(2) { background-color: #ff9500; }
+                &:nth-child(3) { background-color: #ffcc00; }
+                &:nth-child(4) { background-color: #34c759; }
+                &:nth-child(5) { background-color: #248a3d; }
+            }
+        }
+
+        .strengthText {
+            font-size: 0.85rem;
+            color: var(--greyText);
+            min-width: 60px;
+        }
+    }
+
+    &__submit {
+        width: 100%;
+        height: 3.2rem;
+        background: linear-gradient(135deg, #ff4b1f 0%, #ff9068 100%);
+        color: var(--whiteColor);
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 75, 31, 0.3);
+
+            &::before {
+                left: 100%;
+            }
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    &__submitError {
+        text-align: center;
+        color: #ff3b30;
+        background-color: rgba(255, 59, 48, 0.1);
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .registerForm {
+        &__nameFields,
+        &__passwordFields {
+            grid-template-columns: 1fr;
+        }
+
+        &__input {
+            height: 3rem;
+        }
+
+        &__submit {
+            height: 3rem;
+        }
+
+        &__passwordStrength {
+            .strengthText {
+                font-size: 0.75rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .registerForm {
+        &__container {
+            gap: 1rem;
+        }
+
+        &__input {
+            .icon {
+                font-size: 1.2rem;
+                margin: 0 0.8rem;
+            }
+
+            input {
+                font-size: 0.9rem;
+            }
+        }
+    }
+}

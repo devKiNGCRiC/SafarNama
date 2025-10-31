@@ -1,0 +1,164 @@
+// client/src/components/Profile/ProfileStats/ProfileStats.scss
+.profile-stats {
+    background: var(--background-white);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        .stat-card {
+            position: relative;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: var(--accent-color);
+                transition: width 0.3s ease;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+                &::before {
+                    width: 100%;
+                    opacity: 0.1;
+                }
+
+                .stat-icon {
+                    transform: scale(1.1);
+                    color: var(--accent-color);
+                }
+            }
+
+            .stat-icon {
+                color: var(--text-secondary);
+                transition: all 0.3s ease;
+            }
+
+            .stat-info {
+                margin-top: 0.5rem;
+
+                h4 {
+                    font-size: 0.9rem;
+                    color: var(--text-secondary);
+                    margin-bottom: 0.25rem;
+                }
+
+                .stat-value {
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    color: var(--text-primary);
+                }
+            }
+        }
+    }
+
+    .engagement-stats {
+        .likes-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--background-light), white);
+            border-radius: 12px;
+
+            svg {
+                color: var(--accent-color);
+            }
+
+            .likes-info {
+                flex: 1;
+
+                span {
+                    display: block;
+                    font-size: 0.95rem;
+                    color: var(--text-primary);
+                    margin-bottom: 1rem;
+                }
+
+                .likes-chart {
+                    display: flex;
+                    align-items: flex-end;
+                    gap: 4px;
+                    height: 60px;
+
+                    .chart-bar {
+                        flex: 1;
+                        background: var(--primary-color);
+                        border-radius: 4px 4px 0 0;
+                        opacity: 0.7;
+                        transition: height 1s ease, opacity 0.3s ease;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Animation for counter
+@keyframes countUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.stat-value span {
+    display: inline-block;
+    animation: countUp 0.5s ease forwards;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .profile-stats {
+        padding: 1rem;
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-card {
+            padding: 1rem;
+
+            .stat-info .stat-value {
+                font-size: 1.25rem;
+            }
+        }
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .profile-stats {
+        background: var(--background-dark);
+
+        .stat-card {
+            background: var(--background-dark-lighter);
+            border-color: var(--border-dark);
+        }
+    }
+}

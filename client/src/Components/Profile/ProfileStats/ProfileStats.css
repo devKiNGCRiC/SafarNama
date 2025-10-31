@@ -1,0 +1,135 @@
+.profile-stats {
+  background: var(--background-white);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.profile-stats .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.profile-stats .stats-grid .stat-card {
+  position: relative;
+  padding: 1.2rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.profile-stats .stats-grid .stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+.profile-stats .stats-grid .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.profile-stats .stats-grid .stat-card:hover::before {
+  width: 100%;
+  opacity: 0.1;
+}
+.profile-stats .stats-grid .stat-card:hover .stat-icon {
+  transform: scale(1.1);
+  color: var(--accent-color);
+}
+.profile-stats .stats-grid .stat-card .stat-icon {
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+.profile-stats .stats-grid .stat-card .stat-info {
+  margin-top: 0.5rem;
+}
+.profile-stats .stats-grid .stat-card .stat-info h4 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+.profile-stats .stats-grid .stat-card .stat-info .stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.profile-stats .engagement-stats .likes-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(to right, var(--background-light), white);
+  border-radius: 12px;
+}
+.profile-stats .engagement-stats .likes-section svg {
+  color: var(--accent-color);
+}
+.profile-stats .engagement-stats .likes-section .likes-info {
+  flex: 1;
+}
+.profile-stats .engagement-stats .likes-section .likes-info span {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.profile-stats .engagement-stats .likes-section .likes-info .likes-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+}
+.profile-stats .engagement-stats .likes-section .likes-info .likes-chart .chart-bar {
+  flex: 1;
+  background: var(--primary-color);
+  border-radius: 4px 4px 0 0;
+  opacity: 0.7;
+  transition: height 1s ease, opacity 0.3s ease;
+}
+.profile-stats .engagement-stats .likes-section .likes-info .likes-chart .chart-bar:hover {
+  opacity: 1;
+}
+
+@keyframes countUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.stat-value span {
+  display: inline-block;
+  animation: countUp 0.5s ease forwards;
+}
+
+@media (max-width: 768px) {
+  .profile-stats {
+    padding: 1rem;
+  }
+  .profile-stats .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-stats .stat-card {
+    padding: 1rem;
+  }
+  .profile-stats .stat-card .stat-info .stat-value {
+    font-size: 1.25rem;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .profile-stats {
+    background: var(--background-dark);
+  }
+  .profile-stats .stat-card {
+    background: var(--background-dark-lighter);
+    border-color: var(--border-dark);
+  }
+}/*# sourceMappingURL=ProfileStats.css.map */

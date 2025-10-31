@@ -1,0 +1,142 @@
+.notification-manager {
+  position: relative;
+}
+.notification-manager .notification-trigger {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+.notification-manager .notification-trigger:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+.notification-manager .notification-trigger .notification-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary-color);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+  min-width: 18px;
+  animation: badgePop 0.3s ease;
+}
+.notification-manager .notifications-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 350px;
+  max-height: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+}
+.notification-manager .notifications-panel .notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.notification-manager .notifications-panel .notifications-header h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+.notification-manager .notifications-panel .notifications-header .mark-all-read {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.notification-manager .notifications-panel .notifications-header .mark-all-read:hover {
+  opacity: 0.8;
+}
+.notification-manager .notifications-panel .notifications-list {
+  max-height: calc(500px - 3.5rem);
+  overflow-y: auto;
+}
+.notification-manager .notifications-panel .notifications-list .notification-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
+}
+.notification-manager .notifications-panel .notifications-list .notification-item:not(.read) {
+  background: rgba(46, 204, 113, 0.05);
+}
+.notification-manager .notifications-panel .notifications-list .notification-item:hover {
+  background: var(--background-light);
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .notification-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .notification-content .notification-icon {
+  color: var(--primary-color);
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .notification-content .notification-text {
+  flex: 1;
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .notification-content .notification-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .notification-content .notification-text .timestamp {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .mark-read-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.notification-manager .notifications-panel .notifications-list .notification-item .mark-read-btn:hover {
+  background: var(--background-light);
+  color: var(--warning-color);
+}
+.notification-manager .notifications-panel .notifications-list .no-notifications {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}/*# sourceMappingURL=NotificationManager.css.map */

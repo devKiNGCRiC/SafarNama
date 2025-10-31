@@ -1,0 +1,308 @@
+.profile-header {
+  position: relative;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.profile-header .cover-photo-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: var(--background-light);
+  overflow: hidden;
+}
+.profile-header .cover-photo-container .cover-photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.profile-header .cover-photo-container .cover-photo:hover {
+  transform: scale(1.02);
+}
+.profile-header .cover-photo-container .cover-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.profile-header .cover-photo-container .cover-controls .upload-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.profile-header .cover-photo-container .cover-controls .upload-button:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.profile-header .cover-photo-container .cover-controls .upload-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.profile-header .profile-header-main {
+  position: relative;
+  padding: 0 2rem 2rem;
+  margin-top: -60px;
+}
+.profile-header .profile-header-main .profile-photo-section {
+  margin-bottom: 1rem;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: white;
+  overflow: hidden;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .profile-photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls .upload-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls .upload-button:hover {
+  transform: scale(1.1);
+  background: var(--primary-color);
+  color: white;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container:hover .photo-controls {
+  opacity: 1;
+}
+.profile-header .profile-header-main .profile-info-section .profile-names {
+  margin-bottom: 1rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-names h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-names h2 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .bio {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .meta-info {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .meta-info span, .profile-header .profile-header-main .profile-info-section .profile-details .meta-info a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .meta-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .meta-info a:hover {
+  color: #25a25a;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .profile-stats {
+  display: flex;
+  gap: 2rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .profile-stats .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .profile-stats .stat-item .stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.profile-header .profile-header-main .profile-info-section .profile-details .profile-stats .stat-item .stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .profile-header .cover-photo-container {
+    height: 200px;
+  }
+  .profile-header .cover-photo-container .cover-controls .upload-button span {
+    display: none;
+  }
+  .profile-header .profile-header-main {
+    padding: 0 1rem 1.5rem;
+    margin-top: -40px;
+  }
+  .profile-header .profile-header-main .profile-photo-container {
+    width: 120px;
+    height: 120px;
+  }
+  .profile-header .profile-header-main .profile-names h1 {
+    font-size: 1.5rem;
+  }
+  .profile-header .profile-header-main .profile-stats {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .profile-header .profile-header-main .profile-stats::-webkit-scrollbar {
+    height: 4px;
+  }
+  .profile-header .profile-header-main .profile-stats::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 2px;
+  }
+}
+.profile-header {
+  position: relative;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.profile-header .cover-photo-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: var(--background-light);
+  overflow: hidden;
+}
+.profile-header .cover-photo-container .cover-photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-header .cover-photo-container .cover-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+}
+.profile-header .cover-photo-container .cover-controls .upload-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 30px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.profile-header .cover-photo-container .cover-controls .upload-button:hover {
+  background: white;
+  transform: translateY(-2px);
+}
+.profile-header .cover-photo-container .cover-controls .upload-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.profile-header .profile-header-main {
+  padding: 0 2rem 2rem;
+  margin-top: -60px;
+  position: relative;
+  z-index: 1;
+}
+.profile-header .profile-header-main .profile-photo-section {
+  margin-bottom: 1rem;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid white;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .profile-photo {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls .upload-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container .photo-controls .upload-button:hover {
+  transform: scale(1.1);
+}
+.profile-header .profile-header-main .profile-photo-section .profile-photo-container:hover .photo-controls {
+  opacity: 1;
+}
+.profile-header .profile-header-main .profile-info-section .profile-names h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.profile-header .profile-header-main .profile-info-section .profile-names h2 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}/*# sourceMappingURL=ProfileHeader.css.map */

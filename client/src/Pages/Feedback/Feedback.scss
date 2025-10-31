@@ -1,0 +1,285 @@
+
+
+.feedback {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.feedback > .feedback-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: auto;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 14vh;
+    max-height: 88vh;
+}
+
+.h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+ .taxt, .inputs , .inputs[type="email"], .textarea, select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.taxt:focus, .inputs[type="email"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.textarea {
+    resize: vertical;
+}
+
+.feedback_button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.feedback_button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .feedback-container {
+        padding: 15px;
+    } 
+  }
+
+
+// /* Navbar Styling */
+// .navbar {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     /* background-color: #1878ac;  */
+//     background-image: url("logo.jpeg");
+//     padding: 10px 20px;
+//     position: fixed;
+//     width: 100%;
+//     z-index: 10;
+//     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+//     position: fixed;
+//     top: 0;
+//   }
+  
+
+//   .navbar-logo{
+//     width: 5%;
+//     /* background-color: black; */
+//   }
+
+//   .navbar-logo img {
+//     height: 50px;
+//     border-radius: 50%;
+//     cursor: pointer;
+//     transition: transform 0.3s ease;
+//   }
+
+
+// .container{
+//   width: 200%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: end;
+//   background-color: rgb(255, 248, 214);
+//   padding: 2px;
+//   margin-left: 20px;
+//   border-radius: 8px;
+// }
+  
+//   .navbar-links {
+//     display: flex;
+//     list-style: none;
+//     margin: 0;
+//     padding: 0;
+//   }
+  
+//   .navbar-links li {
+//     position: relative;
+//     margin: 0 15px;
+//   }
+  
+//   .navbar-links a {
+//     color: #000000;
+//     text-decoration: none;
+//     font-weight: bold;
+//     padding: 8px 12px;
+//     transition: color 0.3s ease;
+//   }
+  
+//   .navbar-links a:hover {
+//     color: #FFBF00;
+//   }
+  
+//   /* Dropdown Styling */
+//   .dropdown-content {
+//     display: none;
+//     position: absolute;
+//     background-color: #fff;
+//     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+//     z-index: 1;
+//     min-width: 160px;
+//   }
+  
+//   .navbar-links li:hover .dropdown-content {
+//     display: block;
+//   }
+  
+//   .dropdown-content a {
+//     color: #333;
+//     padding: 12px 16px;
+//     text-decoration: none;
+//     display: block;
+//   }
+  
+//   .dropdown-content a:hover {
+//     background-color: #f1f1f1;
+//   }
+  
+//   /* Search Bar Styling */
+//   .search-bar {
+//     display: flex;
+//     align-items: center;
+//     position: relative;
+//     margin-right: 20px;
+
+    
+//   }
+  
+//   .search-bar input {
+//     padding: 12px;
+//     border-radius: 50px;
+//     border: 1px solid #ccc;
+//     transition: border-color 0.3s;
+//   }
+  
+//   .search-bar input:focus {
+//     border-color: #FFBF00;
+//   }
+  
+//   .search-bar button {
+//     background: none;
+//     border: none;
+//     position: absolute;
+//     right: 5px;
+//     cursor: pointer;
+//   }
+  
+//   .search-bar button i {
+//     padding-right: 8px;
+//     color: #000000;
+//     margin-bottom: 10px;
+//   }
+  
+//   .search-bar button:hover i {
+//     color: #FFBF00;
+//   }
+
+//   /* Chatbot Icon Styling */
+//   .chatbot-icon {
+//     cursor: pointer;
+//     margin-left: 20px;
+//     margin-right: 20px;
+//   }
+  
+//   .chatbot-icon i {
+//     color: #FFBF00;
+//     font-size: 24px;
+//   }
+  
+//   .chatbot-icon i:hover {
+//     color: #d6b34a;
+//   }
+  
+//   /* Sidebar Styling */
+
+// .sidebar-container{
+//   width: 10%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: end;
+// }
+
+//   .sidebar {
+//     height: 100%;
+//     width: 250px;
+//     position: fixed;
+//     right: -250px;
+//     top: 46px;
+//     background-color: #ffffff;
+//     overflow-x: hidden;
+//     transition: 0.3s;
+//     padding-top: 64px;
+//   }
+  
+//   .sidebar a {
+//     padding: 8px 16px;
+//     text-decoration: none;
+//     font-size: 18px;
+//     color: #818181;
+//     display: block;
+//     transition: 0.3s;
+//   }
+  
+//   .sidebar a:hover {
+//     background-color: #f1f1f1;
+//   }
+  
+//   /* Close Button Styling */
+//   .closebtn {
+//     position: absolute;
+//     top: 40px;
+//     right: 25px;
+//     font-size: 36px;
+//     color: #f1f1f1;
+//     cursor: pointer;
+//   }
+
+//   .sidebar-toggle{
+//     color: #ffffff;
+    
+//   }
+  
+//   .sidebar.open {
+//     right: 0;
+//   }

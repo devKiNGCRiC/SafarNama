@@ -1,0 +1,292 @@
+.booking-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  padding-top: 8vh;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.booking-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.booking-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.booking-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Tour Summary Card */
+.tour-summary-card {
+  display: flex;
+  background: #f8f9fa;
+  padding: 20px;
+  gap: 20px;
+  align-items: flex-start;
+  border-bottom: 1px solid #eee;
+}
+
+.tour-image {
+  width: 20px;  /* Fixed width */
+  height: 15px; /* Fixed height */
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.tour-info {
+  flex: 1;
+  min-width: 0; /* Prevent flex item from overflowing */
+}
+
+.tour-info h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.tour-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+.detail-item svg {
+  color: #2980b9;
+}
+
+/* Form Styles */
+.booking-form-wrapper {
+  padding: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.error {
+  border-color: #e74c3c !important;
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Price Summary */
+.price-summary {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.price-summary h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.price-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.price-item.total {
+  border-top: 2px solid #eee;
+  padding-top: 15px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Booking Footer */
+.booking-footer {
+  margin-top: 30px;
+}
+
+.terms-section {
+  margin-bottom: 20px;
+}
+
+.terms-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.secure-payment-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #27ae60;
+  margin-bottom: 20px;
+}
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #fde8e8;
+  color: #e74c3c;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.proceed-payment-btn {
+  width: 100%;
+  padding: 15px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.proceed-payment-btn:hover {
+  background: #219a52;
+}
+
+.proceed-payment-btn:disabled {
+  background: #a8a8a8;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tour-summary-card {
+    flex-direction: column;
+  }
+
+  .tour-image {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tour-info {
+    padding: 0;
+  }
+
+  .tour-details {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form-wrapper {
+    padding: 20px;
+  }
+}
+
+.tour-image-placeholder {
+  width: 200px;
+  height: 150px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 8px;
+}
+
+/* Add to TourBooking.css */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.proceed-payment-btn.submitting {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.proceed-payment-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

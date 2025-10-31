@@ -1,0 +1,112 @@
+.glass-card {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-lg);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+
+    // Glass reflection effect
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        transition: left 0.5s;
+    }
+
+    // Hover effects
+    &.glass-card-hover {
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: rgba(255, 255, 255, 0.3);
+
+            &::before {
+                left: 100%;
+            }
+        }
+
+        &:active {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+    }
+
+    // Dark background variant
+    &.glass-card-dark {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    // Light background variant
+    &.glass-card-light {
+        background: rgba(255, 255, 255, 0.5);
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    // India flag gradient border variant
+    &.glass-card-india {
+        border: 2px solid transparent;
+        background-image: 
+            linear-gradient(var(--bgColor), var(--bgColor)),
+            var(--gradient-india);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+    }
+
+    // Eco green variant
+    &.glass-card-eco {
+        background: rgba(45, 80, 22, 0.1);
+        border-color: var(--india-green-light);
+
+        &:hover {
+            background: rgba(45, 80, 22, 0.15);
+            border-color: var(--india-green);
+        }
+    }
+
+    // Saffron variant
+    &.glass-card-saffron {
+        background: rgba(255, 153, 51, 0.1);
+        border-color: var(--saffron-light);
+
+        &:hover {
+            background: rgba(255, 153, 51, 0.15);
+            border-color: var(--saffron);
+        }
+    }
+}
+
+// Responsive adjustments
+@media screen and (max-width: 768px) {
+    .glass-card {
+        padding: var(--space-md);
+        border-radius: var(--radius-lg);
+
+        &.glass-card-hover:hover {
+            transform: translateY(-4px);
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .glass-card {
+        padding: var(--space-sm);
+        border-radius: var(--radius-md);
+    }
+}

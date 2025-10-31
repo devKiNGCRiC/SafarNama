@@ -1,0 +1,84 @@
+.feedback {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.feedback > .feedback-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: auto;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 14vh;
+  max-height: 88vh;
+}
+
+.h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: bold;
+}
+
+.taxt, .inputs, .inputs[type=email], .textarea, select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.taxt:focus, .inputs[type=email]:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.feedback_button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.feedback_button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .feedback-container {
+    padding: 15px;
+  }
+}/*# sourceMappingURL=Feedback.css.map */

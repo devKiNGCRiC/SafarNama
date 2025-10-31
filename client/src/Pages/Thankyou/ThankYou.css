@@ -1,0 +1,55 @@
+/* ThankYou.css */
+
+.thank__you {
+  
+  margin-top: 20vh;
+  height: 50vh;
+  text-align: center;
+}
+  
+.thank__you > span{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+  .thank__you > span > i {
+    font-size: 4rem;
+    color: green;
+    margin-top: 4rem;
+  }
+  
+  .thank__you > h1 {
+    font-size: 3.6rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+  }
+  
+  .thank__you h3 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .btn-primary {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    font-weight: bolder;
+    font-size: 16px;
+  }
+  
+  .btn-primary a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+  
+  .btn-primary a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
+:root {
+  --primaryColor:hsl(14, 90% , 53% );
+  --PrimaryColorLight: hsl(14 , 88% , 92%);
+  --bgColor: hsl(2 , 0% , 100%);
+  --formColor: hsl(28 , 46% , 88%);
+  --whiteColor: hsl(0 , 0% , 100%);
+  --blackColor: hsl(0 , 0% , 12%);
+  --greyText: hsl(0 , 0% , 52%);
+  --inputColor: hsl(328 , 12% , 96%);
+  --cardColor: hsl(282 , 2% , 94%);
+  /*Font ang Typography */
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 2rem;
+  --h2FontSize: 1.4rem;
+  --h3FontSize: 1.2rem;
+  --normalFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --smallestFontSize: 0.75rem;
+  --borderradius: 2.8rem;
+}
+
+.Home {
+  position: relative;
+  height: 95vh;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+}
+.Home .videoBg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.Home .videoBg video {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.Home .sectionText .hero-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 15%;
+  bottom: 50%;
+  color: var(--whiteColor);
+  padding: 0 1.2rem;
+}
+.Home .sectionText .hero-content h3, .Home .sectionText .hero-content h4 {
+  padding-top: 0.5rem;
+  color: #000000; /* White text for clarity */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+  font-weight: 800;
+}
+.Home .sectionText .hero-content h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #FFD700; /* Gold to represent adventure */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
+}
+.Home .sectionText .hero-content h2 span {
+  color: red;
+  font-size: 4.28rem;
+  font-family: "Satisfy", cursive;
+  font-weight: bolder;
+  margin-bottom: 0.2rem;
+}
+.Home .sectionText .hero-content h1 {
+  font-size: var(--biggestFontSize);
+  font-weight: 900;
+}
+.Home .sectionText .hero-content p {
+  padding: 1rem 0;
+  font-size: var(--normalFontSize);
+  font-weight: 400;
+}
+.Home .sectionText .hero-content .btn {
+  gap: 0.5em;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  font-size: var(--h3FontSize);
+}
+.Home .sectionText .hero-content .change:after {
+  content: " ";
+  animation: changetext 12s infinite linear;
+  color: #FFD700; /* Gold */
+}
+@keyframes changetext {
+  0% {
+    content: "exotic landscapes";
+  }
+  16% {
+    content: "cultural experiences";
+  }
+  28% {
+    content: "adventurous journeys";
+  }
+  42% {
+    content: "hidden gems";
+  }
+  56% {
+    content: "offbeat destinations";
+  }
+  70% {
+    content: "unique cultures";
+  }
+  84% {
+    content: "local stories";
+  }
+  100% {
+    content: "unforgettable memories";
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .Home .sectionText .hero-content {
+    padding: 0 2rem;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+  .Home .sectionText .hero-content h1 {
+    font-size: var(--biggestFontSize);
+    font-weight: 900;
+  }
+  .Home .sectionText .hero-content p {
+    padding: 1rem 0;
+    font-size: var(--h2FontSize);
+    max-width: 70%;
+    margin: auto;
+  }
+  .Home .sectionText .hero-content .btn {
+    font-size: var(--h3FontSize);
+    margin: auto;
+  }
+  .Home .popularPlaces {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .Home .sectionText .hero-content {
+    width: 100%;
+  }
+  .Home .sectionText .hero-content h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    max-width: 70%;
+    margin: auto;
+  }
+  .Home .sectionText .hero-content p {
+    padding: 1rem;
+    font-size: var(--h2FontSize);
+    max-width: 70%;
+    margin: auto;
+  }
+  .Home .sectionText .hero-content .btn {
+    gap: 0.5rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    font-size: var(--h3FontSize);
+    margin: auto;
+  }
+}
+@media screen and (min-width: 1040px) {
+  .Home {
+    position: relative;
+  }
+  .Home .sectionText .hero-content h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    max-width: 70%;
+    margin: auto;
+  }
+  .Home .sectionText .hero-content h2 span {
+    font-size: 6rem;
+  }
+  .Home .sectionText .hero-content p {
+    padding: 1rem;
+    font-size: var(--h2FontSize);
+    max-width: 70%;
+    margin: auto;
+  }
+  .Home .sectionText .hero-content .btn {
+    gap: 0.5rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    font-size: var(--h3FontSize);
+    margin: auto;
+  }
+  .Home .popularPlaces {
+    display: block;
+    position: absolute;
+    bottom: 4%;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .Home .popularPlaces .content h2 {
+    color: var(--whiteColor);
+    padding: 1rem 0;
+    position: relative;
+    text-align: start;
+  }
+  .Home .popularPlaces .content h2::after {
+    content: "";
+    width: 73.5%;
+    height: 2px;
+    background-color: rgb(202, 202, 202);
+    left: 26%;
+    bottom: 44%;
+    position: absolute;
+  }
+  .Home .popularPlaces .content .images {
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .Home .popularPlaces .content .images img {
+    height: 120px;
+    width: 220px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-image-repeat: 10px;
+    border-radius: 28px;
+  }
+}/*# sourceMappingURL=Home.css.map */

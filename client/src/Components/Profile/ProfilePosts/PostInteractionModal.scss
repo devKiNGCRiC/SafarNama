@@ -1,0 +1,411 @@
+.post-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+
+    .post-modal-content {
+        background: white;
+        border-radius: 15px;
+        width: 100%;
+        max-width: 1200px;
+        max-height: 90vh;
+        position: relative;
+        animation: scaleIn 0.3s ease;
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: var(--warning-color);
+                transform: rotate(90deg);
+            }
+        }
+
+        .post-modal-grid {
+            display: grid;
+            grid-template-columns: auto 400px;
+            height: 90vh;
+
+            .post-image {
+                background: black;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    max-width: 100%;
+                    max-height: 90vh;
+                    object-fit: contain;
+                }
+            }
+
+            .post-details {
+                display: flex;
+                flex-direction: column;
+                border-left: 1px solid var(--border-color);
+
+                .post-header {
+                    padding: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .user-info {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+
+                        .avatar {
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        .username {
+                            font-weight: 600;
+                            color: var(--text-primary);
+                        }
+                    }
+
+                    .post-options {
+                        position: relative;
+
+                        .options-btn {
+                            background: none;
+                            border: none;
+                            color: var(--text-secondary);
+                            cursor: pointer;
+                            padding: 0.5rem;
+                            border-radius: 50%;
+                            transition: all 0.3s ease;
+
+                            &:hover {
+                                background: var(--background-light);
+                            }
+                        }
+
+                        .options-dropdown {
+                            position: absolute;
+                            top: 100%;
+                            right: 0;
+                            background: white;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                            min-width: 150px;
+                            z-index: 10;
+                            animation: dropdownFadeIn 0.2s ease;
+
+                            button {
+                                width: 100%;
+                                padding: 0.75rem 1rem;
+                                text-align: left;
+                                border: none;
+                                background: none;
+                                color: var(--text-primary);
+                                cursor: pointer;
+                                transition: background 0.2s ease;
+
+                                &:hover {
+                                    background: var(--background-light);
+                                }
+
+                                &:last-child {
+                                    color: var(--warning-color);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .post-content {
+                    padding: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+
+                    .caption {
+                        margin-bottom: 0.5rem;
+                        line-height: 1.5;
+                        color: var(--text-primary);
+                    }
+
+                    .date {
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);
+                    }
+                }
+
+                .post-interactions {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+
+                    .interaction-stats {
+                        padding: 1rem;
+                        border-bottom: 1px solid var(--border-color);
+                        display: flex;
+                        gap: 1rem;
+
+                        .likes-btn {
+                            background: none;
+                            border: none;
+                            color: var(--text-primary);
+                            font-weight: 600;
+                            cursor: pointer;
+                            padding: 0;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    .comment-section {
+                        flex: 1;
+                        overflow-y: auto;
+                        padding: 1rem;
+
+                        .comment {
+                            display: flex;
+                            gap: 1rem;
+                            margin-bottom: 1rem;
+
+                            .comment-avatar {
+                                width: 32px;
+                                height: 32px;
+                                border-radius: 50%;
+                                object-fit: cover;
+                            }
+
+                            .comment-content {
+                                flex: 1;
+
+                                .comment-username {
+                                    font-weight: 600;
+                                    color: var(--text-primary);
+                                    margin-right: 0.5rem;
+                                }
+
+                                p {
+                                    color: var(--text-primary);
+                                    margin: 0.25rem 0;
+                                }
+
+                                .comment-date {
+                                    font-size: 0.8rem;
+                                    color: var(--text-secondary);
+                                }
+                            }
+                        }
+                    }
+
+                    .interaction-actions {
+                        padding: 1rem;
+                        border-top: 1px solid var(--border-color);
+                        display: flex;
+                        gap: 1rem;
+
+                        .like-btn {
+                            background: none;
+                            border: none;
+                            color: var(--text-secondary);
+                            cursor: pointer;
+                            padding: 0.5rem;
+                            border-radius: 50%;
+                            transition: all 0.3s ease;
+
+                            &:hover {
+                                background: var(--background-light);
+                                color: var(--warning-color);
+                            }
+
+                            &.active {
+                                color: var(--warning-color);
+                            }
+                        }
+                    }
+
+                    .comment-form {
+                        padding: 1rem;
+                        border-top: 1px solid var(--border-color);
+                        display: flex;
+                        gap: 1rem;
+
+                        input {
+                            flex: 1;
+                            padding: 0.75rem;
+                            border: 1px solid var(--border-color);
+                            border-radius: 20px;
+                            font-size: 0.95rem;
+
+                            &:focus {
+                                outline: none;
+                                border-color: var(--primary-color);
+                            }
+                        }
+
+                        button {
+                            background: none;
+                            border: none;
+                            color: var(--primary-color);
+                            cursor: pointer;
+                            padding: 0.5rem;
+                            border-radius: 50%;
+                            transition: all 0.3s ease;
+
+                            &:disabled {
+                                color: var(--text-secondary);
+                                cursor: not-allowed;
+                            }
+
+                            &:not(:disabled):hover {
+                                background: var(--background-light);
+                                transform: translateY(-2px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .likes-modal {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .likes-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 500px;
+            display: flex;
+            flex-direction: column;
+
+            .likes-header {
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                h3 {
+                    font-size: 1.1rem;
+                }
+
+                button {
+                    background: none;
+                    border: none;
+                    color: var(--text-secondary);
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    border-radius: 50%;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        background: var(--background-light);
+                        color: var(--warning-color);
+                    }
+                }
+            }
+
+            .likes-list {
+                padding: 1rem;
+                overflow-y: auto;
+
+                .like-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    padding: 0.5rem;
+                    transition: background 0.2s ease;
+
+                    &:hover {
+                        background: var(--background-light);
+                    }
+
+                    .like-avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    .like-username {
+                        font-weight: 500;
+                        color: var(--text-primary);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .post-modal-overlay {
+        padding: 0;
+
+        .post-modal-content {
+            height: 100vh;
+            max-height: 100vh;
+            border-radius: 0;
+
+            .post-modal-grid {
+                grid-template-columns: 1fr;
+                height: 100vh;
+
+                .post-image {
+                    height: 50vh;
+                }
+            }
+        }
+    }
+}

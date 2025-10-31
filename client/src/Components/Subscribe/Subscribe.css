@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
+:root {
+  --primaryColor:hsl(0, 90%, 49%);
+  --PrimaryColorLight: hsl(14 , 88% , 92%);
+  --bgColor: hsl(2 , 0% , 100%);
+  --formColor: hsl(28 , 46% , 88%);
+  --whiteColor: hsl(0 , 0% , 100%);
+  --blackColor: hsl(0 , 0% , 12%);
+  --greyText: hsl(0 , 0% , 52%);
+  --inputColor: hsl(328 , 12% , 96%);
+  --cardColor: hsl(282 , 2% , 94%);
+  /*Font ang Typography */
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 2rem;
+  --h2FontSize: 1.4rem;
+  --h3FontSize: 1.2rem;
+  --normalFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --smallestFontSize: 0.75rem;
+  --borderradius: 2.8rem;
+}
+
+.subscribe .textDiv h4 {
+  font-size: var(--h2FontSize);
+  color: black;
+}
+.subscribe .textDiv p {
+  padding: 1rem 0;
+}
+.subscribe .textDiv .btn {
+  padding: 0.5rem 2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .subscribe .secContainer img {
+    max-width: 75%;
+    margin: auto;
+  }
+  .subscribe .secContainer .textDiv h4 {
+    font-size: 1.5rem;
+  }
+  .subscribe .secContainer .textDiv p {
+    padding: 1rem 0;
+    font-size: var(--h3FontSize);
+  }
+  .subscribe .secContainer .textDiv .btn {
+    padding: 0.5rem 2rem;
+    font-size: var(--h2FontSize);
+  }
+}
+@media screen and (min-width: 640px) {
+  .subscribe .secContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .subscribe .secContainer img {
+    width: 100%;
+    margin: auto;
+  }
+  .subscribe .secContainer .textDiv h4 {
+    font-size: 2rem;
+  }
+  .subscribe .secContainer .textDiv p {
+    padding: 1rem 0;
+    font-size: var(--h3FontSize);
+  }
+}
+@media screen and (min-width: 1024px) {
+  .subscribe .secContainer .textDiv h4 {
+    font-size: var(--h1FontSize);
+  }
+  .subscribe .secContainer .textDiv p {
+    padding: 2rem 0;
+    font-size: var(--h2FontSize);
+  }
+}/*# sourceMappingURL=Subscribe.css.map */

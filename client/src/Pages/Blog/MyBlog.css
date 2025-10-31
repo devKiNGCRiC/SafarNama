@@ -1,0 +1,34 @@
+.MyBlog {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  height: 100%;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  position: fixed;
+  width: 100%;
+}
+
+.link2 {
+  width: 8rem;
+  text-align: center;
+  top: 8rem;
+  margin: auto;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  padding: 0.4rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  background-color: white;
+  border-radius: 4rem;
+  box-shadow: 0.2rem 0.2rem 0.4rem coral;
+  color: black;
+  text-shadow: 0.1rem 0.2rem 0.4rem white;
+  font-size: small;
+  font-weight: bold;
+}/*# sourceMappingURL=MyBlog.css.map */

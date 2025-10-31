@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
+:root {
+  --primaryColor:hsl(14, 90% , 53% );
+  --PrimaryColorLight: hsl(14 , 88% , 92%);
+  --bgColor: hsl(2 , 0% , 100%);
+  --formColor: hsl(28 , 46% , 88%);
+  --whitecolor: hsl(0 , 0% , 100%);
+  --blackColor: hsl(0 , 0% , 12%);
+  --greyText: hsl(0 , 0% , 52%);
+  --inputColor: hsl(328 , 12% , 96%);
+  --cardColor: hsl(282 , 2% , 94%);
+  /*Font ang Typography */
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 2rem;
+  --h2FontSize: 1.4rem;
+  --h3FontSize: 1.2rem;
+  --normalFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --smallestFontSize: 0.75rem;
+  --borderradius: 2.8rem;
+}
+
+.middle {
+  width: 100%;
+}
+.middle .secContainer .grid {
+  padding: 4rem;
+  border-radius: var(--borderradius);
+  background-color: var(--PrimaryColorLight);
+  justify-content: center;
+  margin: auto;
+  gap: 2rem;
+}
+.middle .secContainer .grid span {
+  justify-content: center;
+  gap: 0.6rem;
+}
+.middle .secContainer .grid h1 {
+  font-size: var(--h1FontSize);
+  font-weight: 800;
+  color: var(--blackColor);
+}
+.middle .secContainer .grid p {
+  opacity: 0.8;
+  max-width: 80px;
+}
+
+@media screen and (min-width: 480px) {
+  .middle .secContainer .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 640px) {
+  .middle .secContainer .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 800px) {
+  .middle .secContainer .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}/*# sourceMappingURL=Middle.css.map */
