@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './Home.scss';
 import { Link } from 'react-router-dom';
 
 // Imported Assets
 // Videos now hosted on Cloudinary (too large for GitHub)
-const heroVideo = 'https://res.cloudinary.com/dxyclus0f/video/upload/v1761919410/safarnama/videos/safarnama/videos/bg2-video.mp4';
+const heroVideo = 'https://res.cloudinary.com/dxyclus0f/video/upload/q_auto:low,f_auto/v1761919410/safarnama/videos/safarnama/videos/bg2-video.mp4';
 import heroImage from '../../Assets/chandratal-lake.jpg'; // Fallback image
 
 // Imported Icons
@@ -16,41 +16,65 @@ import img1 from '../../Assets/chandratal-lake.jpg';
 import img2 from '../../Assets/intro1.jpg';
 import img3 from '../../Assets/nav.jpg';
 
-// Importing Aos
-import Aos from 'aos';
-import 'aos/dist/aos.css';
+// Lazy load AOS only when needed
+let Aos;
+const loadAos = async () => {
+    if (!Aos) {
+        Aos = (await import('aos')).default;
+        await import('aos/dist/aos.css');
+    }
+    return Aos;
+};
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [useVideo, setUseVideo] = useState(true);
+    const [useVideo, setUseVideo] = useState(false); // Start with image, load video after
     const [connectionSpeed, setConnectionSpeed] = useState('4g');
+    const [aosLoaded, setAosLoaded] = useState(false);
 
     // Check network speed and device capability
     useEffect(() => {
-        Aos.init({ duration: 2000 });
+        // Load AOS animations asynchronously
+        loadAos().then((AosModule) => {
+            AosModule.init({ 
+                duration: 1000, // Reduced from 2000ms
+                once: true, // Animate only once
+                disable: 'mobile' // Disable on mobile for better performance
+            });
+            setAosLoaded(true);
+        });
 
-        // Check connection type
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        if (connection) {
-            const effectiveType = connection.effectiveType;
-            setConnectionSpeed(effectiveType);
-            
-            // Use video only for fast connections (4g or better)
-            if (effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g') {
-                setUseVideo(false);
+        // Defer video loading
+        const timer = setTimeout(() => {
+            // Check connection type
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            let shouldUseVideo = true;
+
+            if (connection) {
+                const effectiveType = connection.effectiveType;
+                setConnectionSpeed(effectiveType);
+                
+                // Use video only for fast connections (4g or better)
+                if (effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g') {
+                    shouldUseVideo = false;
+                }
             }
-        }
 
-        // Check for reduced motion preference
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) {
-            setUseVideo(false);
-        }
+            // Check for reduced motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                shouldUseVideo = false;
+            }
 
-        // Check device memory (if available)
-        if (navigator.deviceMemory && navigator.deviceMemory < 4) {
-            setUseVideo(false);
-        }
+            // Check device memory (if available)
+            if (navigator.deviceMemory && navigator.deviceMemory < 4) {
+                shouldUseVideo = false;
+            }
+
+            setUseVideo(shouldUseVideo);
+        }, 500); // Delay video loading by 500ms
+
+        return () => clearTimeout(timer);
     }, []);
 
     const handleSearch = (e) => {
@@ -72,14 +96,17 @@ const Home = () => {
                         loop 
                         muted 
                         playsInline
-                        preload="auto"
+                        preload="none"
+                        loading="lazy"
                         poster={heroImage}
+                        style={{ objectFit: 'cover' }}
                     />
                 ) : (
                     <img 
                         src={heroImage} 
                         alt="Safarnama Hero" 
-                        className="hero-fallback-image" 
+                        className="hero-fallback-image"
+                        loading="eager"
                     />
                 )}
                 <div className="video-overlay"></div>

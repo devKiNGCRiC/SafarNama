@@ -1,50 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
 import store from './store/index';
 import './App.css';
-// import { useAuthPersist } from './hooks';
 
-// Components
+// Critical Components (load immediately)
 import SplashScreen from './Components/SplashScreen/SplashScreen';
 import Navbar from './Components/Navbar/Navbar';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Footer from './Components/Footer/Footer';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
-
-// Pages
-import Auth from './Pages/Auth/Auth';
-import HomePage from './Pages/HomePage/HomePage';
-import AllDestinations from './Pages/AllDestination/AllDestination';
-import DestinationDetail from './Pages/Destination/DestinationDetail';
-import ItineraryBuilder from './Pages/Itinerary/ItineraryBuilder';
-import Events from './Pages/Events/Events';
-import EcoGuides from './Pages/EcoGuides/EcoGuides';
-import AboutUs from './Pages/AboutUs/AboutUs';
-import MapPage from './Pages/MapPage/MapPage';
-import Feedback from './Pages/Feedback/Feedback';
-import Contact from './Pages/Contact/Contact';
-
-import FAQ from './Pages/FAQ/FAQ';
-import HomeGram from './Pages/SafarGram/HomeGram/HomeGram';
-import TourBooking from './Pages/Booking/TourBooking';
-import Payment from './Pages/Payment/Payment';
-import ThankYou from './Pages/Thankyou/ThankYou';
-import Blogs from './Pages/Blog/Blogs';
-import MyBlog from './Pages/Blog/MyBlog';
-import SearchResultList from './Pages/SearchResultList/SearchResultList';
-import TourListing from './Pages/Tours/TourListing/TourListing';
-import TourDetail from './Pages/Tours/TourDetail/TourDetail';
-import CreateBlog from './Pages/Blog/CreateBlog';
-import BlogDetails from './Pages/Blog/BlogDetails';
-// import CommunityForum from './Pages/CommunityForum/CommunityForum';
-// import CreateForumPost from './Pages/CommunityForum/CreateForumPost';
-import DesignShowcase from './Pages/Test/DesignShowcase';
+import Loader from './Components/Loader/Loader';
+import HomePage from './Pages/HomePage/HomePage'; // Keep home page immediate
 
 import { Toaster } from 'react-hot-toast';
 import { loginSuccess } from './store/reducers/authSlice';
-import Profile from './Pages/Profile/Profile';
-import BookingHistory from './Pages/BookingHistory/BookingHistory';
+
+// Lazy Load Pages (load only when needed)
+const Auth = lazy(() => import('./Pages/Auth/Auth'));
+const AllDestinations = lazy(() => import('./Pages/AllDestination/AllDestination'));
+const DestinationDetail = lazy(() => import('./Pages/Destination/DestinationDetail'));
+const ItineraryBuilder = lazy(() => import('./Pages/Itinerary/ItineraryBuilder'));
+const Events = lazy(() => import('./Pages/Events/Events'));
+const EcoGuides = lazy(() => import('./Pages/EcoGuides/EcoGuides'));
+const AboutUs = lazy(() => import('./Pages/AboutUs/AboutUs'));
+const MapPage = lazy(() => import('./Pages/MapPage/MapPage'));
+const Feedback = lazy(() => import('./Pages/Feedback/Feedback'));
+const Contact = lazy(() => import('./Pages/Contact/Contact'));
+const FAQ = lazy(() => import('./Pages/FAQ/FAQ'));
+const HomeGram = lazy(() => import('./Pages/SafarGram/HomeGram/HomeGram'));
+const TourBooking = lazy(() => import('./Pages/Booking/TourBooking'));
+const Payment = lazy(() => import('./Pages/Payment/Payment'));
+const ThankYou = lazy(() => import('./Pages/Thankyou/ThankYou'));
+const Blogs = lazy(() => import('./Pages/Blog/Blogs'));
+const MyBlog = lazy(() => import('./Pages/Blog/MyBlog'));
+const SearchResultList = lazy(() => import('./Pages/SearchResultList/SearchResultList'));
+const TourListing = lazy(() => import('./Pages/Tours/TourListing/TourListing'));
+const TourDetail = lazy(() => import('./Pages/Tours/TourDetail/TourDetail'));
+const CreateBlog = lazy(() => import('./Pages/Blog/CreateBlog'));
+const BlogDetails = lazy(() => import('./Pages/Blog/BlogDetails'));
+const DesignShowcase = lazy(() => import('./Pages/Test/DesignShowcase'));
+const Profile = lazy(() => import('./Pages/Profile/Profile'));
+const BookingHistory = lazy(() => import('./Pages/BookingHistory/BookingHistory'));
 
 
 const AppContent = () => {
@@ -79,9 +76,9 @@ const AppContent = () => {
 
     return (
         <div className='App'>
-            
-                <Toaster />
-                <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <Toaster />
+            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <Suspense fallback={<Loader />}>
                     <Routes>
                         {/* Public Routes */}
                         <Route path='/' element={<Navigate to='/home' />} />
@@ -279,8 +276,8 @@ const AppContent = () => {
                         <Route path="/payments" element={<Payment />} />
                         <Route path="/thankyou" element={<ThankYou />} /> */}
                     </Routes>
-                </Router>
-            
+                </Suspense>
+            </Router>
         </div>
     );
 }
