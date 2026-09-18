@@ -21,9 +21,7 @@ const handleJWTExpiredError = () =>
 
 const handleMulterError = (err) => {
   const message =
-    err.code === 'LIMIT_FILE_SIZE'
-      ? 'File is too large. Maximum size is 5MB.'
-      : err.message;
+    err.code === 'LIMIT_FILE_SIZE' ? 'File is too large.' : err.message;
   return new AppError(message, 400);
 };
 
@@ -58,20 +56,8 @@ const sendErrorProd = (err, res) => {
 const globalErrorHandler = (err, req, res, next) => {
   if (res.headersSent) return next(err);
 
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
-
-  // Anything that is not explicitly "production" is treated as development.
-  // (NODE_ENV was previously never set, so no error branch ever ran and the
-  // request hung until the client timed out.)
-  const isProduction =
-    process.env.NODE_ENV === 'production' ||
-    process.env.DEV_MODE === 'production';
-
-  if (!isProduction) {
-    return sendErrorDev(err, res);
-  }
-
+  // Known library errors are converted in every environment so clients get a
+  // 4xx with a useful message instead of a 500.
   let error = err;
   if (err.name === 'CastError') error = handleCastErrorDB(err);
   else if (err.code === 11000) error = handleDuplicateFieldsDB(err);
@@ -80,7 +66,15 @@ const globalErrorHandler = (err, req, res, next) => {
   else if (err.name === 'TokenExpiredError') error = handleJWTExpiredError();
   else if (err.name === 'MulterError') error = handleMulterError(err);
 
-  return sendErrorProd(error, res);
+  error.statusCode = error.statusCode || 500;
+  error.status = error.status || 'error';
+
+  // Anything that is not explicitly "production" is treated as development.
+  const isProduction =
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEV_MODE === 'production';
+
+  return isProduction ? sendErrorProd(error, res) : sendErrorDev(error, res);
 };
 
 export default globalErrorHandler;

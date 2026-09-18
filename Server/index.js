@@ -23,7 +23,6 @@ import AuthRoute from "./Routes/authRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
 import UserRoute from "./Routes/UserRoute.js";
 import profileRoutes from "./Routes/profileRoutes.js";
-import PostRoute from "./Routes/PostRoute.js";
 import ForumPostRoute from "./Routes/ForumPostRoute.js";
 import UploadRoute from "./Routes/UploadRoute.js";
 import bookingRoutes from "./Routes/bookingRoutes.js";
@@ -31,6 +30,7 @@ import feedbackRoutes from "./Routes/feedbackRoutes.js";
 import contactRoutes from "./Routes/contactRoutes.js";
 import paymentRoutes from "./Routes/paymentRoutes.js";
 import blogRoutes from "./Routes/BlogRoutes.js";
+import safargramRoutes from "./Routes/safargramRoutes.js";
 import tourRoute from "./Routes/tours.js";
 import reviewRoute from "./Routes/reviews.js";
 import destinationRoutes from "./Routes/destinationRoute.js";
@@ -158,7 +158,6 @@ app.use("/admin/login", authLimiter);
 app.use("/api/v1/auth", AuthRoute);
 app.use("/admin", adminRoutes);
 app.use("/user", UserRoute);
-app.use("/posts", PostRoute);
 app.use("/forum-posts", ForumPostRoute);
 app.use("/upload", UploadRoute);
 // Routes
@@ -177,6 +176,7 @@ app.use("/api/v1/itineraries", itineraryRoutes);
 app.use("/api/v1/events", eventRoutes);
 //Blog Routes
 app.use("/api/v1/blog", blogRoutes);
+app.use("/api/v1/safargram", safargramRoutes);
 
 // Handle undefined routes
 app.all("*", (req, res, next) => {
