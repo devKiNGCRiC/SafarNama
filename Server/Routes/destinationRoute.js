@@ -12,6 +12,7 @@ import {
   getDestinationsInBounds,
   getFilteredDestinations
 } from '../Controllers/destinationController.js';
+import { verifyToken, isAdmin } from '../Middleware/authMiddleware.js';
 
 
 const router = express.Router();
@@ -22,9 +23,10 @@ router.get('/category/:category', getDestinationsByCategory);
 //Crud routes
 router.get('/', getAllDestinations);
 router.get('/:id', getDestination);
-router.post('/', createDestination);
-router.put('/:id', updateDestination);
-router.delete('/:id', deleteDestination);
+// Only admins may change the destination catalogue
+router.post('/', verifyToken, isAdmin, createDestination);
+router.put('/:id', verifyToken, isAdmin, updateDestination);
+router.delete('/:id', verifyToken, isAdmin, deleteDestination);
 
 // Add new map-related routes
 router.get('/map/nearby', getNearbyDestinations);

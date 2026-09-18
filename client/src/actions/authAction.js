@@ -13,7 +13,6 @@ import {
 export const loginUser = (credentials) => async (dispatch) => {
     dispatch(loginStart());
     try {
-        console.log('Sending login request:', credentials); // Debug log
         
         const data  = await authApi.login(credentials);
         console.log('Login response data:', data); // Debug log
@@ -40,7 +39,6 @@ export const loginUser = (credentials) => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerStart());
     try {
-        console.log('Sending registration request:', userData);
         
         const data = await authApi.register(userData);
         console.log('Registration response data:', data);

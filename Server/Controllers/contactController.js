@@ -12,6 +12,6 @@ export const addContact = async (req, res) => {
     await newContact.save();
     res.status(200).json({ message: 'Message sent successfully!' });
   } catch (error) {
-    res.status(500).json({ message: 'Error sending message', error });
+    res.status(500).json({ message: 'Error sending message' });
   }
 };

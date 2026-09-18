@@ -1,11 +1,14 @@
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { facebookLogin } from '../../../actions/authAction';
 
 import { FaFacebook } from "react-icons/fa";
 
 const FacebookLoginButton = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleFacebookLogin = async (response) => {
         try {
@@ -24,7 +27,6 @@ const FacebookLoginButton = () => {
             appId={import.meta.env.VITE_FACEBOOK_APP_ID}
             onSuccess={handleFacebookLogin}
             onFail={(error) => {
-                console.log('Login Failed!', error);
                 toast.error('Facebook login failed');
             }}
             className="facebook-login-button"

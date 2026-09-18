@@ -1,6 +1,4 @@
 import Express from "express";
-import bodyParser from "body-parser";
-import Mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
@@ -44,9 +42,6 @@ import WebSocketService from "./services/websocketService.js";
 import connectDB from "./config/db.js";
 //import DestinationsRouter from "./Routes/DestinationsRoute.js";
 
-//mongodb connection
-connectDB();
-
 //rest object
 const app = Express();
 
@@ -72,14 +67,19 @@ app.use(
       },
     },
     crossOriginEmbedderPolicy: false,
-  })
+  }),
 );
 
 // 2. Rate limiting - General API protection
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-  message: "Too many requests from this IP, please try again after 15 minutes.",
+  // A single page load fires several API calls, so 100 per window was hit
+  // almost immediately. Override with RATE_LIMIT_MAX if needed.
+  max: Number(process.env.RATE_LIMIT_MAX) || 600,
+  message: {
+    success: false,
+    message: "Too many requests from this IP, please try again after 15 minutes.",
+  },
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -88,8 +88,13 @@ const generalLimiter = rateLimit({
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 login/signup attempts per 15 minutes
-  message:
-    "Too many authentication attempts from this IP, please try again after 15 minutes.",
+  message: {
+    success: false,
+    message:
+      "Too many authentication attempts from this IP, please try again after 15 minutes.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
   skipSuccessfulRequests: true, // Don't count successful requests
 });
 
@@ -98,8 +103,7 @@ app.use("/api", generalLimiter);
 
 // 4. Body parser with size limits (prevent large payload attacks)
 app.use(Express.json({ limit: "10mb" })); // Reduced from 40mb for security
-app.use(bodyParser.json({ limit: "10mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(Express.urlencoded({ limit: "10mb", extended: true }));
 
 // 5. Data sanitization against NoSQL injection
 app.use(mongoSanitize()); // Removes $ and . from request data
@@ -111,12 +115,17 @@ app.use(xss()); // Cleans user input from malicious HTML
 app.use(
   hpp({
     whitelist: ["price", "rating", "duration"], // Allow duplicates for these params
-  })
+  }),
 );
 
-// 8. CORS Configuration (Restricted to specific origin)
+// 8. CORS Configuration (Restricted to specific origins)
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: [
+    process.env.CLIENT_URL || "http://localhost:5173",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
+  ],
   credentials: true, // Allow cookies
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
@@ -132,17 +141,6 @@ if (process.env.DEV_MODE === "development") {
   app.use(morgan("dev"));
 }
 
-//Port
-const PORT = process.env.PORT || 5000;
-
-Mongoose.connect(process.env.MONGO_DB)
-  .then(() =>
-    app.listen(PORT, () =>
-      console.log(`Server Running on ${process.env.DEV_MODE} mode at ${PORT}`)
-    )
-  )
-  .catch((error) => console.log(error));
-
 // // Initialize WebSocket service
 // const wsService = new WebSocketService(server);
 
@@ -156,6 +154,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/auth/login", authLimiter);
 app.use("/api/v1/auth/signup", authLimiter);
 app.use("/api/v1/auth/register", authLimiter);
+app.use("/admin/login", authLimiter);
 app.use("/api/v1/auth", AuthRoute);
 app.use("/admin", adminRoutes);
 app.use("/user", UserRoute);
@@ -176,7 +175,6 @@ app.use("/api/v1/destinations", destinationRoutes);
 app.use("/api/v1/eco-guides", ecoGuideRoutes);
 app.use("/api/v1/itineraries", itineraryRoutes);
 app.use("/api/v1/events", eventRoutes);
-app.use("/api/v1/itineraries", itineraryRoutes);
 //Blog Routes
 app.use("/api/v1/blog", blogRoutes);
 
@@ -187,3 +185,11 @@ app.all("*", (req, res, next) => {
 
 // Error handling middleware
 app.use(errorHandler);
+
+// Connect to MongoDB once (connectDB exits the process on failure), then listen
+const PORT = process.env.PORT || 5000;
+connectDB().then(() =>
+  app.listen(PORT, () =>
+    console.log(`Server Running on ${process.env.DEV_MODE} mode at ${PORT}`),
+  ),
+);

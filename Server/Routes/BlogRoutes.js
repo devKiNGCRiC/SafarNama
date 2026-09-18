@@ -1,28 +1,32 @@
 import express from "express";
-import { createBlogController, deleteBlogController, getAllBlogsController, getBlogByIdController, updateBlogController, userBlogController } from "../Controllers/BlogController.js";
-
-//router objects
+import {
+  createBlogController,
+  deleteBlogController,
+  getAllBlogsController,
+  getBlogByIdController,
+  updateBlogController,
+  userBlogController,
+  uploadBlogImageController,
+} from "../Controllers/BlogController.js";
+import { upload } from "../Middleware/uploadMiddleware.js";
+import { verifyToken } from "../Middleware/authMiddleware.js";
 
 const router = express.Router();
 
-//routes
-
-//Get || All blogs
-router.get("/all-blog" , getAllBlogsController);
-
-//Post || Create a new blog
-router.post("/create-blog", createBlogController);
-
-//Put || Update a blog
-router.put("/update-blog/:id", updateBlogController);
-
-//Get || Get a single blog
+// Public reads
+router.get("/all-blog", getAllBlogsController);
 router.get("/get-blog/:id", getBlogByIdController);
-
-//Delete || Delete a blog
-router.delete("/delete-blog/:id", deleteBlogController);
-
-//Get || User blogs
 router.get("/user-blog/:id", userBlogController);
+
+// Writes require a logged-in user; ownership is checked in the controller
+router.post(
+  "/upload-blog-image",
+  verifyToken,
+  upload.single("image"),
+  uploadBlogImageController,
+);
+router.post("/create-blog", verifyToken, createBlogController);
+router.put("/update-blog/:id", verifyToken, updateBlogController);
+router.delete("/delete-blog/:id", verifyToken, deleteBlogController);
 
 export default router;

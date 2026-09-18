@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { MapPin, Calendar, Clock } from 'lucide-react';
 import './SimilarTours.css';
+import { API_URL } from '../../config/api';
 
 const SimilarTours = ({ currentTourId, destination, category }) => {
   const [tours, setTours] = useState([]);
@@ -12,7 +13,7 @@ const SimilarTours = ({ currentTourId, destination, category }) => {
   useEffect(() => {
     const fetchSimilarTours = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/v1/tours/similar`, {
+        const response = await axios.get(`${API_URL}/api/v1/tours/similar`, {
           params: {
             tourId: currentTourId,
             destination,

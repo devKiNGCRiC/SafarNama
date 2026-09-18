@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './AdminDestinations.css';
+import { API_URL } from '../../config/api';
 
 const AdminDestinations = () => {
   const [destinations, setDestinations] = useState([]);
@@ -13,7 +14,7 @@ const AdminDestinations = () => {
 
   const fetchDestinations = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/v1/destinations');
+      const res = await axios.get(`${API_URL}/api/v1/destinations`);
       setDestinations(res.data.data);
       setLoading(false);
     } catch (error) {
@@ -25,7 +26,7 @@ const AdminDestinations = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this destination?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/v1/destinations/${id}`);
+        await axios.delete(`${API_URL}/api/v1/destinations/${id}`);
         setDestinations(destinations.filter(dest => dest._id !== id));
       } catch (error) {
         console.error('Error deleting destination:', error);

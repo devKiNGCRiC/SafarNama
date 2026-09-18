@@ -93,7 +93,7 @@ export const getForumPostById = catchAsync(async (req, res) => {
   }
 
   // Increment views
-  post.views += 1;
+  forumPost.views += 1;
   await forumPost.save();
 
   res.status(200).json({
@@ -116,15 +116,15 @@ export const updateForumPost = catchAsync(async (req, res) => {
     throw new AppError('Not authorized to update this post', 403);
   }
 
-  forumPost.title = title;
-  forumPost.content = content;
-  forumPost.tags = tags;
+  if (title !== undefined) forumPost.title = title;
+  if (content !== undefined) forumPost.content = content;
+  if (tags !== undefined) forumPost.tags = tags;
 
   await forumPost.save();
 
   res.status(200).json({
     status: 'success',
-    data: post,
+    data: forumPost,
   });
 });
 
@@ -135,12 +135,15 @@ export const deleteForumPost = catchAsync(async (req, res) => {
     throw new AppError('Post not found', 404);
   }
 
-  // Check if user is the author
-  if (forumPost.author.toString() !== req.user._id.toString()) {
+  // Author or admin may delete
+  if (
+    forumPost.author.toString() !== req.user._id.toString() &&
+    req.user.role !== 'admin'
+  ) {
     throw new AppError('Not authorized to delete this post', 403);
   }
 
-  await forumPost.remove();
+  await forumPost.deleteOne();
 
   res.status(204).json({
     status: 'success',

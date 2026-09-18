@@ -1,234 +1,395 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Shrikhand&display=swap");
 
 //All Project Colors
-:root{
-    --primaryColor:hsl(0, 90%, 49%);
-    --PrimaryColorLight: hsl(14 , 88% , 92%);
-    --bgColor: hsl(2 , 0% , 100%);
-    --formColor: hsl(28 , 46% , 88%);
-    --whiteColor: hsl(0 , 0% , 100%);
-    --blackColor: hsl(0 , 0% , 12%);
-    --greyText: hsl(0 , 0% , 52%);
-    --inputColor: hsl(328 , 12% , 96%);
-    --cardColor: hsl(282 , 2% , 94%);   
+:root {
+  --primaryColor: hsl(0, 90%, 49%);
+  --PrimaryColorLight: hsl(14, 88%, 92%);
+  --bgColor: hsl(2, 0%, 100%);
+  --formColor: hsl(28, 46%, 88%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 12%);
+  --greyText: hsl(0, 0%, 52%);
+  --inputColor: hsl(328, 12%, 96%);
+  --cardColor: hsl(282, 2%, 94%);
 
-    /*Font ang Typography */
-    --biggestFontSize: 2.5rem;
-    --h1FontSize: 2rem;
-    --h2FontSize: 1.4rem;
-    --h3FontSize: 1.2rem;
-    --normalFontSize: 1rem;
-    --smallFontSize: 0.8rem;
-    --smallestFontSize: 0.75rem;
-    --borderradius: 2.8rem;
-}   
-
-.accordionContainer{
-    .title{
-        font-size: var(--normalFontSize);
-        align-items: center;
-        padding: 1rem;
-        border-radius: 10px;
-        justify-content: space-between;
-        background: var(--PrimaryColorLight);
-
-        span{
-            cursor: pointer;
-
-
-            .icon{
-                font-size: 1.2rem;
-                color: var(--blackColor);
-            }
-        }
-    }
-
-    .description{
-        font-size: var(--smallFontSize);
-        display: flex;
-        align-items: center;
-        line-height: 20px;
-        white-space: pre-line;
-        height: 0;
-        transition: all 0.3s ease-in-out;
-        opacity: 0;
-        padding: 0 1rem;
-        background: var(--cardColor);
-        border-radius: 0 0 10px 10px;
-        color: black;
-    }
-
-    .show{
-        height: 140px;
-        opacity: 1;
-    }
-
-    .activeTitle{
-        background: var(--PrimaryColorLight);
-        border-radius: 10px 10px 0 0;
-
-    }
+  /*Font ang Typography */
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 2rem;
+  --h2FontSize: 1.4rem;
+  --h3FontSize: 1.2rem;
+  --normalFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --smallestFontSize: 0.75rem;
+  --borderradius: 2.8rem;
 }
 
-.questions{
+.accordionContainer {
+  margin-bottom: 0.75rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .title {
+    font-size: 1rem;
+    font-weight: 600;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    justify-content: space-between;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #1f2937;
+    display: flex;
+    width: 100%;
+    border: none;
+    position: relative;
+
+    &:hover {
+      background: #f9fafb;
+    }
+
+    span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      margin-left: 1rem;
+
+      .icon {
+        font-size: 1.4rem;
+        color: var(--primaryColor);
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    height: 0;
+    transition: all 0.4s ease;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    background: #fafbfc;
+    color: #4b5563;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .show {
+    height: auto;
+    opacity: 1;
+    padding: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .activeTitle {
+    background: #fef3f2;
+    color: #1f2937;
+    border-bottom: 2px solid var(--primaryColor);
+
+    span .icon {
+      color: var(--primaryColor);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.questions {
+  width: 100%;
+  padding: 4rem 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(19, 136, 8, 0.05) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  .secHeading {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .redText {
+      font-size: var(--smallFontSize);
+      color: var(--primaryColor);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: var(--h1FontSize);
+      color: #f9fafb;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    h4 {
+      font-size: var(--h2FontSize);
+      color: #f9fafb;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .subtitle {
+      font-size: var(--normalFontSize);
+      color: #e5e7eb;
+      font-weight: 500;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    p {
+      font-size: var(--normalFontSize);
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+  }
+
+  .secContainer {
     width: 82%;
-    .secHeading{
-        h3,h4{
-            padding-bottom: 1.5rem;
-        }
-        p{
-            font-size: var(--smallFontSize);
-            color: var(--blackColor);
-            padding-bottom: 1rem;
-        }
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: transparent;
+  }
+
+  .form {
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e7eb;
+
+    .secHeading {
+      text-align: left;
+      margin-bottom: 2rem;
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      display: block;
+      border-radius: 0;
+      backdrop-filter: none;
+
+      h4 {
+        color: #1f2937;
+        text-shadow: none;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: #6b7280;
+        text-shadow: none;
+      }
     }
 
-    .form{
-        padding: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .formContent{
-            gap:1rem;
-            width: 40rem;
-            input, textarea{
-                background: var(--cardColor);
-                width: 100%;
-                padding: 1rem;
-                border: none;
-                outline: none;
-                border-radius: var(--borderradius);
+    .formContent {
+      gap: 1.5rem;
+      width: 100%;
 
-                &::placeholder{
-                    font-size: var(--smallFontSize);
-                    color: var(--blackColor);
-                }
-            }
-            textarea{
-                height: 100%;
-                border-radius: 10px;
-                
-            }
+      input,
+      textarea {
+        background: #f9fafb;
+        width: 100%;
+        padding: 1.25rem;
+        border: 2px solid #e5e7eb;
+        outline: none;
+        border-radius: 12px;
+        font-size: var(--normalFontSize);
+        color: #1f2937;
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: var(--primaryColor);
+          background: #ffffff;
+          box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
         }
+
+        &::placeholder {
+          font-size: var(--normalFontSize);
+          color: #9ca3af;
+        }
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+        font-family: inherit;
+      }
+
+      .btn {
+        background: var(--primaryColor);
+        color: #ffffff;
+        border: none;
+        padding: 1.25rem 2.5rem;
+        border-radius: 12px;
+        font-size: var(--normalFontSize);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(255, 153, 51, 0.3);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(255, 153, 51, 0.4);
+        }
+      }
     }
+  }
 }
 
 //Media Queries
 
-@media screen and (min-width: 640px){
-    .accordionContainer{
-        .title{
-            font-size: var(--h3FontSize);
+@media screen and (min-width: 640px) {
+  .accordionContainer {
+    .title {
+      font-size: 1.05rem;
+      padding: 1.5rem 1.75rem;
 
-            span{
-                .icon{
-                    font-size: 1.5rem;
-                }
-            }
+      span {
+        .icon {
+          font-size: 1.5rem;
         }
-        
-        .description{
+      }
+    }
+
+    .description {
+      font-size: 1rem;
+    }
+
+    .show {
+      padding: 1.75rem;
+      padding-top: 1.25rem;
+    }
+  }
+
+  .questions {
+    .secHeading {
+      padding: 2rem 2.5rem;
+
+      h3 {
+        font-size: 2rem;
+      }
+
+      h4 {
+        font-size: var(--h2FontSize);
+      }
+
+      p,
+      .subtitle {
+        font-size: 1.05rem;
+      }
+    }
+
+    .secContainer {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+
+      .form {
+        .formContent {
+          input,
+          textarea {
             font-size: var(--normalFontSize);
-            padding: 1rem;
+          }
         }
-
-        .show{
-            height: 140px;
-        }
+      }
     }
-
-    .questions{
-       .secHeading{
-            h3,h4{
-                font-size: var(--h2FontSize);
-            }
-
-            p{
-                font-size: var(--normalFontSize);
-            }
-        }
-
-        .secContainer{
-            grid-template-columns: repeat(2,1fr);
-            align-items: flex-start;
-            gap: 2rem;
-
-            .form{
-                .formContent{
-                    input , textarea{
-                        font-size: var(--normalFontSize);
-
-                        &::placeholder{
-                            font-size: var(--normalFontSize);
-                            color: black;
-                        }
-                    }
-
-                    textarea{
-                        height: 100px;
-                        border-radius: 10px;
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
-@media screen and (min-width: 1024px){
-    .accordionContainer{
-        .title{
-            font-size: var(--h3FontSize);
+@media screen and (min-width: 1024px) {
+  .accordionContainer {
+    .title {
+      font-size: 1.1rem;
+      padding: 1.75rem 2rem;
 
-            h3{
-                .icon{
-                    font-size: 1.5rem;
-                }
-            }
+      span {
+        .icon {
+          font-size: 1.6rem;
         }
-        
-        .description{
+      }
+    }
+
+    .description {
+      font-size: 1.05rem;
+    }
+
+    .show {
+      padding: 2rem;
+      padding-top: 1.5rem;
+    }
+  }
+
+  .questions {
+    .secHeading {
+      padding: 2.5rem 3rem;
+
+      h3 {
+        font-size: 2.5rem;
+      }
+
+      h4 {
+        font-size: 1.75rem;
+      }
+
+      p,
+      .subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .secContainer {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      align-items: start;
+      gap: 3rem;
+
+      .form {
+        .formContent {
+          input,
+          textarea {
             font-size: var(--normalFontSize);
-            padding: 1rem;
-        }
+          }
 
-        .show{
-            height: 140px;
+          textarea {
+            min-height: 140px;
+          }
         }
+      }
     }
-
-    .questions{
-       .secHeading{
-            h3,h4{
-                font-size: 1.5rem;
-            }
-
-            p{
-                font-size: var(--h3FontSize);
-            }
-        }
-
-        .secContainer{
-            gap: 3rem;
-
-            .form{
-                .formContent{
-                    input , textarea{
-                        font-size: var(--normalFontSize);
-
-                        &::placeholder{
-                            font-size: var(--normalFontSize);
-                            color: black;
-                        }
-                    }
-
-                    textarea{
-                        height: 100px;
-                        border-radius: 10px;
-                    }
-                }
-            }
-        }
-    }
+  }
 }

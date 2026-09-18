@@ -7,13 +7,14 @@ import { useSelector } from'react-redux'
 import Cover from '../../Assets/img/KiNG2.jpg'
 import Profile from '../../Assets/img/KiNG.jpg'
 import { Link } from 'react-router-dom'
+import { API_URL } from '../../config/api';
 
 const ProfileCard = ({location}) => {
 
     const {user} = useSelector((state)=>state.authSkice.authData) || {};
     const posts = useSelector((state)=>state.postReducer.posts);
 
-    const publicFolder = "http://localhost:5000/images/";
+    const publicFolder = `${API_URL}/images/`;
 
     //const ProfilePage = false;
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import './EcoGuides.css';
+import { API_URL } from '../../config/api';
 
 const EcoGuides = () => {
   const [guides, setGuides] = useState([]);
@@ -15,7 +16,7 @@ const EcoGuides = () => {
   useEffect(() => {
     const fetchGuides = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/eco-guides');
+        const response = await axios.get(`${API_URL}/api/v1/eco-guides`);
         setGuides(response.data.data);
         setFilteredGuides(response.data.data);
       } catch (error) {

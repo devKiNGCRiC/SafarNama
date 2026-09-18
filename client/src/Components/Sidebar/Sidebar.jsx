@@ -49,7 +49,6 @@ const Sidebar = () => {
         toast.success("Logged out successfully");
         setIsVisible(false);
         navigate('/');
-        setIsMobileMenuOpen(false);
     };
 
     return (

@@ -6,7 +6,7 @@ import User from '../User/User'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getAllUser } from '../../Api/UserRequest'
+import { getAllUser } from '../../api/UserRequest'
 
 const FollowersCard = () => {
 

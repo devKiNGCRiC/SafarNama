@@ -193,7 +193,7 @@ export const deleteTour = async (req, res) => {
 
     // Check if there are any active bookings
     const activeBookings = await Booking.find({
-      tour: req.params.id,
+      tourId: req.params.id,
       status: { $in: ['CONFIRMED', 'PENDING'] }
     });
 
@@ -208,7 +208,7 @@ export const deleteTour = async (req, res) => {
       });
     }
 
-    await tour.remove();
+    await tour.deleteOne();
 
     res.status(200).json({
       success: true,

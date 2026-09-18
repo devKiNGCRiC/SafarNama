@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./Feedback.css";
+import { API_URL } from '../../config/api';
 //import Navbar from '../../Components/Navbar/Navbar';
 
 const Feedback = () => {
@@ -16,7 +17,7 @@ const Feedback = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:5000/api/feedback', {
+        fetch(`${API_URL}/api/v1/feedback`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(feedbackData),

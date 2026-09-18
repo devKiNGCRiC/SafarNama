@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './contact.css';
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from '../../Components/Footer/Footer';
+import { API_URL } from '../../config/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const Contact = () => {
 
     console.log("Submitting form data:", formData);
 
-    fetch('http://localhost:5000/api/contact', {
+    fetch(`${API_URL}/api/v1/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

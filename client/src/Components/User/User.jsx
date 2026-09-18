@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux'
-import { followUser, unFollowUser } from '../../Actions/UserAction';
+import { followUser, unFollowUser } from '../../actions/UserAction';
 import '../FollowersCard/FollowersCard.css'
+import { API_URL } from '../../config/api';
 
 const User = ({person}) => {
     
@@ -11,7 +12,7 @@ const User = ({person}) => {
 
 
     const dispatch = useDispatch();
-    const publicFolder = "http://localhost:5000/images/";
+    const publicFolder = `${API_URL}/images/`;
 
     const handleFollow = () => {
         following ? dispatch(unFollowUser(person._id, user)) : dispatch(followUser(person._id, user));

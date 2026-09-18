@@ -6,7 +6,7 @@ import { useDispatch , useSelector } from 'react-redux'
 
 // import { PostsData } from '../../Data/PostsData'
 import Post from '../Post/Post'
-import { getTimeLinePosts } from '../../Actions/postAction'
+import { getTimeLinePosts } from '../../actions/postAction'
 import { useParams } from 'react-router-dom'
 
 

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { CreditCard, Smartphone, AlertCircle, Shield, ArrowLeft } from 'lucide-react';
-import './Payment.css';
+import './payment.css';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
+import { API_URL } from '../../config/api';
 
 const Payment = () => {
   const location = useLocation();
@@ -98,45 +99,32 @@ const Payment = () => {
     try {
       const token = localStorage.getItem('token');
       
-      // First update booking status
-      const bookingResponse = await axios.patch(
-        `http://localhost:5000/api/v1/booking/${paymentData.bookingId}`,
-        { 
-          status: 'CONFIRMED',
-          paymentStatus: 'COMPLETED'
+      // The server verifies the booking, takes the amount from it and marks the
+      // booking CONFIRMED once the payment is recorded - the browser can no
+      // longer confirm a booking on its own.
+      const paymentResponse = await axios.post(
+        `${API_URL}/api/v1/payment`,
+        {
+          bookingId: paymentData.bookingId,
+          paymentMethod,
+          name: paymentMethod === 'card' ? cardData.name : '',
+          cardNumber: paymentMethod === 'card' ? cardData.number : '',
+          expiryDate: paymentMethod === 'card' ? cardData.expiry : '',
+          upiId: paymentMethod === 'upi' ? upiId : ''
         },
         {
           headers: { 'Authorization': `Bearer ${token}` }
         }
       );
-  
-      if (bookingResponse.data.success) {
-        // Then create payment record
-        const paymentResponse = await axios.post(
-          'http://localhost:5000/api/v1/payment/payment',
-          {
+
+      if (paymentResponse.data.success) {
+        navigate('/thank-you', {
+          state: {
             bookingId: paymentData.bookingId,
-            amount: paymentData.amount,
-            paymentMethod,
-            name: paymentMethod === 'card' ? cardData.name : '',
-            cardNumber: paymentMethod === 'card' ? cardData.number : '',
-            expiryDate: paymentMethod === 'card' ? cardData.expiry : '',
-            upiId: paymentMethod === 'upi' ? upiId : ''
-          },
-          {
-            headers: { 'Authorization': `Bearer ${token}` }
+            tourName: paymentData.tourName,
+            amount: paymentData.amount
           }
-        );
-  
-        if (paymentResponse.data.success || paymentResponse.data.message === 'Payment processed successfully!') {
-          navigate('/thank-you', {
-            state: {
-              bookingId: paymentData.bookingId,
-              tourName: paymentData.tourName,
-              amount: paymentData.amount
-            }
-          });
-        }
+        });
       }
     } catch (error) {
       console.error('Payment error:', error);

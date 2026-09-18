@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config/api';
 
 
 const testDestination = {
@@ -50,7 +51,7 @@ const TestDestination = () => {
   const createTestDestination = async () => {
     try {
       setError(null);
-      const res = await axios.post('http://localhost:5000/api/v1/destinations', testDestination);
+      const res = await axios.post(`${API_URL}/api/v1/destinations`, testDestination);
       setResponse(res.data);
       alert('Destination created successfully!');
     } catch (err) {

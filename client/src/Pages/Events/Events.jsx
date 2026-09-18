@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import './Events.css';
+import { API_URL } from '../../config/api';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -16,7 +17,7 @@ const Events = () => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/v1/events');
+        const response = await axios.get(`${API_URL}/api/v1/events`);
         if (response.data.success) {
           setEvents(response.data.data);
         }
@@ -48,7 +49,7 @@ const Events = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:5000/api/v1/events/${eventId}/register`,
+        `${API_URL}/api/v1/events/${eventId}/register`,
         {},
         {
           headers: {

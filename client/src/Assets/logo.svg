@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <!-- Premium Gradients -->
+    <linearGradient id="saffronGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#FF9933;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="greenGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0B6623;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#138808;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#228B22;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.4" />
+      <stop offset="70%" style="stop-color:#FFD700;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:transparent;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Shadow Filters -->
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer Circle - Triple Ring (Tricolor) -->
+  <circle cx="150" cy="150" r="145" fill="none" stroke="url(#saffronGlow)" stroke-width="8" opacity="0.9"/>
+  <circle cx="150" cy="150" r="140" fill="white" stroke="#138808" stroke-width="3" opacity="0.95"/>
+  
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="135" fill="url(#skyGradient)" opacity="0.15"/>
+  
+  <!-- Majestic Himalayan Mountains (3 Peaks) -->
+  <g filter="url(#dropShadow)">
+    <!-- Back Mountain -->
+    <path d="M 40 180 L 90 100 L 110 120 L 130 90 L 150 110 L 170 85 L 190 105 L 210 120 L 260 180 Z" 
+          fill="#0B6623" opacity="0.6"/>
+    
+    <!-- Middle Mountain -->
+    <path d="M 60 180 L 100 120 L 120 135 L 150 100 L 180 130 L 200 140 L 240 180 Z" 
+          fill="url(#greenGradient)" opacity="0.8"/>
+    
+    <!-- Front Mountain -->
+    <path d="M 80 180 L 120 140 L 150 115 L 180 145 L 220 180 Z" 
+          fill="#138808" opacity="0.9"/>
+    
+    <!-- Snow Caps -->
+    <path d="M 148 115 L 152 115 L 155 125 L 145 125 Z" fill="white" opacity="0.9"/>
+    <path d="M 118 140 L 122 140 L 124 148 L 116 148 Z" fill="white" opacity="0.8"/>
+    <path d="M 178 145 L 182 145 L 184 152 L 176 152 Z" fill="white" opacity="0.8"/>
+  </g>
+  
+  <!-- Glorious Sun with Ashoka Chakra -->
+  <g filter="url(#dropShadow)">
+    <!-- Sun Outer Glow -->
+    <circle cx="150" cy="110" r="35" fill="url(#saffronGlow)" opacity="0.3"/>
+    <circle cx="150" cy="110" r="30" fill="url(#saffronGlow)" opacity="0.6"/>
+    <circle cx="150" cy="110" r="25" fill="#FFD700"/>
+    
+    <!-- Ashoka Chakra Spokes (24 spokes) -->
+    <g stroke="#FF6B35" stroke-width="1.5" opacity="0.4">
+      <line x1="150" y1="85" x2="150" y2="95"/>
+      <line x1="150" y1="125" x2="150" y2="135"/>
+      <line x1="125" y1="110" x2="135" y2="110"/>
+      <line x1="165" y1="110" x2="175" y2="110"/>
+      <line x1="132" y1="92" x2="138" y2="98"/>
+      <line x1="162" y1="122" x2="168" y2="128"/>
+      <line x1="168" y1="92" x2="162" y2="98"/>
+      <line x1="138" y1="122" x2="132" y2="128"/>
+    </g>
+    
+    <!-- Center Dot -->
+    <circle cx="150" cy="110" r="4" fill="#FF6B35"/>
+  </g>
+  
+  <!-- Magnificent Lotus Flower (Bottom) -->
+  <g filter="url(#dropShadow)">
+    <!-- Lotus Base -->
+    <ellipse cx="150" cy="220" rx="45" ry="8" fill="#0B6623" opacity="0.3"/>
+    
+    <!-- Outer Petals Layer -->
+    <ellipse cx="120" cy="215" rx="12" ry="22" fill="#FF9933" opacity="0.7" transform="rotate(-45 120 215)"/>
+    <ellipse cx="180" cy="215" rx="12" ry="22" fill="#FF9933" opacity="0.7" transform="rotate(45 180 215)"/>
+    <ellipse cx="105" cy="225" rx="10" ry="20" fill="#FF6B35" opacity="0.6" transform="rotate(-60 105 225)"/>
+    <ellipse cx="195" cy="225" rx="10" ry="20" fill="#FF6B35" opacity="0.6" transform="rotate(60 195 225)"/>
+    
+    <!-- Middle Petals Layer -->
+    <ellipse cx="130" cy="220" rx="11" ry="20" fill="#FFD700" opacity="0.8" transform="rotate(-30 130 220)"/>
+    <ellipse cx="170" cy="220" rx="11" ry="20" fill="#FFD700" opacity="0.8" transform="rotate(30 170 220)"/>
+    <ellipse cx="140" cy="218" rx="10" ry="19" fill="#FF9933" opacity="0.85" transform="rotate(-15 140 218)"/>
+    <ellipse cx="160" cy="218" rx="10" ry="19" fill="#FF9933" opacity="0.85" transform="rotate(15 160 218)"/>
+    
+    <!-- Center Petals -->
+    <ellipse cx="150" cy="215" rx="11" ry="20" fill="url(#saffronGlow)" opacity="0.95"/>
+    <ellipse cx="145" cy="217" rx="9" ry="17" fill="#FFD700" opacity="0.9" transform="rotate(-8 145 217)"/>
+    <ellipse cx="155" cy="217" rx="9" ry="17" fill="#FFD700" opacity="0.9" transform="rotate(8 155 217)"/>
+    
+    <!-- Lotus Center -->
+    <circle cx="150" cy="222" r="6" fill="#FF6B35"/>
+    <circle cx="150" cy="222" r="4" fill="#FFD700"/>
+  </g>
+  
+  <!-- Compass Rose Elements -->
+  <g opacity="0.3" stroke="url(#saffronGlow)" stroke-width="2" fill="none">
+    <!-- Cardinal Directions -->
+    <path d="M 150 30 L 155 50 L 150 48 L 145 50 Z" fill="url(#saffronGlow)"/>
+    <path d="M 270 150 L 250 145 L 252 150 L 250 155 Z" fill="url(#saffronGlow)"/>
+  </g>
+  
+  <!-- Travel Path (Curved Journey Line) -->
+  <path d="M 60 160 Q 100 145 150 155 Q 200 165 240 150" 
+        fill="none" stroke="#4A90E2" stroke-width="3" 
+        stroke-dasharray="8,6" opacity="0.4" stroke-linecap="round"/>
+  
+  <!-- Location Markers -->
+  <g fill="#FF6B35" opacity="0.5">
+    <path d="M 60 160 C 57 155 55 152 55 149 C 55 146 57 144 60 144 C 63 144 65 146 65 149 C 65 152 63 155 60 160 Z"/>
+    <circle cx="60" cy="149" r="2" fill="white"/>
+    
+    <path d="M 240 150 C 237 145 235 142 235 139 C 235 136 237 134 240 134 C 243 134 245 136 245 139 C 245 142 243 145 240 150 Z"/>
+    <circle cx="240" cy="139" r="2" fill="white"/>
+  </g>
+  
+  <!-- Flying Birds (Freedom & Journey) -->
+  <g stroke="#138808" stroke-width="2" fill="none" opacity="0.4" stroke-linecap="round">
+    <path d="M 70 65 Q 75 60 80 65"/>
+    <path d="M 85 60 Q 90 55 95 60"/>
+    <path d="M 100 65 Q 105 60 110 65"/>
+    
+    <path d="M 200 70 Q 205 65 210 70"/>
+    <path d="M 215 65 Q 220 60 225 65"/>
+  </g>
+  
+  <!-- Inner Glow Effect -->
+  <circle cx="150" cy="150" r="135" fill="url(#innerGlow)" opacity="0.6"/>
+  
+  <!-- Subtle Pattern Border -->
+  <circle cx="150" cy="150" r="137" fill="none" stroke="#FF9933" stroke-width="1" opacity="0.2" stroke-dasharray="5,3"/>
+</svg>

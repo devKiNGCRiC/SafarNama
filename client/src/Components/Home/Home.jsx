@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const heroVideo =
   "https://res.cloudinary.com/dxyclus0f/video/upload/q_auto:low,f_auto/v1761919410/safarnama/videos/safarnama/videos/bg2-video.mp4";
 import heroImage from "../../Assets/chandratal-lake.jpg"; // Fallback image
-import logo from "../../Assets/logo.jpg"; // Logo image
 
 // Imported Icons
 import { FiSearch, FiMapPin, FiCalendar, FiTrendingUp } from "react-icons/fi";
@@ -71,7 +70,7 @@ const Home = () => {
 
       // Check for reduced motion preference
       const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+        "(prefers-reduced-motion: reduce)",
       ).matches;
       if (prefersReducedMotion) {
         shouldUseVideo = false;
@@ -93,7 +92,7 @@ const Home = () => {
     if (searchQuery.trim()) {
       // Navigate to destinations with location parameter for filtering
       window.location.href = `/destinations?location=${encodeURIComponent(
-        searchQuery
+        searchQuery,
       )}`;
     }
   };
@@ -129,23 +128,17 @@ const Home = () => {
         {/* Hero Banner */}
         <div className="hero-banner" data-aos="zoom-in">
           <div className="hero-badge">🌿 Eco-Tourism Pioneer</div>
-          <div className="hero-logo-container">
-            <img src={logo} alt="SafarNama" className="hero-logo" />
-          </div>
+
+          {/* Brand Name Only */}
+          <h1 className="hero-brand-name">
+            <span className="safar">Safar</span>
+            <span className="nama">Nama</span>
+          </h1>
+
           <p className="hero-tagline">
             <span className="hindi">यात्रा का आनंद लें</span>
-            <span className="tagline-separator">•</span>
+            <span className="separator">|</span>
             <span className="english">Journey with Purpose</span>
-          </p>
-        </div>
-
-        {/* Mission Statement */}
-        <div className="mission-box" data-aos="fade-up" data-aos-delay="100">
-          <p className="mission-text">
-            Experience the <strong>soul of Incredible India</strong> through
-            sustainable travel. From the snow-capped Himalayas to the backwaters
-            of Kerala, every journey tells a story.{" "}
-            <span className="highlight">What's yours?</span>
           </p>
         </div>
 
@@ -153,7 +146,7 @@ const Home = () => {
         <div
           className="search-experience"
           data-aos="fade-up"
-          data-aos-delay="200"
+          data-aos-delay="100"
         >
           <h2 className="search-heading">Where will your adventure begin?</h2>
           <form className="search-container" onSubmit={handleSearch}>
@@ -188,6 +181,16 @@ const Home = () => {
               🏖️ Goa Beaches
             </button>
           </div>
+        </div>
+
+        {/* Mission Statement */}
+        <div className="mission-box" data-aos="fade-up" data-aos-delay="200">
+          <p className="mission-text">
+            Experience the <strong>soul of Incredible India</strong> through
+            sustainable travel. From the snow-capped Himalayas to the backwaters
+            of Kerala, every journey tells a story.{" "}
+            <span className="highlight">What's yours?</span>
+          </p>
         </div>
 
         {/* Quick Actions */}

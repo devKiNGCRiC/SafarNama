@@ -23,12 +23,12 @@ const storage = multer.diskStorage({
 
 // File filter
 const fileFilter = (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif'];
     
     if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(new AppError('Invalid file type. Only JPG, JPEG and PNG are allowed.', 400), false);
+        cb(new AppError('Invalid file type. Only JPG, PNG, WEBP and GIF images are allowed.', 400), false);
     }
 };
 
@@ -38,13 +38,7 @@ export const upload = multer({
     limits: {
         fileSize: 5 * 1024 * 1024 // 5MB limit
     },
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Not an image! Please upload an image.'), false);
-        }
-    }
+    fileFilter
 });
 
 export const resizeImage = async (req, res, next) => {

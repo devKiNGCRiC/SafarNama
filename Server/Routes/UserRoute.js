@@ -1,16 +1,20 @@
 import Express from "express";
-//import authMiddleware from "../MiddleWare/authMiddleWare.js";
-// import { verifyUser } from '../utils/verifyToken.js'
-import { deleteUser, followUser, getUser, unfollowUser, updateUser , getAllUsers } from "../Controllers/UserController.js";
+import { verifyToken, isAdmin, isSelfOrAdmin } from "../Middleware/authMiddleware.js";
+import {
+  deleteUser,
+  getUser,
+  updateUser,
+  getAllUsers,
+} from "../Controllers/UserController.js";
 
 const router = Express.Router();
 
-router.get('/all-users' , getAllUsers);
-router.get('/:id' , getUser);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
-router.put('/:id/follow', followUser);
-router.put('/:id/unfollow', unfollowUser);
-
+// Following/unfollowing lives in /api/v1/profile (follow/:userId) - the User
+// schema has no followers/following fields, so the old endpoints here could
+// never work.
+router.get("/all-users", verifyToken, isAdmin, getAllUsers);
+router.get("/:id", verifyToken, getUser);
+router.put("/:id", verifyToken, isSelfOrAdmin("id"), updateUser);
+router.delete("/:id", verifyToken, isSelfOrAdmin("id"), deleteUser);
 
 export default router;

@@ -1,13 +1,10 @@
-import axios from 'axios';
-
-const API = axios.create({ baseURL: "http://localhost:5000" });
-
-export const getTimeLinePosts = (id) => API.get(`/posts/${id}/timeline`);
-export const likePost = (id, userId) => API.put(`/posts/${id}/like`, { userId: userId });
+import { http } from '../config/api';
+export const getTimeLinePosts = (id) => http.get(`/posts/${id}/timeline`);
+export const likePost = (id, userId) => http.put(`/posts/${id}/like`, { userId: userId });
 
 // export const addComment = async (postId, commentData) => {
 //     try {
-//       const response = await API.post(`/posts/${postId}/comment`, commentData);
+//       const response = await http.post(`/posts/${postId}/comment`, commentData);
 //       return response.data; // Return the comments data
 //     } catch (error) {
 //       console.error("Error in adding comment:", error);
@@ -15,5 +12,5 @@ export const likePost = (id, userId) => API.put(`/posts/${id}/like`, { userId: u
 //     }
 // };
 
-export const addComment = (id, comment) => API.post(`/posts/${id}/comment`, {comment:comment});
-export const getComments = (id) => API.get(`/posts/${id}/comments`);
+export const addComment = (id, comment) => http.post(`/posts/${id}/comment`, {comment:comment});
+export const getComments = (id) => http.get(`/posts/${id}/comments`);

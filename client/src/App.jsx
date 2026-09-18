@@ -24,14 +24,14 @@ import { loginSuccess } from "./store/reducers/authSlice";
 
 // Lazy Load Pages (load only when needed)
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
-const AllDestinations = lazy(() =>
-  import("./Pages/AllDestination/AllDestination")
+const AllDestinations = lazy(
+  () => import("./Pages/AllDestination/AllDestination"),
 );
-const DestinationDetail = lazy(() =>
-  import("./Pages/Destination/DestinationDetail")
+const DestinationDetail = lazy(
+  () => import("./Pages/Destination/DestinationDetail"),
 );
-const ItineraryBuilder = lazy(() =>
-  import("./Pages/Itinerary/ItineraryBuilder")
+const ItineraryBuilder = lazy(
+  () => import("./Pages/Itinerary/ItineraryBuilder"),
 );
 const Events = lazy(() => import("./Pages/Events/Events"));
 const EcoGuides = lazy(() => import("./Pages/EcoGuides/EcoGuides"));
@@ -46,8 +46,9 @@ const Payment = lazy(() => import("./Pages/Payment/Payment"));
 const ThankYou = lazy(() => import("./Pages/Thankyou/ThankYou"));
 const Blogs = lazy(() => import("./Pages/Blog/Blogs"));
 const MyBlog = lazy(() => import("./Pages/Blog/MyBlog"));
-const SearchResultList = lazy(() =>
-  import("./Pages/SearchResultList/SearchResultList")
+const BlogView = lazy(() => import("./Pages/Blog/BlogView"));
+const SearchResultList = lazy(
+  () => import("./Pages/SearchResultList/SearchResultList"),
 );
 const TourListing = lazy(() => import("./Pages/Tours/TourListing/TourListing"));
 const TourDetail = lazy(() => import("./Pages/Tours/TourDetail/TourDetail"));
@@ -55,8 +56,8 @@ const CreateBlog = lazy(() => import("./Pages/Blog/CreateBlog"));
 const BlogDetails = lazy(() => import("./Pages/Blog/BlogDetails"));
 const DesignShowcase = lazy(() => import("./Pages/Test/DesignShowcase"));
 const Profile = lazy(() => import("./Pages/Profile/Profile"));
-const BookingHistory = lazy(() =>
-  import("./Pages/BookingHistory/BookingHistory")
+const BookingHistory = lazy(
+  () => import("./Pages/BookingHistory/BookingHistory"),
 );
 
 const AppContent = () => {
@@ -74,7 +75,7 @@ const AppContent = () => {
         loginSuccess({
           user: JSON.parse(user),
           token,
-        })
+        }),
       );
     }
 
@@ -236,16 +237,33 @@ const AppContent = () => {
               }
             />
 
-            {/* <Route path="/blog-details/:id" element={
-                            <ProtectedRoute>
-                                <div>
-                                    <Navbar />
-                                    <Sidebar />
-                                    <BlogDetails />
-                                    <Footer />
-                                </div>
-                            </ProtectedRoute>
-                        } /> */}
+            <Route
+              path="/blog/:id"
+              element={
+                <ProtectedRoute>
+                  <div>
+                    <Navbar />
+                    <Sidebar />
+                    <BlogView />
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/blog-details/:id"
+              element={
+                <ProtectedRoute>
+                  <div>
+                    <Navbar />
+                    <Sidebar />
+                    <BlogDetails />
+                    <Footer />
+                  </div>
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/booking"

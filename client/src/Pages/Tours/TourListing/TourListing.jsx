@@ -8,6 +8,7 @@ import Sidebar from '../../../Components/Sidebar/Sidebar';
 import Footer from '../../../Components/Footer/Footer';
 import { Calendar, MapPin, Clock, Users } from 'lucide-react';
 import Loader from '../../../Components/Loader/Loader';
+import { API_URL } from '../../../config/api';
 const TourListing = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,9 +48,9 @@ const TourListing = () => {
       if (filters.difficulty) queryParams.append('difficulty', filters.difficulty);
       if (destinationId) queryParams.append('destination', destinationId);
 
-      // const response = await axios.get(`http://localhost:5000/api/v1/tours?${queryParams.toString()}`);
+      // const response = await axios.get(`${API_URL}/api/v1/tours?${queryParams.toString()}`);
       const queryString = queryParams.toString();
-        const url = queryString ? `http://localhost:5000/api/v1/tours?${queryString}` : 'http://localhost:5000/api/v1/tours';
+        const url = queryString ? `${API_URL}/api/v1/tours?${queryString}` : `${API_URL}/api/v1/tours`;
 
         const response = await axios.get(url);
 

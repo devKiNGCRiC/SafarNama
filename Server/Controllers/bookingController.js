@@ -25,6 +25,9 @@ export const createBooking = async (req, res) => {
     }
 
     const newBooking = new Booking({
+      // Owner comes from the token. Without it the booking could never be found
+      // again, because history and lookups filter on userId.
+      userId: req.user._id.toString(),
       tourId,
       tourName,
       userEmail,
@@ -48,8 +51,7 @@ export const createBooking = async (req, res) => {
     console.error('Booking error:', err);
     res.status(500).json({
       success: false,
-      message: "Failed to create booking",
-      error: err.message
+      message: "Failed to create booking"
     });
   }
 };
@@ -104,7 +106,53 @@ export const getAllBooking = async (req, res) => {
     }
   };
   
-  // Cancel booking
+  // Update booking status. Clients may only cancel their own booking;
+  // confirmation is done by the payment controller once a payment is recorded.
+  export const updateBookingStatus = async (req, res) => {
+    try {
+      if (req.body.status !== 'CANCELLED') {
+        return res.status(400).json({
+          success: false,
+          message: "Only cancelling a booking is allowed here"
+        });
+      }
+
+      const booking = await Booking.findOne({
+        _id: req.params.id,
+        userId: req.user._id.toString()
+      });
+
+      if (!booking) {
+        return res.status(404).json({
+          success: false,
+          message: "Booking not found"
+        });
+      }
+
+      if (booking.status === 'CANCELLED') {
+        return res.status(400).json({
+          success: false,
+          message: "Booking is already cancelled"
+        });
+      }
+
+      booking.status = 'CANCELLED';
+      await booking.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Booking cancelled successfully",
+        data: booking
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: "Failed to update booking"
+      });
+    }
+  };
+
+  // Cancel booking (with tour-availability handling; see bookingServices)
   export const cancelBooking = async (req, res) => {
     try {
       const booking = await bookingService.cancelBooking(req.params.id, req.user._id);

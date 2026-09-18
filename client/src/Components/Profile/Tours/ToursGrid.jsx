@@ -1,6 +1,6 @@
 import React from 'react';
 import { Heart, MessageCircle } from 'lucide-react';
-import './toursGrid.scss';
+import './ToursGrid.scss';
 
 const ToursGrid = ({ tours = [] }) => {
     return (

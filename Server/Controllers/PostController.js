@@ -3,97 +3,113 @@ import UserModel from "../Models/userModel.js";
 
 import mongoose from "mongoose";
 
-//Create a new Post
+// The acting user always comes from the verified JWT (req.user, set by
+// verifyToken) - a `userId` sent in the request body is never trusted.
 
+//Create a new Post
 export const createPost = async (req, res) => {
-  const newPost = new PostModel(req.body);
   try {
+    const newPost = new PostModel({
+      userId: req.user._id.toString(),
+      desc: req.body.desc,
+      image: req.body.image,
+    });
     const savedPost = await newPost.save();
     // Find the user and update their posts array
-    await UserModel.findByIdAndUpdate(req.body.userId, {
+    await UserModel.findByIdAndUpdate(req.user._id, {
       $push: { posts: savedPost._id },
     });
-    res.status(200).json(newPost);
+    res.status(200).json(savedPost);
   } catch (error) {
-    res.status(500).json(error);
+    console.error("createPost error:", error);
+    res.status(500).json({ message: "Failed to create post" });
   }
 };
 
 //Get a Post
-
 export const getPost = async (req, res) => {
-  const id = req.params.id;
   try {
-    const post = await PostModel.findById(id);
+    const post = await PostModel.findById(req.params.id);
     if (post) {
       res.status(200).json(post);
     } else {
       res.status(404).json("Post does not exist");
     }
   } catch (error) {
-    res.status(500).json(error);
+    res.status(400).json({ message: "Invalid post id" });
   }
 };
 
-
-//Update a Post
-
+//Update a Post (author only)
 export const updatePost = async (req, res) => {
-  const postId = req.params.id;
-  const { userId } = req.body;
   try {
-        const updatedPost = await PostModel.findByIdAndUpdate(postId);
-        
-        if (updatedPost.userId === userId) {
-            await updatedPost.updateOne({ $set: req.body });
-            res.status(200).json(updatedPost);
-        } else {
-            res.status(404).json("Post does not exist");
-        }
-    } catch (error) {
-        res.status(500).json(error);
+    const post = await PostModel.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json("Post does not exist");
     }
+    if (post.userId !== req.user._id.toString()) {
+      return res.status(403).json("You can only edit your own posts");
+    }
+
+    if (req.body.desc !== undefined) post.desc = req.body.desc;
+    if (req.body.image !== undefined) post.image = req.body.image;
+    await post.save();
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("updatePost error:", error);
+    res.status(500).json({ message: "Failed to update post" });
+  }
 };
 
-//Delete a Post
-
+//Delete a Post (author or admin)
 export const deletePost = async (req, res) => {
-  const postId = req.params.id;
-  const { userId } = req.body;
   try {
-        const deletedPost = await PostModel.findByIdAndDelete(postId);
-        if (deletedPost.userId === userId) {
-            await deletedPost.deleteOne();
-            res.status(200).json("Post deleted successfully");
-        } else {
-            res.status(404).json("Post does not exist");
-        }
-    } catch (error) {
-        res.status(500).json(error);
+    // Look the post up first - it used to be deleted *before* the owner check
+    const post = await PostModel.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json("Post does not exist");
     }
+    if (
+      post.userId !== req.user._id.toString() &&
+      req.user.role !== "admin"
+    ) {
+      return res.status(403).json("You can only delete your own posts");
+    }
+
+    await post.deleteOne();
+    await UserModel.updateOne(
+      { _id: post.userId },
+      { $pull: { posts: post._id } },
+    );
+    res.status(200).json("Post deleted successfully");
+  } catch (error) {
+    console.error("deletePost error:", error);
+    res.status(500).json({ message: "Failed to delete post" });
+  }
 };
 
 //Like a Post
-
 export const likePost = async (req, res) => {
-    const postId = req.params.id;
-    const { userId } = req.body;
-    try {
-        const post = await PostModel.findById(postId);
-        if (post.likes.includes(userId)) {
-            await post.updateOne({ $pull: { likes: userId } });
-            res.status(200).json("Post unliked!");
-        } else {
-            await post.updateOne({ $push: { likes: userId } });
-            res.status(200).json("Post liked!");
-        }
-    } catch (error) {
-    res.status(500).json(error);
+  const userId = req.user._id.toString();
+  try {
+    const post = await PostModel.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json("Post does not exist");
     }
+    if (post.likes.includes(userId)) {
+      await post.updateOne({ $pull: { likes: userId } });
+      res.status(200).json("Post unliked!");
+    } else {
+      await post.updateOne({ $push: { likes: userId } });
+      res.status(200).json("Post liked!");
+    }
+  } catch (error) {
+    console.error("likePost error:", error);
+    res.status(500).json({ message: "Failed to like post" });
+  }
 };
 
 //Get Timeline Posts
-
 export const getTimelinePosts = async (req, res) => {
   const userId = req.params.id;
   try {
@@ -119,24 +135,27 @@ export const getTimelinePosts = async (req, res) => {
         },
       },
     ]);
-    res.status(200).json(currentUserPosts.concat(...followingPosts[0].followingPosts).sort((a, b) =>{
+    const others = followingPosts[0]?.followingPosts || [];
+    res.status(200).json(
+      currentUserPosts.concat(...others).sort((a, b) => {
         return b.createdAt - a.createdAt;
-    }));
+      }),
+    );
   } catch (error) {
-    res.status(500).json(error);
+    console.error("getTimelinePosts error:", error);
+    res.status(500).json({ message: "Failed to load timeline" });
   }
 };
-
 
 // Controller to add a comment
 export const addComment = async (req, res) => {
   const postId = req.params.id;
-  const { userId, text } = req.body;
+  // The client sends the comment text either as `text` or wrapped in `comment`
+  const text = req.body.text ?? req.body.comment;
 
   try {
-    // Validate inputs
-    if (!userId || !text) {
-      return res.status(400).json({ message: "User ID and text are required." });
+    if (typeof text !== "string" || !text.trim()) {
+      return res.status(400).json({ message: "Comment text is required." });
     }
 
     // Find and update the post with the new comment
@@ -145,13 +164,13 @@ export const addComment = async (req, res) => {
       {
         $push: {
           comments: {
-            userId,
-            text,
-            createdAt: new Date()
-          }
-        }
+            userId: req.user._id.toString(),
+            text: text.trim(),
+            createdAt: new Date(),
+          },
+        },
       },
-      { new: true } // Return the updated document
+      { new: true }, // Return the updated document
     );
 
     if (!post) {
@@ -162,57 +181,17 @@ export const addComment = async (req, res) => {
     res.status(200).json(post.comments);
   } catch (error) {
     console.error("Error adding comment:", error);
-    res.status(500).json({ message: "Internal Server Error", error: error.message });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-
-// Controller to add a comment
-// export const addComment = async (req, res) => {
-//   const { id } = req.params.id;
-//   console.log("Received Post ID:", id);
-//   const { userId, text } = req.body;
-
-//   try {
-//     // Validate that all required data is present
-//     if (!userId || !text) {
-//       return res.status(400).json({ message: "User ID and text are required." });
-//     }
-
-//     // Find the post by ID
-//     const post = await PostModel.findById(id);
-//     if (!post) {
-//       return res.status(404).json({ message: "Post not found." });
-//     }
-
-//     // Add the comment to the post's comment array
-//     post.comments.push({ userId, text });
-//     await post.save(); // Save the updated post
-
-//     // Return the updated comments
-//     res.status(200).json(post.comments);
-//   } catch (error) {
-//     console.error("Error adding comment:", error);
-//     res.status(500).json({ message: "Internal Server Error", error: error.message });
-//   }
-
-//   // try {
-//   //   const post = await PostModel.findById(postId);
-//   //   const newComment = { userId, text, createdAt: new Date() };
-//   //   post.comments.push(newComment);
-//   //   await post.save();
-//   //   res.status(201).json(post.comments);
-//   // } catch (error) {
-//   //   res.status(500).json({ error: "Failed to add comment" });
-//   // }
-// };
-
-// Controller to get comments
+// Controller to get comments (the route parameter is named `postId`)
 export const getComments = async (req, res) => {
-  const  postId  = req.params.id;
-
   try {
-    const post = await PostModel.findById(postId);
+    const post = await PostModel.findById(req.params.postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found." });
+    }
     res.status(200).json(post.comments);
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve comments" });

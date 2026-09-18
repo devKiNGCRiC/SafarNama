@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FcSearch } from "react-icons/fc";
 import { MdClose } from "react-icons/md";
 import './Search.css'
+import { API_URL } from '../../config/api';
 
 const SearchComponent = ({ variant = 'navbar' }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,9 +41,9 @@ const SearchComponent = ({ variant = 'navbar' }) => {
     try {
       // Make parallel requests to different endpoints
       const [destinationsRes, postsRes, blogsRes] = await Promise.all([
-        fetch(`http://localhost:5000/api/v1/search/destinations?q=${searchTerm}`),
-        fetch(`http://localhost:5000/api/v1/search/posts?q=${searchTerm}`),
-        fetch(`http://localhost:5000/api/v1/search/blogs?q=${searchTerm}`)
+        fetch(`${API_URL}/api/v1/search/destinations?q=${searchTerm}`),
+        fetch(`${API_URL}/api/v1/search/posts?q=${searchTerm}`),
+        fetch(`${API_URL}/api/v1/search/blogs?q=${searchTerm}`)
       ]);
 
       const [destinations, posts, blogs] = await Promise.all([

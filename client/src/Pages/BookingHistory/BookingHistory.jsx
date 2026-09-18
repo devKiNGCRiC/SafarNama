@@ -5,6 +5,7 @@ import { Calendar, MapPin, Users, CreditCard } from 'lucide-react';
 import './BookingHistory.css';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
+import { API_URL } from '../../config/api';
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
@@ -19,7 +20,7 @@ const BookingHistory = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
-        'http://localhost:5000/api/v1/booking',
+        `${API_URL}/api/v1/booking`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -41,7 +42,7 @@ const BookingHistory = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.patch(
-        `http://localhost:5000/api/v1/booking/${bookingId}`,
+        `${API_URL}/api/v1/booking/${bookingId}`,
         { status: 'CANCELLED' },
         {
           headers: { Authorization: `Bearer ${token}` }

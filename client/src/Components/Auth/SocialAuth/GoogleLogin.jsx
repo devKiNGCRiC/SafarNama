@@ -1,11 +1,14 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { googleLogin } from '../../../actions/authAction';
 
 import { FcGoogle } from "react-icons/fc";
 
 const GoogleLogin = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const login = useGoogleLogin({
         onSuccess: async (response) => {

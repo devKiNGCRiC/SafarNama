@@ -16,7 +16,8 @@ import { GrSchedule } from "react-icons/gr";
 import { FaTimes } from 'react-icons/fa'; 
 
 import KiNG from '../../Assets/img/KiNG.jpg'
-import { uploadImage , uploadPost } from '../../Actions/uplaodAction';
+import { uploadImage , uploadPost } from '../../actions/uplaodAction';
+import { API_URL } from '../../config/api';
 
 const PostShare = () => {
     const loading = useSelector((state) => state.postReducer.uploading);
@@ -26,7 +27,7 @@ const PostShare = () => {
 
     const desc = useRef();
     const { user } = useSelector((state) => state.authReducer.authData) || {};
-    const publicFolder = "http://localhost:5000/images/";
+    const publicFolder = `${API_URL}/images/`;
 
     const onImageChange = (event) => {
         if(event.target.files && event.target.files[0]){

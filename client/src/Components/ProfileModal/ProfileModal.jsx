@@ -5,8 +5,8 @@ import { useDispatch } from'react-redux';
 import './ProfileModal.scss'; // We'll create this file next
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { uploadImage } from '../../Actions/uplaodAction';
-import { updateUser } from '../../Actions/UserAction';
+import { uploadImage } from '../../actions/uplaodAction';
+import { updateUser } from '../../actions/UserAction';
 
 const ProfileModal = ({ modalOpened, setModalOpened , data }) => {
   if (!modalOpened) return null;

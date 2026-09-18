@@ -8,7 +8,7 @@ import ProfileHeader from '../../Components/Profile/ProfileHeader/ProfileHeader'
 import ProfileInfo from '../../Components/Profile/ProfileInfo/ProfileInfo';
 import ProfileTabs from '../../Components/Profile/ProfileTabs/ProfileTabs';
 import ProfileEdit from '../../Components/Profile/ProfileEdit/ProfileEdit';
-// import ProfileStats from '../../components/Profile/ProfileStats/ProfileStats';
+// import ProfileStats from '../../Components/Profile/ProfileStats/ProfileStats';
 import ProfileActions from '../../Components/Profile/ProfileActions/ProfileActions';
 import Loader from '../../Components/Loader/Loader';
 import ErrorMessage from '../../Components/common/ErrorMessage';
@@ -124,7 +124,7 @@ const Profile = () => {
     console.log('Profile from Redux:', profile);
 
     // Check if it's own profile
-    const isOwnProfile = (username ? username === currentUser?.username : true || !username);
+    const isOwnProfile = !username || username === currentUser?.username;
     const isFollowing = profile?.followers?.includes(currentUser?._id);
 
     console.log('Component State:', {

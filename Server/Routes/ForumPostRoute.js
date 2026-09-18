@@ -9,7 +9,7 @@ import {
   toggleBookmark, 
   addForumComment 
 } from '../Controllers/ForumPostController.js';
-//import authMiddleware from '../MiddleWare/authMiddleWare.js';
+import { verifyToken } from '../Middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -18,11 +18,11 @@ router.get('/', getForumPosts);
 router.get('/:id', getForumPostById);
 
 // Protected routes
-router.post('/',  createForumPost);
-router.patch('/:id',  updateForumPost);
-router.delete('/:id',  deleteForumPost);
-router.post('/:id/like',  toggleLike);
-router.post('/:id/bookmark',  toggleBookmark);
-router.post('/:id/comments',  addForumComment);
+router.post('/', verifyToken, createForumPost);
+router.patch('/:id', verifyToken, updateForumPost);
+router.delete('/:id', verifyToken, deleteForumPost);
+router.post('/:id/like', verifyToken, toggleLike);
+router.post('/:id/bookmark', verifyToken, toggleBookmark);
+router.post('/:id/comments', verifyToken, addForumComment);
 
 export default router;

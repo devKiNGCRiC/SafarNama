@@ -20,6 +20,9 @@ dist-ssr/
 .next/
 out/
 
+# Generated CSS sourcemaps (Live Sass Compiler)
+*.css.map
+
 # Logs
 logs/
 *.log
@@ -35,7 +38,7 @@ Thumbs.db
 desktop.ini
 
 # Editor directories
-.vscode/
+.vscode/*
 !.vscode/extensions.json
 .idea/
 *.suo

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Star, ThumbsUp, Filter } from 'lucide-react';
 import './TourReviews.css';
+import { API_URL } from '../../config/api';
 
 const TourReviews = ({ tourId }) => {
   const [reviews, setReviews] = useState([]);
@@ -21,7 +22,7 @@ const TourReviews = ({ tourId }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/tours/${tourId}/reviews`, {
+      const response = await axios.get(`${API_URL}/api/v1/tours/${tourId}/reviews`, {
         params: { filter, sort }
       });
       
@@ -57,7 +58,7 @@ const TourReviews = ({ tourId }) => {
       });
 
       const response = await axios.post(
-        `http://localhost:5000/api/v1/tours/${tourId}/reviews`,
+        `${API_URL}/api/v1/tours/${tourId}/reviews`,
         formData,
         {
           headers: {
@@ -151,9 +152,8 @@ const TourReviews = ({ tourId }) => {
           <div key={review._id} className="review-card">
             <div className="review-header">
               <div className="reviewer-info">
-                <img src={review.user.avatar || '/default-avatar.png'} alt="Reviewer" />
                 <div>
-                  <h4>{review.user.name}</h4>
+                  <h4>{review.username}</h4>
                   <span className="review-date">
                     {new Date(review.createdAt).toLocaleDateString()}
                   </span>
@@ -163,7 +163,7 @@ const TourReviews = ({ tourId }) => {
                 {renderRatingStars(review.rating)}
               </div>
             </div>
-            <p className="review-comment">{review.comment}</p>
+            <p className="review-comment">{review.reviewText ?? review.comment}</p>
             {review.photos?.length > 0 && (
               <div className="review-photos">
                 {review.photos.map((photo, index) => (
@@ -174,7 +174,7 @@ const TourReviews = ({ tourId }) => {
             <div className="review-footer">
               <button className="helpful-btn">
                 <ThumbsUp size={16} />
-                Helpful ({review.helpfulCount})
+                Helpful ({review.helpfulCount ?? 0})
               </button>
             </div>
           </div>

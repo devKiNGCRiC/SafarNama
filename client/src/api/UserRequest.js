@@ -1,21 +1,13 @@
-import axios from 'axios';
+import { http } from '../config/api';
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+export const getUser = (userId) => http.get(`/user/${userId}`);
 
-API.interceptors.request.use((req) => {
-  if (localStorage.getItem('profile')) {
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-  }
+export const updateUser = (id, formData) => http.put(`/user/${id}`, formData);
 
-  return req;
-});
+export const getAllUser = () => http.get("/user/all-users");
 
-export const getUser = (userId) => API.get(`/user/${userId}`);
+// Following now lives in /api/v1/profile/follow/:userId (see api/profileRequest.js).
+// The old /user/:id/follow endpoints were removed from the server.
+export const followUser = (id, data) => http.put(`/user/${id}/follow`, data);
 
-export const updateUser = (id, formData) => API.put(`/user/${id}`, formData);
-
-export const getAllUser = () => API.get("/user");
-
-export const followUser = (id, data) => API.put(`/user/${id}/follow`, data);
-
-export const unFollowUser = (id, data) => API.put(`/user/${id}/unfollow`, data);
+export const unFollowUser = (id, data) => http.put(`/user/${id}/unfollow`, data);

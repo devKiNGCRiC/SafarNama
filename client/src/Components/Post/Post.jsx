@@ -7,7 +7,8 @@ import Comment from '../../Assets/img/comment.png'
 import Share from '../../Assets/img/share.png'
 import Heart from '../../Assets/img/like.png'
 import NotLike from '../../Assets/img/notlike.png'
-import { likePost , addComment , getComments } from '../../Api/PostRequest'
+import { likePost , addComment , getComments } from '../../api/PostRequest'
+import { API_URL } from '../../config/api';
 
 
 
@@ -15,7 +16,7 @@ const Post = ({data}) => {
   const  {user} = useSelector((state)=>state.authReducer.authData);
 
   
-  const publicFolder = "http://localhost:5000/images/";
+  const publicFolder = `${API_URL}/images/`;
 
   // // Use the REACT_APP_PUBLIC_FOLDER environment variable
   // const publicFolder2 = process.env.REACT_APP_PUBLIC_FOLDER;

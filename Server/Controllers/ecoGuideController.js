@@ -23,7 +23,16 @@ export const getAllGuides = async (req, res) => {
 
 export const createGuide = async (req, res) => {
   try {
-    const newGuide = new EcoGuide(req.body);
+    const { title, category, content, images, tags } = req.body;
+    // Author is the logged-in user; likes/comments cannot be pre-filled
+    const newGuide = new EcoGuide({
+      title,
+      category,
+      content,
+      images,
+      tags,
+      author: req.user._id
+    });
     const savedGuide = await newGuide.save();
     
     res.status(201).json({
@@ -34,8 +43,7 @@ export const createGuide = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "Failed to create eco guide",
-      error: err.message
+      message: "Failed to create eco guide"
     });
   }
 };

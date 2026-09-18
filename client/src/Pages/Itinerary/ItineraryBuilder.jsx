@@ -1,12 +1,15 @@
 // src/Pages/Itinerary/ItineraryBuilder.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Footer from '../../Components/Footer/Footer';
 import './ItineraryBuilder.css';
+import { API_URL } from '../../config/api';
 
 const ItineraryBuilder = () => {
+  const navigate = useNavigate();
   const [destinations, setDestinations] = useState([]);
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [itineraryName, setItineraryName] = useState('');
@@ -24,7 +27,7 @@ const ItineraryBuilder = () => {
     const fetchDestinations = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/v1/destinations');
+        const response = await axios.get(`${API_URL}/api/v1/destinations`);
         console.log('Destinations response:', response.data); // Debug log
         if (response.data.success && response.data.data) {
           setDestinations(response.data.data);
@@ -149,7 +152,7 @@ const ItineraryBuilder = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:5000/api/v1/itineraries',
+        `${API_URL}/api/v1/itineraries`,
         itineraryData,
         {
           headers: {

@@ -1,6 +1,6 @@
 // src/Components/Share/ShareTour.jsx
 import React, { useState } from 'react';
-import { Share2, Facebook, Twitter,  Copy, Check, Mail } from 'lucide-react';
+import { Share2, Facebook, Twitter,  Copy, Check, Mail, MessageCircle } from 'lucide-react';
 import './ShareTour.css';
 
 const ShareTour = ({ tour }) => {
@@ -65,7 +65,7 @@ const ShareTour = ({ tour }) => {
               onClick={() => handleShare('whatsapp')}
               className="share-option whatsapp"
             >
-              <WhatsApp size={20} />
+              <MessageCircle size={20} />
               WhatsApp
             </button>
 

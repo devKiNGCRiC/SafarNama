@@ -24,7 +24,7 @@ if "%choice%"=="6" goto end
 :both
 echo.
 echo Starting both Client and Server...
-start cmd /k "cd Server && npm start"
+start cmd /k "cd Server && npm run dev"
 timeout /t 3
 start cmd /k "cd client && npm run dev"
 goto end

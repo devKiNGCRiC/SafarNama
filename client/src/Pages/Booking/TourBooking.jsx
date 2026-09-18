@@ -6,6 +6,7 @@ import './TourBooking.css';
 import Navbar from '../../Components/Navbar/Navbar';
 import Footer from '../../Components/Footer/Footer';
 import Sidebar from '../../Components/Sidebar/Sidebar';
+import { API_URL } from '../../config/api';
 
 const TourBooking = () => {
   const location = useLocation();
@@ -100,8 +101,6 @@ const TourBooking = () => {
   }, [isSubmitting]);
 
     // Before making the booking request
-    console.log('Token:', localStorage.getItem('token'));
-    console.log('User:', localStorage.getItem('user'));
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -127,7 +126,7 @@ const TourBooking = () => {
         console.log('Submitting booking payload:', bookingPayload);
     
         const response = await axios.post(
-          'http://localhost:5000/api/v1/booking', // Make sure this matches your backend route
+          `${API_URL}/api/v1/booking`, // Make sure this matches your backend route
           bookingPayload,
           {
             headers: {
@@ -178,7 +177,6 @@ useEffect(() => {
   
   // Log authentication status
   const token = localStorage.getItem('token');
-  console.log('Authentication token exists:', !!token);
 }, [tourData]);
 
   return (

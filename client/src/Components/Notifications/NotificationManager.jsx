@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Bell, X } from 'lucide-react';
+import { Bell, X, Heart, MessageCircle, UserPlus } from 'lucide-react';
 import './NotificationManager.scss';
+import { API_URL } from '../../config/api';
 
 const NotificationManager = () => {
     const [notifications, setNotifications] = useState([]);
@@ -9,7 +10,7 @@ const NotificationManager = () => {
 
     useEffect(() => {
         // Connect to WebSocket for real-time notifications
-        const ws = new WebSocket(process.env.VITE_WS_URL || 'ws://localhost:5000/ws');
+        const ws = new WebSocket(import.meta.env.VITE_WS_URL || `${API_URL.replace(/^http/, 'ws')}/ws`);
         
         ws.onmessage = (event) => {
             const notification = JSON.parse(event.data);

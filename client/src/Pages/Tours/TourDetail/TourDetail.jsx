@@ -7,6 +7,7 @@ import Navbar from '../../../Components/Navbar/Navbar';
 import Footer from '../../../Components/Footer/Footer';
 import {AlertCircle} from 'lucide-react';
 import Sidebar from '../../../Components/Sidebar/Sidebar';
+import { API_URL } from '../../../config/api';
 const TourDetail = () => {
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ const TourDetail = () => {
 
   const fetchTourDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/tours/${id}`);
+      const response = await axios.get(`${API_URL}/api/v1/tours/${id}`);
       if (response.data.success) {
         setTour(response.data.data);
       }

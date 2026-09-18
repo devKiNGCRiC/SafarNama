@@ -6,14 +6,14 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import * as UserApi from '../../Api/UserRequest.js';
+import * as UserApi from '../../api/UserRequest.js';
 
 import './InfoCard.css';
 
 // import { UilPen } from '@iconscout/react-unicons';
 import { FaPen } from 'react-icons/fa';
 import ProfileModal from '../ProfileModal/ProfileModal';
-import { logOut } from '../../Actions/AuthAction.js';
+import { logOut } from '../../actions/authAction.js';
 
 
 const InfoCard = () => {

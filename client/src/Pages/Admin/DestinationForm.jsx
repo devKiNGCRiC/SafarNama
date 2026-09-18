@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './DestinationForm.css';
+import { API_URL } from '../../config/api';
 
 const DestinationForm = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const DestinationForm = () => {
 
   const fetchDestination = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/v1/destinations/${id}`);
+      const res = await axios.get(`${API_URL}/api/v1/destinations/${id}`);
       setFormData(res.data.data);
     } catch (error) {
       console.error('Error fetching destination:', error);
@@ -39,9 +40,9 @@ const DestinationForm = () => {
     e.preventDefault();
     try {
       if (isEditMode) {
-        await axios.put(`http://localhost:5000/api/v1/destinations/${id}`, formData);
+        await axios.put(`${API_URL}/api/v1/destinations/${id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/v1/destinations', formData);
+        await axios.post(`${API_URL}/api/v1/destinations`, formData);
       }
       navigate('/admin/destinations');
     } catch (error) {

@@ -8,34 +8,39 @@ import {
   deleteTour,
   checkAvailability,
   getTourStats,
-    getSimilarTours,
+  getSimilarTours,
   getMonthlySchedule
 } from '../Controllers/tourController.js';
+import { getTourReviews, createReview } from '../Controllers/reviewController.js';
+import { verifyToken, isAdmin } from '../Middleware/authMiddleware.js';
+import multer from 'multer';
 
 const router = express.Router();
 
-// Routes for tours
-router.route('/')
-  .get(getAllTours)        // Get all tours
-  .post(createTour);       // Create a new tour
+// Review submissions from the tour page arrive as multipart/form-data (they can
+// carry photos). Photos are not stored yet, so only the text fields are read.
+const parseReviewForm = multer().none();
 
-router.route('/:id')
-  .get(getTour)            // Get a specific tour by ID
-  .patch(updateTour)       // Update a specific tour
-  .delete(deleteTour);     // Delete a specific tour
-
-// In tourRoutes.js
+// NOTE: fixed-path routes must be declared before '/:id', otherwise Express
+// treats e.g. "similar" or "stats" as a tour id.
 router.get('/similar', getSimilarTours);
-// Route for getting tours by destination
+router.get('/availability', checkAvailability);
+router.get('/stats', getTourStats);
+router.get('/schedule/monthly', getMonthlySchedule);
 router.get('/destination/:destinationId', getDestinationTours);
 
-// Route for checking availability
-router.get('/availability', checkAvailability);
+// Reviews for a tour
+router.get('/:tourId/reviews', getTourReviews);
+router.post('/:tourId/reviews', verifyToken, parseReviewForm, createReview);
 
-// Route for getting tour statistics
-router.get('/stats', getTourStats);
+// Routes for tours
+router.route('/')
+  .get(getAllTours)                              // Get all tours
+  .post(verifyToken, isAdmin, createTour);       // Create a new tour (admin)
 
-// Route for getting monthly schedule
-router.get('/schedule/monthly', getMonthlySchedule);
+router.route('/:id')
+  .get(getTour)                                  // Get a specific tour by ID
+  .patch(verifyToken, isAdmin, updateTour)       // Update a tour (admin)
+  .delete(verifyToken, isAdmin, deleteTour);     // Delete a tour (admin)
 
 export default router;

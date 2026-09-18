@@ -15,10 +15,11 @@ import {
     toggleSaveItemSuccess,
     updateFollowStatus
 } from '../store/reducers/profileSlice';
+import { API_URL } from '../config/api';
 
 // Fetch API base URL from environment or use fallback
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  import.meta.env.VITE_API_URL || `${API_URL}`;
 
 export const getProfile = (username) => async (dispatch) => {
   dispatch(profileStart());

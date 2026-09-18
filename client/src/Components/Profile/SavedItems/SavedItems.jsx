@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './SavedItems.css';
+import { API_URL } from '../../../config/api';
 
 const SavedItems = () => {
   const [savedDestinations, setSavedDestinations] = useState([]);
@@ -14,7 +15,7 @@ const SavedItems = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          'http://localhost:5000/api/v1/users/saved-destinations',
+          `${API_URL}/api/v1/users/saved-destinations`,
           {
             headers: { Authorization: `Bearer ${token}` }
           }
@@ -38,7 +39,7 @@ const SavedItems = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:5000/api/v1/users/saved-destinations/${destinationId}`,
+        `${API_URL}/api/v1/users/saved-destinations/${destinationId}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }

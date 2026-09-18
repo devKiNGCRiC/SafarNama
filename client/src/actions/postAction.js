@@ -1,4 +1,4 @@
-import * as PostApi from '../Api/PostRequest';
+import * as PostApi from '../api/PostRequest';
 
 export const getTimeLinePosts = (id) => async (dispatch) => {
     dispatch({type : "RETREIVING_START"});

@@ -54,8 +54,7 @@ export const adminLogin = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Admin login failed",
-            error: error.message
+            message: "Admin login failed"
         });
     }
 };
@@ -87,8 +86,7 @@ export const getDashboardStats = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to get dashboard stats",
-            error: error.message
+            message: "Failed to get dashboard stats"
         });
     }
 };
@@ -115,8 +113,7 @@ export const getAllUsers = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to fetch users",
-            error: error.message
+            message: "Failed to fetch users"
         });
     }
 };
@@ -146,8 +143,7 @@ export const updateUserStatus = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to update user status",
-            error: error.message
+            message: "Failed to update user status"
         });
     }
 };
@@ -174,8 +170,7 @@ export const getUserActivity = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to get user activity",
-            error: error.message
+            message: "Failed to get user activity"
         });
     }
 };
@@ -202,8 +197,7 @@ export const getSystemAnalytics = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to get analytics",
-            error: error.message
+            message: "Failed to get analytics"
         });
     }
 };

@@ -3,18 +3,18 @@
 /* 🇮🇳 Indian Theme Root Variables */
 :root {
   /* Indian Flag Colors */
-  --saffron-primary: #FF9933;
+  --saffron-primary: #ff9933;
   --forest-green: #138808;
-  --white-lotus: #FFFFFF;
-  
+  --white-lotus: #ffffff;
+
   /* Nature Palette */
-  --sky-blue: #87CEEB;
-  --golden-yellow: #FFD700;
-  --terracotta: #C1502E;
+  --sky-blue: #87ceeb;
+  --golden-yellow: #ffd700;
+  --terracotta: #c1502e;
   --earth-brown: #654321;
-  
+
   /* Legacy Variables (for compatibility) */
-  --primaryColor: #FF9933;
+  --primaryColor: #ff9933;
   --PrimaryColorLight: hsl(14, 88%, 92%);
   --bgColor: hsl(2, 0%, 100%);
   --formColor: hsl(28, 46%, 88%);
@@ -49,19 +49,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  background: linear-gradient(135deg, 
-    rgba(255, 153, 51, 0.15) 0%, 
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 51, 0.15) 0%,
     rgba(255, 255, 255, 0.95) 50%,
     rgba(19, 136, 8, 0.15) 100%
   );
   -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-bottom: 3px solid transparent;
-  border-image: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+  border-image: linear-gradient(90deg, #ff9933 0%, #ffffff 50%, #138808 100%);
   border-image-slice: 1;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
-              0 0 40px rgba(255, 153, 51, 0.05);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 0 40px rgba(255, 153, 51, 0.05);
   transition: all 0.3s ease;
   /* Logo Styles */
   /* Desktop Navigation */
@@ -75,53 +77,55 @@
   text-decoration: none;
 }
 .navBar .navBarLogo a .logoimg {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: drop-shadow(0 4px 12px rgba(255, 153, 51, 0.3));
+  filter: drop-shadow(0 4px 15px rgba(255, 153, 51, 0.4))
+    drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
 }
 .navBar .navBarLogo a .logoimg:hover {
-  transform: scale(1.15) rotate(5deg);
-  filter: drop-shadow(0 6px 20px rgba(255, 153, 51, 0.5));
+  transform: scale(1.12) rotate(5deg);
+  filter: drop-shadow(0 6px 25px rgba(255, 153, 51, 0.6))
+    drop-shadow(0 0 35px rgba(255, 215, 0, 0.5));
 }
 .navBar .navBarLogo a .first {
   font-family: "Shrikhand", serif;
   font-size: 1.9rem;
   font-weight: 800;
-  color: #FF9933;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-               0 0 20px rgba(255, 153, 51, 0.4);
+  color: rgb(234, 7, 34); /* Red - Splash screen style */
+  text-shadow: 2px 2px 1px black;
   margin-left: 0.8rem;
   transition: all 0.3s ease;
 }
 .navBar .navBarLogo a .first:hover {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-               0 0 30px rgba(255, 153, 51, 0.6);
+  text-shadow:
+    2px 2px 1px black,
+    0 0 15px rgba(234, 7, 34, 0.8);
 }
 .navBar .navBarLogo a .second {
   font-family: "Shrikhand", serif;
   font-size: 1.9rem;
-  color: #FFD700;
   font-weight: 800;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-               0 0 20px rgba(255, 215, 0, 0.4);
+  color: rgb(244, 232, 9); /* Yellow - Splash screen style */
+  text-shadow: 2px 2px 1px black;
   transition: all 0.3s ease;
 }
 .navBar .navBarLogo a .second:hover {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-               0 0 30px rgba(255, 215, 0, 0.6);
+  text-shadow:
+    2px 2px 1px black,
+    0 0 15px rgba(244, 232, 9, 0.8);
 }
 .navBar .navBarDesktop {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   flex: 1;
-  margin-left: 8rem;
+  justify-content: center; /* Center everything */
 }
 .navBar .navBarDesktop .navLinks {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   list-style: none;
 }
 .navBar .navBarDesktop .navLinks li a {
@@ -136,19 +140,19 @@
   position: relative;
 }
 .navBar .navBarDesktop .navLinks li a::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 3px;
-  background: linear-gradient(90deg, #FF9933, #FFD700);
+  background: linear-gradient(90deg, #ff9933, #ffd700);
   transition: width 0.3s ease;
   border-radius: 2px;
 }
 .navBar .navBarDesktop .navLinks li a:hover {
-  color: #FF9933;
+  color: #ff9933;
   background: rgba(255, 153, 51, 0.08);
 }
 .navBar .navBarDesktop .navLinks li a:hover::before {
@@ -156,9 +160,10 @@
 }
 .navBar .navBarDesktop .searchBar {
   position: relative;
-  flex: 1;
-  max-width: 264px;
-  margin: 0 2rem;
+  max-width: 300px;
+  min-width: 250px;
+  display: flex;
+  align-items: center;
 }
 .navBar .navBarDesktop .searchBar input {
   width: 100%;
@@ -172,9 +177,10 @@
 }
 .navBar .navBarDesktop .searchBar input:focus {
   outline: none;
-  border-color: #FF9933;
-  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.15),
-              0 4px 12px rgba(255, 153, 51, 0.2);
+  border-color: #ff9933;
+  box-shadow:
+    0 0 0 3px rgba(255, 153, 51, 0.15),
+    0 4px 12px rgba(255, 153, 51, 0.2);
   background: var(--whiteColor);
   transform: translateY(-2px);
 }
@@ -190,13 +196,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #FF9933;
+  color: #ff9933;
   transition: all 0.3s ease;
   padding: 0.4rem;
   border-radius: 6px;
 }
 .navBar .navBarDesktop .searchBar button:hover {
-  color: #FFD700;
+  color: #ffd700;
   background: rgba(255, 153, 51, 0.1);
   transform: translateY(-50%) scale(1.1);
 }
@@ -225,21 +231,25 @@
   transition: all 0.3s ease;
 }
 .navBar .navBarDesktop .navActions .iconBtn .icon.robot {
-  color: #FF9933;
+  color: #ff9933;
 }
 .navBar .navBarDesktop .navActions .iconBtn:hover {
-  background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(255, 215, 0, 0.15));
-  border-color: #FF9933;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 51, 0.15),
+    rgba(255, 215, 0, 0.15)
+  );
+  border-color: #ff9933;
   transform: translateY(-3px) scale(1.1);
   box-shadow: 0 6px 16px rgba(255, 153, 51, 0.3);
 }
 .navBar .navBarDesktop .navActions .iconBtn:hover .icon {
-  color: #FF9933;
+  color: #ff9933;
   transform: rotate(10deg);
 }
 .navBar .navBarDesktop .navActions .signUpBtn {
   padding: 0.7rem 1.8rem;
-  background: linear-gradient(135deg, #FF9933 0%, #E63946 50%, #C1502E 100%);
+  background: linear-gradient(135deg, #ff9933 0%, #e63946 50%, #c1502e 100%);
   color: var(--whiteColor);
   border-radius: 25px;
   text-decoration: none;
@@ -254,13 +264,18 @@
   overflow: hidden;
 }
 .navBar .navBarDesktop .navActions .signUpBtn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transition: left 0.5s ease;
 }
 .navBar .navBarDesktop .navActions .signUpBtn:hover {
@@ -335,9 +350,14 @@
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
-.navBar .mobileMenu .mobileMenuContent .userProfile .avatarContainer .avatarIcon {
+.navBar
+  .mobileMenu
+  .mobileMenuContent
+  .userProfile
+  .avatarContainer
+  .avatarIcon {
   color: var(--whiteColor);
   font-size: 1.5rem;
 }
@@ -406,7 +426,8 @@
   flex-direction: column;
   gap: 0.8rem;
 }
-.navBar .mobileMenu .mobileMenuContent .mobileActions button, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn {
+.navBar .mobileMenu .mobileMenuContent .mobileActions button,
+.navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -422,18 +443,26 @@
   text-decoration: none;
   margin-bottom: 0.5rem;
 }
-.navBar .mobileMenu .mobileMenuContent .mobileActions button .icon, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn .icon {
+.navBar .mobileMenu .mobileMenuContent .mobileActions button .icon,
+.navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn .icon {
   font-size: 1.2rem;
 }
-.navBar .mobileMenu .mobileMenuContent .mobileActions button:hover, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn:hover {
+.navBar .mobileMenu .mobileMenuContent .mobileActions button:hover,
+.navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn:hover {
   background: var(--primaryColor);
   color: var(--whiteColor);
 }
-.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn.logoutBtn {
+.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn,
+.navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn.logoutBtn {
   background: #ffebeb;
   color: #ff4d4d;
 }
-.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn:hover, .navBar .mobileMenu .mobileMenuContent .mobileActions .signUpBtn.logoutBtn:hover {
+.navBar .mobileMenu .mobileMenuContent .mobileActions button.logoutBtn:hover,
+.navBar
+  .mobileMenu
+  .mobileMenuContent
+  .mobileActions
+  .signUpBtn.logoutBtn:hover {
   background: #ff4d4d;
   color: var(--whiteColor);
 }
@@ -470,7 +499,7 @@
     padding: 0 1rem;
     background: rgba(255, 255, 255, 0.28);
     -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     width: 100vw;
   }
   .navBar .navBarLogo {
@@ -480,7 +509,8 @@
     width: 35px;
     height: 35px;
   }
-  .navBar .navBarLogo .first, .navBar .navBarLogo .second {
+  .navBar .navBarLogo .first,
+  .navBar .navBarLogo .second {
     font-size: 1.4rem;
   }
   .navBar .navBarDesktop {
@@ -518,4 +548,4 @@
   .navBar .mobileMenu.show {
     right: 0;
   }
-}/*# sourceMappingURL=Navbar.css.map */
+} /*# sourceMappingURL=Navbar.css.map */

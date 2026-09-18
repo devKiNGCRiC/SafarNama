@@ -1,8 +1,20 @@
-import express from 'express'
-import { createReview } from'./../Controllers/reviewController.js';
-import { verifyUser } from '../utils/verifyToken.js';
-const router = express.Router( )
+import express from "express";
+import {
+  createReview,
+  getAllReviews,
+  getTourReviews,
+} from "./../Controllers/reviewController.js";
+import { verifyToken } from "../Middleware/authMiddleware.js";
 
-router.post( '/:tourId',verifyUser ,createReview )
+const router = express.Router();
 
-export default router
+// Get all reviews (homepage featured reviews)
+router.get("/", getAllReviews);
+
+// Get reviews for specific tour
+router.get("/:tourId", getTourReviews);
+
+// Create a review (requires authentication)
+router.post("/:tourId", verifyToken, createReview);
+
+export default router;

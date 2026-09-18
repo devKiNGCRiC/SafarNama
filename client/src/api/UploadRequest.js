@@ -1,7 +1,4 @@
-import axios from 'axios';
+import { http } from '../config/api';
+export const uploadImage = (data) => http.post('/upload', data);
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
-
-export const uploadImage = (data) => API.post('/upload', data);
-
-export const uploadPost = (data) => API.post('/posts', data);
+export const uploadPost = (data) => http.post('/posts', data);

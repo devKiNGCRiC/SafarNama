@@ -24,7 +24,6 @@ const router = express.Router();
 
 // Profile routes
 router.get('/me', verifyToken, getProfile);
-router.get('/:username', getProfile);
 router.put('/update', verifyToken, updateProfile);
 router.put('/picture', verifyToken, upload.single('avatar'), updateProfilePicture);
 router.put('/cover', verifyToken, upload.single('cover'), updateCoverPhoto);
@@ -51,8 +50,10 @@ router.post('/saved/:type/:itemId', verifyToken, toggleSaveItem);
 // Stats routes
 router.get('/stats', verifyToken, getStats);
 
-// Additional route handlers
+// Parameterised routes go LAST. '/:username' matches any single path segment,
+// so declared earlier it swallowed /photos, /saved and /stats.
 router.get('/:username/followers', getProfile);
 router.get('/:username/following', getProfile);
+router.get('/:username', getProfile);
 
 export default router;

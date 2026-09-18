@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import './DestinationDetail.css'; // Create and style this CSS file
+import { API_URL } from '../../config/api';
 
 function DestinationDetail() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function DestinationDetail() {
   useEffect(() => {
     async function fetchDestination() {
       try {
-        const res = await axios.get(`http://localhost:5000/api/destinations/${id}`);
+        const res = await axios.get(`${API_URL}/api/v1/destinations/${id}`);
         setDestination(res.data);
       } catch (error) {
         console.error('Error fetching destination:', error);

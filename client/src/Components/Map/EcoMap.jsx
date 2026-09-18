@@ -63,6 +63,8 @@ const EcoMap = () => {
     
     const categories = ['All', 'Mountain', 'Nature', 'Park', 'Beach', 'Recommended'];
 
+    const handleCategoryChange = (category) => setSelectedCategory(category);
+
     // Enhanced GeoJSON styling
     const getGeoJSONStyle = (feature) => ({
         fillColor: hoveredState === feature.properties.name ? '#e3e3e3' : '#f8f8f8',
@@ -95,7 +97,8 @@ const EcoMap = () => {
                 layer.setStyle(getGeoJSONStyle(feature));
             },
             click: (e) => {
-                map.fitBounds(e.target.getBounds());
+                // `map` is not in scope here; the clicked layer knows its map
+                e.target._map?.fitBounds(e.target.getBounds());
             }
         });
     };
