@@ -30,8 +30,9 @@ migrating the old `posts` collection.
 
 ## 2. Decisions already made
 
-- New dedicated collections (approach A); the old `postModel` and the legacy
-  `Components/Post*` code are retired.
+- New dedicated collections (approach A); the old posts API and the legacy
+  `Components/Post*` client code are retired (the old `postModel.js` file stays because
+  `profileController.js` still imports it).
 - Follow graph is **reused** from the existing Profile module (`Profile.followers` /
   `Profile.following`, ObjectIds of users). No changes to it.
 - Feed has two tabs: **Discover** (everyone's posts, newest first) and **Following**.
@@ -83,8 +84,8 @@ record was deleted.
 
 Base path `/api/v1/safargram`, mounted in `Server/index.js`. All routes use
 `verifyToken`. Errors use `{ success: false, message }` with the right status
-(400 invalid input/id, 401 no/invalid token, 403 not owner, 404 not found, 413/415
-media limits, 429 rate limit).
+(400 invalid input/id and every media-limit or unsupported-file problem, 401 no/invalid
+token, 403 not owner, 404 not found, 429 rate limit).
 
 | Method & path | Purpose |
 |---|---|
@@ -128,7 +129,7 @@ arrive (no duplicates/skips).
 
 ### Hashtag extraction
 
-Regex `#[\p{L}\p{N}_]{1,50}` (unicode), lowercased, de-duplicated, capped at 30.
+Regex `#[\p{L}\p{M}\p{N}_]{1,50}` (unicode), lowercased, de-duplicated, capped at 30.
 Done server-side on create; the client's parsing is display-only.
 
 ## 5. Media pipeline
@@ -141,7 +142,7 @@ Done server-side on create; the client's parsing is display-only.
    - images: `resource_type: image`, `width: 1440, crop: limit`, `quality: auto`,
      `fetch_format: auto`
    - video: `resource_type: video`; after upload, if `duration > 60` s → delete the
-     asset and reject with 413-style error "Video must be 60 seconds or shorter".
+     asset and reject with a 400 error "Video must be 60 seconds or shorter".
 4. Always delete the temp files (success or failure).
 5. Save the `SafarPost` with server-generated `media` entries. If the DB write fails,
    delete the uploaded Cloudinary assets before returning the error.
@@ -214,8 +215,8 @@ RightSide,ProfileLeft,ProfileCard,FollowersCard,InfoCard,User,TrendCard,LogoSear
 ProfileModal}`, `actions/{postAction,uplaodAction,UserAction}.js`,
 `store/reducers/postReducer.js`, `store/ReduxStore.js`,
 `api/{PostRequest,UploadRequest,UserRequest}.js`. Server: `Routes/PostRoute.js`,
-`Controllers/PostController.js`, `Models/postModel.js`, and the `/posts` mount in
-`index.js`. Each deletion is preceded by a grep for remaining imports; anything still
+`Controllers/PostController.js`, and the `/posts` mount in `index.js`.
+`Models/postModel.js` is **kept** because `profileController.js` still imports it. Each deletion is preceded by a grep for remaining imports; anything still
 in use stays.
 
 ## 9. Testing

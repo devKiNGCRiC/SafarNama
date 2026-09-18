@@ -1,23 +1,23 @@
 import React from 'react';
 import { useState } from 'react';
-import { Grid, BookOpen, Map, Bookmark, Image, Award } from 'lucide-react';
+import { Grid, BookOpen, Map, Bookmark, Image, Award, Navigation } from 'lucide-react';
 import './ProfileTabs.scss';
 
 // Import grid components
-import PostsGrid from '../Posts/PostsGrid';
 import BlogsGrid from '../Blogs/BlogsGrid';
 import ToursGrid from '../Tours/ToursGrid';
 import GalleryGrid from '../Gallery/GalleryGrid';
 import AchievementsGrid from '../Achievements/AchievementsGrid';
 import SavedItems from '../SavedItems/SavedItems';
-import SavedPosts from '../SavedPosts/SavedPosts';
+import ProfileSafarGrid from '../../../features/safargram/components/ProfileSafarGrid';
+import ProfileBucketList from '../../../features/safargram/components/ProfileBucketList';
 import SavedDestinations from '../SavedDestinations/SavedDestinations';
 
-const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile }) => {
+const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username }) => {
     const [activeSubTab, setActiveSubTab] = useState('posts');
 
     const tabs = [
-        { id: 'posts', label: 'Posts', icon: Grid },
+        { id: 'posts', label: 'SafarGram', icon: Grid },
         { id: 'blogs', label: 'Blogs', icon: BookOpen },
         { id: 'tours', label: 'Tours', icon: Map },
         { id: 'gallery', label: 'Gallery', icon: Image },
@@ -31,7 +31,7 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile }) => {
             label: 'Saved', 
             icon: Bookmark,
             subTabs: [
-                { id: 'posts', label: 'Posts', icon: Grid },
+                { id: 'posts', label: 'Bucket List', icon: Bookmark },
                 { id: 'destinations', label: 'Destinations', icon: Navigation },
                //{ id: 'itineraries', label: 'Itineraries', icon: Map }
             ]
@@ -43,7 +43,7 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile }) => {
     const renderSavedContent = () => {
         switch (activeSubTab) {
             case 'posts':
-                return <SavedPosts saved={profile?.saved} />;
+                return <ProfileBucketList />;
             case 'destinations':
                 return <SavedItems type="destinations" />;
             // case 'itineraries':
@@ -56,7 +56,7 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile }) => {
     const renderTabContent = () => {
         switch (activeTab) {
             case 'posts':
-                return <PostsGrid posts={profile?.posts || []} />;
+                return <ProfileSafarGrid username={username} />;
             case 'blogs':
                 return <BlogsGrid blogs={profile?.blogs || []} />;
             case 'tours':
@@ -102,7 +102,7 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile }) => {
                     >
                         {React.createElement(tab.icon, { size: 20 })}
                         <span className="tab-label">{tab.label}</span>
-                        {profile?.[tab.id]?.length > 0 && (
+                        {tab.id !== 'posts' && profile?.[tab.id]?.length > 0 && (
                             <span className="count">{profile[tab.id].length}</span>
                         )}
                     </button>

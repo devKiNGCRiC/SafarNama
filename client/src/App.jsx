@@ -40,7 +40,24 @@ const MapPage = lazy(() => import("./Pages/MapPage/MapPage"));
 const Feedback = lazy(() => import("./Pages/Feedback/Feedback"));
 const Contact = lazy(() => import("./Pages/Contact/Contact"));
 const FAQ = lazy(() => import("./Pages/FAQ/FAQ"));
-const HomeGram = lazy(() => import("./Pages/SafarGram/HomeGram/HomeGram"));
+const SafarFeed = lazy(() => import("./features/safargram/pages/FeedPage"));
+const SafarPost = lazy(() => import("./features/safargram/pages/PostPage"));
+const SafarTag = lazy(() => import("./features/safargram/pages/TagPage"));
+const SafarDestination = lazy(
+  () => import("./features/safargram/pages/DestinationPostsPage"),
+);
+
+// Logged-in page with the standard site chrome.
+const Shell = ({ children }) => (
+  <ProtectedRoute>
+    <div>
+      <Navbar />
+      <Sidebar />
+      {children}
+      <Footer />
+    </div>
+  </ProtectedRoute>
+);
 const TourBooking = lazy(() => import("./Pages/Booking/TourBooking"));
 const Payment = lazy(() => import("./Pages/Payment/Payment"));
 const ThankYou = lazy(() => import("./Pages/Thankyou/ThankYou"));
@@ -164,24 +181,13 @@ const AppContent = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="/homegram" element={<Navigate to="/safargram" replace />} />
+            <Route path="/safargram" element={<Shell><SafarFeed /></Shell>} />
+            <Route path="/safargram/post/:id" element={<Shell><SafarPost /></Shell>} />
+            <Route path="/safargram/tag/:tag" element={<Shell><SafarTag /></Shell>} />
             <Route
-              path="/homegram"
-              element={
-                <ProtectedRoute>
-                  <div className="App">
-                    <div
-                      className="blur"
-                      style={{ top: "-14%", right: "0" }}
-                    ></div>
-                    <div
-                      className="blur"
-                      style={{ top: "38%", left: "-8rem" }}
-                    ></div>
-                    <Sidebar />
-                    <HomeGram />
-                  </div>
-                </ProtectedRoute>
-              }
+              path="/safargram/destination/:id"
+              element={<Shell><SafarDestination /></Shell>}
             />
 
             {/* <Route path="/profile/:id" element={

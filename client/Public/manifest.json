@@ -1,0 +1,10 @@
+{
+  "name": "SafarNama - Explore Incredible India",
+  "short_name": "SafarNama",
+  "description": "Experience the soul of Incredible India through sustainable travel and eco-tourism",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF9933",
+  "orientation": "portrait-primary"
+}

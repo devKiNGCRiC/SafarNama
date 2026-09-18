@@ -143,6 +143,10 @@ const HeroSection = ({ destination }) => {
             <FiShare2 />
             Share
           </button>
+          <Link to={`/safargram/destination/${destination._id}`} className="action-btn">
+            <FiCamera />
+            Traveller posts
+          </Link>
         </div>
 
         <div className="scroll-indicator" data-aos="fade-up" data-aos-delay="400">

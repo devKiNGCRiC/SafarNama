@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="saffrGold192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9933;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="forestGreen192" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#138808;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="96" cy="96" r="90" fill="white"/>
+  <circle cx="96" cy="96" r="92" fill="none" stroke="url(#saffrGold192)" stroke-width="6"/>
+  
+  <path d="M 30 115 L 52 80 L 67 90 L 82 65 L 96 80 L 110 60 L 125 75 L 140 85 L 162 115 Z" 
+        fill="url(#forestGreen192)" opacity="0.8"/>
+  
+  <circle cx="96" cy="70" r="18" fill="url(#saffrGold192)"/>
+  <circle cx="96" cy="70" r="14" fill="#FFD700"/>
+  
+  <ellipse cx="96" cy="135" rx="8" ry="13" fill="#FF9933" opacity="0.85"/>
+  <ellipse cx="83" cy="137" rx="7" ry="12" fill="#FF6600" opacity="0.75" transform="rotate(-25 83 137)"/>
+  <ellipse cx="109" cy="137" rx="7" ry="12" fill="#FF6600" opacity="0.75" transform="rotate(25 109 137)"/>
+  <circle cx="96" cy="140" r="4" fill="#FFD700"/>
+</svg>

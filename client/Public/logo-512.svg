@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="saffrGold512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9933;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF6600;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="forestGreen512" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#138808;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4CAF50;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <circle cx="256" cy="256" r="240" fill="white"/>
+  <circle cx="256" cy="256" r="245" fill="none" stroke="url(#saffrGold512)" stroke-width="15"/>
+  
+  <!-- Mountains -->
+  <path d="M 80 310 L 140 220 L 180 250 L 220 190 L 256 220 L 292 170 L 332 210 L 372 240 L 432 310 Z" 
+        fill="url(#forestGreen512)" opacity="0.8"/>
+  
+  <!-- Sun/Compass -->
+  <circle cx="256" cy="200" r="50" fill="url(#saffrGold512)"/>
+  <circle cx="256" cy="200" r="38" fill="#FFD700"/>
+  
+  <!-- Compass Points -->
+  <path d="M 256 150 L 266 185 L 256 180 L 246 185 Z" fill="white" opacity="0.9"/>
+  
+  <!-- Lotus -->
+  <ellipse cx="256" cy="360" rx="20" ry="35" fill="#FF9933" opacity="0.85"/>
+  <ellipse cx="220" cy="365" rx="18" ry="32" fill="#FF6600" opacity="0.75" transform="rotate(-25 220 365)"/>
+  <ellipse cx="292" cy="365" rx="18" ry="32" fill="#FF6600" opacity="0.75" transform="rotate(25 292 365)"/>
+  <circle cx="256" cy="370" r="10" fill="#FFD700"/>
+  
+  <!-- Travel Path -->
+  <path d="M 100 280 Q 180 260 256 270 Q 332 280 412 260" 
+        fill="none" stroke="#4A90E2" stroke-width="5" stroke-dasharray="12,12" opacity="0.6"/>
+</svg>

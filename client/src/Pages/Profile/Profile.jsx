@@ -243,6 +243,7 @@ const Profile = () => {
                             setActiveTab={setActiveTab}
                             profile={profileData}
                             isOwnProfile={isOwnProfile}
+                            username={profile.user.username}
                         />
                     </div>
                 </div>

@@ -204,7 +204,7 @@ const Navbar = () => {
                 About Us
               </Link>
               <ProtectedLink
-                to="/homegram"
+                to="/safargram"
                 onClick={() => toggleMobileMenu(false)}
               >
                 <RiCameraLine className="icon" />
