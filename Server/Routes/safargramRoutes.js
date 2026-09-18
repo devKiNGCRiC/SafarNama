@@ -20,6 +20,7 @@ import {
   getFeed,
   getHashtagPosts,
   getSaved,
+  getTrending,
   getUserPosts,
 } from "../Controllers/safargram/feedController.js";
 
@@ -47,6 +48,7 @@ export function createSafargramRouter({
 
   router.get("/feed", getFeed);
   router.get("/saved", getSaved);
+  router.get("/trending", getTrending);
   router.get("/users/:username/posts", getUserPosts);
   router.get("/hashtags/:tag", getHashtagPosts);
   router.get("/destinations/:id/posts", getDestinationPosts);

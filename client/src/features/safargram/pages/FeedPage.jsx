@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Camera } from "lucide-react";
 import { getFeed } from "../api";
 import useCursorList from "../hooks/useCursorList";
 import Wordmark from "../components/Wordmark";
 import PostCard from "../components/PostCard";
 import CreatePostModal from "../components/CreatePostModal";
+import SafarLayout from "../components/SafarLayout";
 import "../safargram.scss";
 
 function FeedList({ tab }) {
@@ -56,6 +58,8 @@ const FeedPage = () => {
   const [tab, setTab] = useState(null); // null until we know where to start
   const [showCreate, setShowCreate] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Open on "Following" only if it has something to show; otherwise on Discover.
   useEffect(() => {
@@ -68,6 +72,14 @@ const FeedPage = () => {
     };
   }, []);
 
+  // The left-hand "Share your journey" button navigates here asking to compose.
+  useEffect(() => {
+    if (location.state?.compose) {
+      setShowCreate(true);
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location.state, location.pathname, navigate]);
+
   const handleCreated = () => {
     setShowCreate(false);
     setTab("discover"); // your new post shows up in Discover
@@ -75,29 +87,27 @@ const FeedPage = () => {
   };
 
   return (
-    <div className="sg-page">
-      <div className="sg-column">
-        <div className="sg-header">
-          <Wordmark />
-          <button className="sg-btn" onClick={() => setShowCreate(true)}>
-            <Camera size={16} style={{ verticalAlign: "-3px" }} /> Share your journey
-          </button>
-        </div>
-
-        <div className="sg-tabs">
-          <button className={tab === "discover" ? "active" : ""} onClick={() => setTab("discover")}>
-            Discover
-          </button>
-          <button className={tab === "following" ? "active" : ""} onClick={() => setTab("following")}>
-            Following
-          </button>
-        </div>
-
-        {tab ? <FeedList key={`${tab}-${reloadKey}`} tab={tab} /> : <div className="sg-state">Loading…</div>}
+    <SafarLayout>
+      <div className="sg-header">
+        <Wordmark />
+        <button className="sg-btn sg-share-inline" onClick={() => setShowCreate(true)}>
+          <Camera size={16} style={{ verticalAlign: "-3px" }} /> Share your journey
+        </button>
       </div>
 
+      <div className="sg-tabs">
+        <button className={tab === "discover" ? "active" : ""} onClick={() => setTab("discover")}>
+          Discover
+        </button>
+        <button className={tab === "following" ? "active" : ""} onClick={() => setTab("following")}>
+          Following
+        </button>
+      </div>
+
+      {tab ? <FeedList key={`${tab}-${reloadKey}`} tab={tab} /> : <div className="sg-state">Loading…</div>}
+
       {showCreate && <CreatePostModal onClose={() => setShowCreate(false)} onCreated={handleCreated} />}
-    </div>
+    </SafarLayout>
   );
 };
 

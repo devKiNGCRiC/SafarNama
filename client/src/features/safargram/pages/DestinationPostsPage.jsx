@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { getDestination, getDestinationPosts } from "../api";
 import PagedPostGrid from "../components/PagedPostGrid";
+import SafarLayout from "../components/SafarLayout";
 import "../safargram.scss";
 
 const DestinationPostsPage = () => {
@@ -21,20 +22,18 @@ const DestinationPostsPage = () => {
   }, [id]);
 
   return (
-    <div className="sg-page">
-      <div className="sg-wide">
-        <div className="sg-title">
-          <Link to="/safargram">←</Link>
-          <h2><MapPin size={20} /> {name || "Destination"}</h2>
-          <Link to={`/destinations/${id}`}>View destination</Link>
-        </div>
-        <PagedPostGrid
-          fetchPage={(cursor) => getDestinationPosts(id, cursor)}
-          deps={[id]}
-          emptyText="No traveller posts here yet. Be the first!"
-        />
+    <SafarLayout grid>
+      <div className="sg-title">
+        <Link to="/safargram">←</Link>
+        <h2><MapPin size={20} /> {name || "Destination"}</h2>
+        <Link to={`/destinations/${id}`}>View destination</Link>
       </div>
-    </div>
+      <PagedPostGrid
+        fetchPage={(cursor) => getDestinationPosts(id, cursor)}
+        deps={[id]}
+        emptyText="No traveller posts here yet. Be the first!"
+      />
+    </SafarLayout>
   );
 };
 

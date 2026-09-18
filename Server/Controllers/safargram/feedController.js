@@ -3,6 +3,7 @@ import AppError from "../../utils/AppError.js";
 import UserModel from "../../Models/userModel.js";
 import { assertObjectId, parsePaging } from "../../utils/cursor.js";
 import { followingIds, listPosts, listSaved } from "../../services/safargramFeed.js";
+import { getTrending as loadTrending } from "../../services/safargramTrending.js";
 
 const send = (res, { data, nextCursor }) =>
   res.status(200).json({ success: true, data, nextCursor });
@@ -40,4 +41,8 @@ export const getDestinationPosts = catchAsync(async (req, res) => {
 export const getSaved = catchAsync(async (req, res) => {
   const { limit, cursor } = parsePaging(req.query);
   send(res, await listSaved({ userId: req.user._id, cursor, limit }));
+});
+
+export const getTrending = catchAsync(async (req, res) => {
+  res.status(200).json({ success: true, data: await loadTrending() });
 });

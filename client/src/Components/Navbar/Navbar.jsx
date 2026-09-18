@@ -116,6 +116,9 @@ const Navbar = () => {
             <li>
               <ProtectedLink to="/blogs">Blog</ProtectedLink>
             </li>
+            <li>
+              <ProtectedLink to="/safargram">SafarGram</ProtectedLink>
+            </li>
           </ul>
 
           {shouldShowSearch && (

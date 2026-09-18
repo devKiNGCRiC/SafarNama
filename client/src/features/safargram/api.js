@@ -33,6 +33,7 @@ export const deleteComment = (id) => http.delete(`${BASE}/comments/${id}`).then(
 
 export const getUserPosts = (username, cursor) =>
   http.get(`${BASE}/users/${encodeURIComponent(username)}/posts`, withCursor(cursor)).then(body);
+export const getTrending = () => http.get(`${BASE}/trending`).then(body);
 export const getSaved = (cursor) => http.get(`${BASE}/saved`, withCursor(cursor)).then(body);
 export const getHashtagPosts = (tag, cursor) =>
   http.get(`${BASE}/hashtags/${encodeURIComponent(tag)}`, withCursor(cursor)).then(body);

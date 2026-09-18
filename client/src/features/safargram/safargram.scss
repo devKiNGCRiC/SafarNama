@@ -2,15 +2,180 @@
 .sg-page {
   min-height: 100vh;
   padding: 80px 12px 40px; // clears the fixed navbar
-  background: var(--cream-marble, #fff8e7);
+  // Soft saffron / green glows so a wide screen does not feel like a blank sheet
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255, 153, 51, 0.16), transparent 38%),
+    radial-gradient(circle at 92% 12%, rgba(19, 136, 8, 0.1), transparent 38%),
+    var(--cream-marble, #fff8e7);
 }
-.sg-column {
+
+// Phones and tablets: one centred column, side rails hidden.
+.sg-shell {
   max-width: 470px;
   margin: 0 auto;
+  &.grid {
+    max-width: 935px;
+  }
 }
-.sg-wide {
-  max-width: 935px;
-  margin: 0 auto;
+.sg-main {
+  min-width: 0;
+}
+.sg-rail {
+  display: none;
+}
+
+.sg-panel {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  padding: 16px;
+  margin-bottom: 16px;
+  h4 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--charcoal, #36454f);
+  }
+  .sg-muted {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--stone-grey, #808080);
+  }
+}
+.sg-me {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  .sg-avatar.big {
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+    flex: 0 0 auto;
+  }
+  .sg-me-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    small {
+      color: var(--stone-grey, #808080);
+    }
+    a {
+      margin-top: 2px;
+      font-size: 0.82rem;
+      color: #c1502e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  }
+}
+.sg-links {
+  padding: 8px;
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: var(--charcoal, #36454f);
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      background: rgba(255, 153, 51, 0.12);
+    }
+    &.active {
+      background: rgba(255, 153, 51, 0.2);
+      color: #c1502e;
+    }
+  }
+}
+.sg-share-rail {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.sg-tagchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  .sg-tagchip {
+    background: rgba(193, 80, 46, 0.1);
+    color: #c1502e;
+    border-radius: 999px;
+    padding: 4px 11px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    small {
+      opacity: 0.7;
+      margin-left: 3px;
+    }
+    &:hover {
+      background: rgba(193, 80, 46, 0.2);
+    }
+  }
+}
+.sg-places {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4px;
+    color: var(--forest-green, #138808);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    small {
+      color: var(--stone-grey, #808080);
+      font-weight: 500;
+    }
+  }
+  li:last-child a {
+    border-bottom: 0;
+  }
+}
+
+// Laptops and desktops: profile rail | content | trending rail.
+@media (min-width: 1024px) {
+  .sg-shell,
+  .sg-shell.grid {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 560px) 300px;
+    gap: 28px;
+    justify-content: center;
+    max-width: none;
+    align-items: start;
+  }
+  .sg-rail {
+    display: block;
+    position: sticky;
+    top: 88px; // below the fixed navbar
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .sg-share-inline {
+    display: none; // the left rail has its own button
+  }
+  // .sg-page prefix: must outrank the base .sg-media rule declared further down
+  .sg-page .sg-media .sg-slide {
+    max-height: 640px;
+    img,
+    video {
+      max-height: 640px;
+    }
+  }
 }
 
 .sg-wordmark {

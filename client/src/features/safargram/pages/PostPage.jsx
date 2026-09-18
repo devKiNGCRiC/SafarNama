@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getPost } from "../api";
 import PostCard from "../components/PostCard";
 import CommentList from "../components/CommentList";
+import SafarLayout from "../components/SafarLayout";
 import "../safargram.scss";
 
 const PostPage = () => {
@@ -28,27 +29,25 @@ const PostPage = () => {
   }, [id]);
 
   return (
-    <div className="sg-page">
-      <div className="sg-column">
-        <p><Link to="/safargram">← Back to SafarGram</Link></p>
-        {error && <div className="sg-state">{error}</div>}
-        {!post && !error && <div className="sg-state">Loading…</div>}
-        {post && (
-          <>
-            <PostCard post={post} detail onChange={setPost} onDeleted={() => navigate("/safargram")} />
-            <div className="sg-card" style={{ padding: 14 }}>
-              <CommentList
-                postId={post._id}
-                postAuthorId={post.author?._id}
-                onCountChange={(delta) =>
-                  setPost((p) => ({ ...p, commentsCount: Math.max(0, p.commentsCount + delta) }))
-                }
-              />
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    <SafarLayout>
+      <p><Link to="/safargram">← Back to SafarGram</Link></p>
+      {error && <div className="sg-state">{error}</div>}
+      {!post && !error && <div className="sg-state">Loading…</div>}
+      {post && (
+        <>
+          <PostCard post={post} detail onChange={setPost} onDeleted={() => navigate("/safargram")} />
+          <div className="sg-card" style={{ padding: 14 }}>
+            <CommentList
+              postId={post._id}
+              postAuthorId={post.author?._id}
+              onCountChange={(delta) =>
+                setPost((p) => ({ ...p, commentsCount: Math.max(0, p.commentsCount + delta) }))
+              }
+            />
+          </div>
+        </>
+      )}
+    </SafarLayout>
   );
 };
 
