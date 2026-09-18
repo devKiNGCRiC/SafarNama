@@ -67,3 +67,31 @@ coverage/
 .turbo/
 .vercel/
 *.pem
+
+# =============================================================================
+# Documentation not needed to run the project
+# (progress reports, design notes, plans, guides, stock template README).
+# QUICK_START.md is intentionally kept tracked - it is the only setup guide.
+# NOTE: already-tracked files stay tracked until removed with `git rm --cached`.
+# =============================================================================
+BRAND_GUIDELINES.md
+CLOUDINARY_VIDEOS.md
+DESIGN_SYSTEM_GUIDE.md
+DESTINATION_ENHANCEMENT_PLAN.md
+FIXES_APPLIED.md
+GITHUB_SETUP_GUIDE.md
+HERO_IMPROVEMENTS.md
+HOMEPAGE_UPDATE_PHASE2.md
+IMMEDIATE_ACTIONS.md
+LEGENDARY_3D_UPDATE.md
+LEGENDARY_INDIAN_THEME_GUIDE.md
+LOGO_AND_NAVBAR_UPDATE.md
+MVP_ROADMAP.md
+PHASE1_COMPLETE.md
+PHASE1_SECURITY_COMPLETE.md
+SECURITY_AUDIT_REPORT.md
+SETUP_COMPLETE.md
+UI_UX_REDESIGN_SUMMARY.md
+VIDEO_HOSTING_GUIDE.md
+SiteMap.pdf
+client/README.md
