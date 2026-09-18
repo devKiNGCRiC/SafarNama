@@ -18,6 +18,7 @@ import {
   RiMapPinLine,
   RiCompassDiscoverLine,
   RiCameraLine,
+  RiChat3Line,
   RiBookOpenLine,
   RiImageLine,
   RiInformationLine,
@@ -27,6 +28,7 @@ import {
   RiSearchLine,
 } from "react-icons/ri";
 import { logoutUser } from "../../actions/authAction";
+import UnreadBadge from "../../features/chat/components/UnreadBadge";
 
 const ProtectedLink = ({ to, children, onClick }) => {
   const navigate = useNavigate();
@@ -118,6 +120,12 @@ const Navbar = () => {
             </li>
             <li>
               <ProtectedLink to="/safargram">SafarGram</ProtectedLink>
+            </li>
+            <li>
+              <ProtectedLink to="/chat">
+                Chat
+                <UnreadBadge />
+              </ProtectedLink>
             </li>
           </ul>
 
@@ -212,6 +220,11 @@ const Navbar = () => {
               >
                 <RiCameraLine className="icon" />
                 SafarGram
+              </ProtectedLink>
+              <ProtectedLink to="/chat" onClick={() => toggleMobileMenu(false)}>
+                <RiChat3Line className="icon" />
+                Chat
+                <UnreadBadge />
               </ProtectedLink>
               <ProtectedLink
                 to="/blogs"

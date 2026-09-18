@@ -21,6 +21,7 @@ import HomePage from "./Pages/HomePage/HomePage"; // Keep home page immediate
 
 import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
+import { ChatProvider } from "./features/chat/ChatProvider";
 
 // Lazy Load Pages (load only when needed)
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
@@ -44,6 +45,7 @@ const SafarFeed = lazy(() => import("./features/safargram/pages/FeedPage"));
 const SafarPost = lazy(() => import("./features/safargram/pages/PostPage"));
 const SafarTag = lazy(() => import("./features/safargram/pages/TagPage"));
 const SafarSaved = lazy(() => import("./features/safargram/pages/BucketListPage"));
+const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
 const SafarDestination = lazy(
   () => import("./features/safargram/pages/DestinationPostsPage"),
 );
@@ -185,6 +187,9 @@ const AppContent = () => {
             <Route path="/homegram" element={<Navigate to="/safargram" replace />} />
             <Route path="/safargram" element={<Shell><SafarFeed /></Shell>} />
             <Route path="/safargram/saved" element={<Shell><SafarSaved /></Shell>} />
+            <Route path="/chat" element={<Shell><ChatPage /></Shell>} />
+            <Route path="/chat/with/:username" element={<Shell><ChatPage /></Shell>} />
+            <Route path="/chat/:conversationId" element={<Shell><ChatPage /></Shell>} />
             <Route path="/safargram/post/:id" element={<Shell><SafarPost /></Shell>} />
             <Route path="/safargram/tag/:tag" element={<Shell><SafarTag /></Shell>} />
             <Route
@@ -374,7 +379,9 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        <AppContent />
+        <ChatProvider>
+          <AppContent />
+        </ChatProvider>
       </Provider>
     </div>
   );

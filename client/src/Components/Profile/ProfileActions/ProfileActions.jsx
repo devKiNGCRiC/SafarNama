@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
     UserPlus, 
     UserMinus, 
@@ -18,6 +19,7 @@ const ProfileActions = ({
     isLoading 
 }) => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const navigate = useNavigate();
 
     const handleFollowAction = () => {
         if (isFollowing) {
@@ -59,7 +61,7 @@ const ProfileActions = ({
                         )}
                     </button>
 
-                    <button className="message-button">
+                    <button className="message-button" onClick={() => navigate(`/chat/with/${username}`)}>
                         <Mail size={18} />
                         <span>Message</span>
                     </button>

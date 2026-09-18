@@ -5,6 +5,7 @@ import morgan from "morgan";
 import colors from "colors";
 import cookieParser from "cookie-parser";
 import path from "path";
+import http from "http";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
@@ -37,7 +38,8 @@ import destinationRoutes from "./Routes/destinationRoute.js";
 import ecoGuideRoutes from "./Routes/ecoGuideRoutes.js";
 import itineraryRoutes from "./Routes/itineraryRoutes.js";
 import eventRoutes from "./Routes/eventRoutes.js";
-import WebSocketService from "./services/websocketService.js";
+import { createChatRouter } from "./Routes/chatRoutes.js";
+import { attachChatSocket } from "./services/chatSocket.js";
 
 import connectDB from "./config/db.js";
 //import DestinationsRouter from "./Routes/DestinationsRoute.js";
@@ -119,13 +121,14 @@ app.use(
 );
 
 // 8. CORS Configuration (Restricted to specific origins)
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:5173",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:3000",
+];
 const corsOptions = {
-  origin: [
-    process.env.CLIENT_URL || "http://localhost:5173",
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
-  ],
+  origin: allowedOrigins,
   credentials: true, // Allow cookies
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
@@ -141,11 +144,9 @@ if (process.env.DEV_MODE === "development") {
   app.use(morgan("dev"));
 }
 
-// // Initialize WebSocket service
-// const wsService = new WebSocketService(server);
-
-// // Export wsService for use in other parts of the application
-// export { wsService };
+// HTTP server shared by Express and the chat sockets (socket.io needs the raw server)
+const server = http.createServer(app);
+const realtime = attachChatSocket(server, { origins: allowedOrigins });
 
 //usage of routes
 app.use("/api/v1/profile", profileRoutes);
@@ -177,6 +178,7 @@ app.use("/api/v1/events", eventRoutes);
 //Blog Routes
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/safargram", safargramRoutes);
+app.use("/api/v1/chat", createChatRouter({ realtime }));
 
 // Handle undefined routes
 app.all("*", (req, res, next) => {
@@ -189,7 +191,7 @@ app.use(errorHandler);
 // Connect to MongoDB once (connectDB exits the process on failure), then listen
 const PORT = process.env.PORT || 5000;
 connectDB().then(() =>
-  app.listen(PORT, () =>
+  server.listen(PORT, () =>
     console.log(`Server Running on ${process.env.DEV_MODE} mode at ${PORT}`),
   ),
 );

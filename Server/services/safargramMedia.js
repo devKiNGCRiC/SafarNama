@@ -4,11 +4,11 @@ import { MEDIA_LIMITS, mediaKind } from "../utils/safargramMediaRules.js";
 
 const FOLDER = "safarnama/safargram";
 
-export function createCloudinaryMediaService(client = cloudinary) {
+export function createCloudinaryMediaService(client = cloudinary, { folder = FOLDER } = {}) {
   async function upload(file) {
     if (mediaKind(file.mimetype, file.originalname) === "video") {
       const result = await client.uploader.upload(file.path, {
-        folder: FOLDER,
+        folder,
         resource_type: "video",
       });
       if (result.duration > MEDIA_LIMITS.maxVideoSeconds) {
@@ -28,7 +28,7 @@ export function createCloudinaryMediaService(client = cloudinary) {
     }
 
     const result = await client.uploader.upload(file.path, {
-      folder: FOLDER,
+      folder,
       resource_type: "image",
       transformation: [
         { width: 1440, crop: "limit" },
