@@ -45,6 +45,7 @@ const SafarFeed = lazy(() => import("./features/safargram/pages/FeedPage"));
 const SafarPost = lazy(() => import("./features/safargram/pages/PostPage"));
 const SafarTag = lazy(() => import("./features/safargram/pages/TagPage"));
 const SafarSaved = lazy(() => import("./features/safargram/pages/BucketListPage"));
+const SafarExplore = lazy(() => import("./features/safargram/pages/ExplorePage"));
 const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
 const SafarDestination = lazy(
   () => import("./features/safargram/pages/DestinationPostsPage"),
@@ -186,6 +187,7 @@ const AppContent = () => {
             />
             <Route path="/homegram" element={<Navigate to="/safargram" replace />} />
             <Route path="/safargram" element={<Shell><SafarFeed /></Shell>} />
+            <Route path="/safargram/explore" element={<Shell><SafarExplore /></Shell>} />
             <Route path="/safargram/saved" element={<Shell><SafarSaved /></Shell>} />
             <Route path="/chat" element={<Shell><ChatPage /></Shell>} />
             <Route path="/chat/with/:username" element={<Shell><ChatPage /></Shell>} />

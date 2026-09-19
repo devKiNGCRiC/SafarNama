@@ -23,6 +23,11 @@ import {
   getTrending,
   getUserPosts,
 } from "../Controllers/safargram/feedController.js";
+import {
+  getExplore,
+  getSuggestedPeople,
+  search,
+} from "../Controllers/safargram/exploreController.js";
 
 // `media` and `limits` are injectable so tests can fake Cloudinary and rate limits.
 export function createSafargramRouter({
@@ -49,6 +54,9 @@ export function createSafargramRouter({
   router.get("/feed", getFeed);
   router.get("/saved", getSaved);
   router.get("/trending", getTrending);
+  router.get("/explore", getExplore);
+  router.get("/search", search);
+  router.get("/suggested-people", getSuggestedPeople);
   router.get("/users/:username/posts", getUserPosts);
   router.get("/hashtags/:tag", getHashtagPosts);
   router.get("/destinations/:id/posts", getDestinationPosts);

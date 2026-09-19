@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Bookmark, Camera, Home, User } from "lucide-react";
+import { Bookmark, Camera, Compass, Home, User } from "lucide-react";
 import "../safargram.scss";
 
 // Left column on desktop: who you are + quick links.
@@ -31,6 +31,9 @@ const ProfileRail = () => {
       <nav className="sg-panel sg-links" aria-label="SafarGram">
         <NavLink to="/safargram" end className={active}>
           <Home size={18} /> Feed
+        </NavLink>
+        <NavLink to="/safargram/explore" className={active}>
+          <Compass size={18} /> Explore
         </NavLink>
         <NavLink to="/safargram/saved" className={active}>
           <Bookmark size={18} /> Bucket List

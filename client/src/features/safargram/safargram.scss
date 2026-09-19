@@ -639,3 +639,105 @@
     margin: 0;
   }
 }
+
+// ---- Explore: people rows, search box, category chips
+.sg-person {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  .sg-person-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .sg-person-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    small {
+      color: var(--stone-grey, #808080);
+    }
+  }
+}
+.sg-btn.small {
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  flex: 0 0 auto;
+}
+.sg-searchbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  input {
+    flex: 1;
+    border: 0;
+    outline: none;
+    font: inherit;
+    background: transparent;
+  }
+}
+.sg-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+  button {
+    flex: 0 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    &.active {
+      background: linear-gradient(135deg, var(--saffron-primary, #ff9933), #ff6b35);
+      color: #fff;
+      border-color: transparent;
+    }
+  }
+}
+.sg-rows a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  color: var(--charcoal, #36454f);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  small {
+    color: var(--stone-grey, #808080);
+    font-weight: 500;
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.sg-iconlink {
+  margin-left: auto;
+  margin-right: 12px;
+  color: var(--charcoal, #36454f);
+  display: inline-flex;
+}

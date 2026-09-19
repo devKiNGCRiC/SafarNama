@@ -48,5 +48,6 @@ const postSchema = new mongoose.Schema(
 postSchema.index({ author: 1, _id: -1 });
 postSchema.index({ hashtags: 1, _id: -1 });
 postSchema.index({ destination: 1, _id: -1 });
+postSchema.index({ caption: "text" }); // caption search on the Explore page
 
 export default mongoose.model("SafarPost", postSchema);

@@ -4,10 +4,20 @@ import ProfileModel from '../Models/profileModel.js';
 import PostModel from '../Models/postModel.js';   // Add this import
 import BlogModel from '../Models/blogModel.js';   // Add this if you have a Blog model
 import Booking from '../Models/TourBookingModel.js';   // Add this if you have a Tour model
-import AchievementModel from '../models/achievementModel.js';
+import AchievementModel from '../Models/achievementModel.js'; // 'Models' must match the folder name exactly (case matters on Linux)
 import fs from 'fs';
 import cloudinary from '../utils/Cloudinary.js';
 import AppError from '../utils/AppError.js';
+import { assertObjectId } from '../utils/cursor.js';
+
+// Profiles are created lazily elsewhere in the app, so following must not depend on both
+// people having opened their profile page first.
+const ensureProfile = (userId) =>
+    ProfileModel.findOneAndUpdate(
+        { user: userId },
+        { $setOnInsert: { user: userId } },
+        { upsert: true, new: true }
+    );
 
 // Get profile
 export const getProfile = async (req, res) => {
@@ -316,16 +326,17 @@ export const followUser = async (req, res) => {
             throw new AppError('You cannot follow yourself', 400);
         }
 
-        const [userProfile, targetProfile] = await Promise.all([
-            ProfileModel.findOne({ user: req.user._id }),
-            ProfileModel.findOne({ user: userId })
-        ]);
-
-        if (!targetProfile) {
+        assertObjectId(userId, 'user id');
+        if (!(await UserModel.exists({ _id: userId }))) {
             throw new AppError('User not found', 404);
         }
 
-        if (userProfile.following.includes(userId)) {
+        const [userProfile] = await Promise.all([
+            ensureProfile(req.user._id),
+            ensureProfile(userId)
+        ]);
+
+        if (userProfile.following.some((id) => id.toString() === userId)) {
             throw new AppError('You are already following this user', 400);
         }
 

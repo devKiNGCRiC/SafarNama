@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Camera } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Camera, Search } from "lucide-react";
 import { getFeed } from "../api";
 import useCursorList from "../hooks/useCursorList";
 import Wordmark from "../components/Wordmark";
@@ -90,6 +90,9 @@ const FeedPage = () => {
     <SafarLayout>
       <div className="sg-header">
         <Wordmark />
+        <Link to="/safargram/explore" className="sg-iconlink" aria-label="Explore and search">
+          <Search size={22} />
+        </Link>
         <button className="sg-btn sg-share-inline" onClick={() => setShowCreate(true)}>
           <Camera size={16} style={{ verticalAlign: "-3px" }} /> Share your journey
         </button>

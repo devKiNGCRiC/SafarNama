@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Hash, MapPin } from "lucide-react";
 import { getTrending } from "../api";
+import SuggestedPeople from "./SuggestedPeople";
 import "../safargram.scss";
 
 // Right column on desktop: what travellers are posting about right now.
@@ -54,6 +55,8 @@ const TrendingPanel = () => {
           </ul>
         )}
       </section>
+
+      <SuggestedPeople />
     </>
   );
 };

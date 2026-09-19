@@ -33,6 +33,13 @@ export const deleteComment = (id) => http.delete(`${BASE}/comments/${id}`).then(
 
 export const getUserPosts = (username, cursor) =>
   http.get(`${BASE}/users/${encodeURIComponent(username)}/posts`, withCursor(cursor)).then(body);
+export const getExplore = (category, cursor) =>
+  http
+    .get(`${BASE}/explore`, { params: { ...(category ? { category } : {}), ...(cursor ? { cursor } : {}) } })
+    .then(body);
+export const searchSafargram = (type, q, cursor) =>
+  http.get(`${BASE}/search`, { params: { type, q, ...(cursor ? { cursor } : {}) } }).then(body);
+export const getSuggestedPeople = () => http.get(`${BASE}/suggested-people`).then(body);
 export const getTrending = () => http.get(`${BASE}/trending`).then(body);
 export const getSaved = (cursor) => http.get(`${BASE}/saved`, withCursor(cursor)).then(body);
 export const getHashtagPosts = (tag, cursor) =>
