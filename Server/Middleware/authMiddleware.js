@@ -67,6 +67,15 @@ export const verifyToken = async (req, res, next) => {
   }
 };
 
+// For public routes that can show extra info to a logged-in visitor. A missing OR invalid
+// token never blocks the request; it simply stays anonymous.
+export const optionalAuth = (req, res, next) => {
+  if (!req.headers.authorization) return next();
+  // verifyToken answers a bad token with res.status(...).json(...): treat that as "anonymous"
+  const anonymous = { status: () => ({ json: () => next() }) };
+  return verifyToken(req, anonymous, next);
+};
+
 // Admin Authorization Middleware
 export const isAdmin = async (req, res, next) => {
   try {

@@ -1,32 +1,33 @@
-// routes/eventRoutes.js
-import express from 'express';
-import {
-  createEvent,
-  getAllEvents,
-  getEvent,
-  updateEvent,
-  deleteEvent,
-  registerForEvent,
-  cancelRegistration
-} from '../Controllers/eventController.js';
-import { verifyToken, isAdmin } from '../Middleware/authMiddleware.js';
+import express from "express";
+import { makeEventController } from "../Controllers/eventController.js";
+import { verifyToken, isAdmin, optionalAuth } from "../Middleware/authMiddleware.js";
+import { uploadEventImage } from "../Middleware/eventUpload.js";
+import { createCloudinaryMediaService } from "../services/safargramMedia.js";
 
-const router = express.Router();
+// /api/v1/events. `media` is injectable so tests can fake Cloudinary.
+export function createEventRouter({
+  media = createCloudinaryMediaService(undefined, { folder: "safarnama/events" }),
+} = {}) {
+  const router = express.Router();
+  const events = makeEventController({ media });
 
-// Public routes
-router.get('/', getAllEvents);
-router.get('/:id', getEvent);
+  // Public (a valid login only adds "registeredByMe"; a bad token is ignored)
+  router.get("/", optionalAuth, events.listEvents);
 
-// Protected routes
-router.use(verifyToken);
+  // Fixed paths before '/:id'
+  router.get("/mine", verifyToken, events.myEvents);
+  router.post("/register/:id", verifyToken, events.register);
+  router.delete("/register/:id", verifyToken, events.cancelRegistration);
 
-// User routes
-router.post('/register/:id', registerForEvent);
-router.delete('/register/:id', cancelRegistration);
+  router.get("/:id", optionalAuth, events.getEvent);
+  router.get("/:id/attendees", verifyToken, events.attendees);
 
-// Admin and organizer routes
-router.post('/', isAdmin, createEvent);
-router.put('/:id', updateEvent);
-router.delete('/:id', deleteEvent);
+  // Only admins create events; the organizer or any admin edits/deletes them
+  router.post("/", verifyToken, isAdmin, uploadEventImage, events.createEvent);
+  router.put("/:id", verifyToken, uploadEventImage, events.updateEvent);
+  router.delete("/:id", verifyToken, events.deleteEvent);
 
-export default router;
+  return router;
+}
+
+export default createEventRouter();

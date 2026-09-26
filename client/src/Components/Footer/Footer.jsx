@@ -20,6 +20,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { FaThreads } from "react-icons/fa6";
 
 import logo from "../../Assets/logo.jpg";
+import { EVENTS_ENABLED } from "../../config/features";
 
 const Footer = () => {
   useEffect(() => {
@@ -111,6 +112,11 @@ const Footer = () => {
             <li>
               <Link to="/blogs">Travel Blog</Link>
             </li>
+            {EVENTS_ENABLED && (
+              <li>
+                <Link to="/events">Events</Link>
+              </li>
+            )}
           </ul>
         </div>
 

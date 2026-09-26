@@ -34,6 +34,7 @@ const eventSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
+    venue: { type: String, trim: true, maxlength: 120 },
     capacity: Number,
     registeredUsers: [{
       user: {
@@ -43,6 +44,7 @@ const eventSchema = new mongoose.Schema({
       registrationDate: Date
     }],
     images: [String],
+    imagePublicId: String, // Cloudinary id of the cover photo (so it can be replaced/deleted)
     sustainabilityImpact: {
       category: String,
       description: String,

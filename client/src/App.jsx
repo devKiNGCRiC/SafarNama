@@ -25,6 +25,7 @@ import { ChatProvider } from "./features/chat/ChatProvider";
 import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
 import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
+import AdminRoute from "./Components/Routing/AdminRoute";
 import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
 
 // Lazy Load Pages (load only when needed)
@@ -38,7 +39,9 @@ const DestinationDetail = lazy(
 const ItineraryBuilder = lazy(
   () => import("./Pages/Itinerary/ItineraryBuilder"),
 );
-const Events = lazy(() => import("./Pages/Events/Events"));
+const Events = lazy(() => import("./features/events/pages/EventsPage"));
+const EventDetail = lazy(() => import("./features/events/pages/EventDetailPage"));
+const ManageEvents = lazy(() => import("./features/events/pages/ManageEventsPage"));
 const EcoGuides = lazy(() => import("./Pages/EcoGuides/EcoGuides"));
 const AboutUs = lazy(() => import("./Pages/AboutUs/AboutUs"));
 const MapPage = lazy(() => import("./Pages/MapPage/MapPage"));
@@ -358,7 +361,18 @@ const AppContent = () => {
 
             <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <EcoGuides /> : <Navigate to="/home" replace />} />
             <Route path="/itinerary" element={<ItineraryBuilder />} />
-            <Route path="/events" element={EVENTS_ENABLED ? <Events /> : <Navigate to="/home" replace />} />
+            <Route path="/events" element={EVENTS_ENABLED ? <div><Navbar /><Events /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route path="/events/:id" element={EVENTS_ENABLED ? <div><Navbar /><EventDetail /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route
+              path="/admin/events"
+              element={
+                EVENTS_ENABLED ? (
+                  <AdminRoute><div><Navbar /><ManageEvents /><Footer /></div></AdminRoute>
+                ) : (
+                  <Navigate to="/home" replace />
+                )
+              }
+            />
             <Route path="/FAQ" element={<FAQ />} />
 
             <Route path="/tours" element={<TourListing />} />

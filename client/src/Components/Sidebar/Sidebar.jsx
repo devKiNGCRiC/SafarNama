@@ -14,8 +14,10 @@ import {
     RiNotification3Line,
     RiMenuFoldLine,
     RiMenuUnfoldLine,
-    RiLogoutCircleLine
+    RiLogoutCircleLine,
+    RiCalendarEventLine
 } from 'react-icons/ri';
+import { EVENTS_ENABLED } from '../../config/features';
 import './Sidebar.css';
 import { logoutUser } from '../../actions/authAction';
 
@@ -30,6 +32,10 @@ const Sidebar = () => {
         { path: '/', name: 'Home', icon: RiHome3Line },
         // { path: '/map', name: 'Map', icon: RiMapPinLine },
         { path: '/destinations', name: 'Explore', icon: RiCompassDiscoverLine },
+        ...(EVENTS_ENABLED ? [{ path: '/events', name: 'Events', icon: RiCalendarEventLine }] : []),
+        ...(EVENTS_ENABLED && user?.role === 'admin'
+            ? [{ path: '/admin/events', name: 'Manage events', icon: RiSettings4Line }]
+            : []),
         // { path: '/homegram', name: 'SafarGram', icon: RiCommunityLine, protected: true },
         // { path: '/gallery', name: 'Gallery', icon: RiImageLine },
         // { path: '/blogs', name: 'Blogs', icon: RiBookReadLine, protected: true },

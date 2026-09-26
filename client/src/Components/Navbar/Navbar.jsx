@@ -26,7 +26,9 @@ import {
   RiLogoutCircleLine,
   RiLoginCircleLine,
   RiSearchLine,
+  RiCalendarEventLine,
 } from "react-icons/ri";
+import { EVENTS_ENABLED } from "../../config/features";
 import { logoutUser } from "../../actions/authAction";
 import UnreadBadge from "../../features/chat/components/UnreadBadge";
 import NotificationBell, { NotificationCount } from "../../features/notifications/components/NotificationBell";
@@ -113,6 +115,11 @@ const Navbar = () => {
             <li>
               <Link to="/destinations">Destination</Link>
             </li>
+            {EVENTS_ENABLED && (
+              <li>
+                <Link to="/events">Events</Link>
+              </li>
+            )}
             <li>
               <Link to="/aboutus">About-Us</Link>
             </li>
@@ -212,6 +219,12 @@ const Navbar = () => {
                 <RiCompassDiscoverLine className="icon" />
                 Destinations
               </Link>
+              {EVENTS_ENABLED && (
+                <Link to="/events" onClick={() => toggleMobileMenu(false)}>
+                  <RiCalendarEventLine className="icon" />
+                  Events
+                </Link>
+              )}
               <Link to="/aboutus" onClick={() => toggleMobileMenu(false)}>
                 <RiInformationLine className="icon" />
                 About Us

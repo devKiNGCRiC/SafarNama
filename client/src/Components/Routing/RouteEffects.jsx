@@ -18,6 +18,8 @@ const TITLES = [
   ["/safargram", "SafarGram"],
   ["/chat", "Messages"],
   ["/notifications", "Notifications"],
+  ["/events", "Events"],
+  ["/admin/events", "Manage events"],
   ["/profile", "Profile"],
   ["/auth", "Sign in"],
   ["/forgot-password", "Forgot password"],
