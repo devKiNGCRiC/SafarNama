@@ -23,7 +23,7 @@ import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
 import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
-import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED, GALLERY_ENABLED } from "./config/features";
+import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
 import AdminRoute from "./Components/Routing/AdminRoute";
 import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
@@ -61,6 +61,8 @@ const ResetPassword = lazy(() => import("./Pages/Auth/ResetPassword"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 const GalleryPage = lazy(() => import("./features/gallery/pages/GalleryPage"));
 const GalleryPhotoPage = lazy(() => import("./features/gallery/pages/PhotoPage"));
+const ForumPage = lazy(() => import("./features/forum/pages/ForumPage"));
+const ForumThreadPage = lazy(() => import("./features/forum/pages/ThreadPage"));
 const SettingsPage = lazy(() => import("./features/settings/pages/SettingsPage"));
 const NotificationsPage = lazy(() => import("./features/notifications/pages/NotificationsPage"));
 const SafarDestination = lazy(
@@ -309,28 +311,6 @@ const AppContent = () => {
               }
             />
 
-            {/* <Route path="/communityforum" element={
-                            <ProtectedRoute>
-                                <div>
-                                    <Navbar />
-                                    <Sidebar />
-                                    <CommunityForum />
-                                    <Footer />
-                                </div>
-                            </ProtectedRoute>
-                        } />
-
-                        <Route path="/create-forum-post" element={
-                            <ProtectedRoute>
-                                <div>
-                                    <Navbar />
-                                    <Sidebar />
-                                    <CreateForumPost />
-                                    <Footer />
-                                </div>
-                            </ProtectedRoute>
-                        } /> */}
-
             <Route
               path="/feedback"
               element={
@@ -365,6 +345,9 @@ const AppContent = () => {
               }
             />
 
+            <Route path="/forum" element={FORUM_ENABLED ? <div><Navbar /><ForumPage /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route path="/forum/:id" element={FORUM_ENABLED ? <div><Navbar /><ForumThreadPage /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route path="/communityforum" element={<Navigate to="/forum" replace />} />
             <Route path="/gallery" element={GALLERY_ENABLED ? <div><Navbar /><GalleryPage /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/gallery/:id" element={GALLERY_ENABLED ? <div><Navbar /><GalleryPhotoPage /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <div><Navbar /><EcoGuides /><Footer /></div> : <Navigate to="/home" replace />} />

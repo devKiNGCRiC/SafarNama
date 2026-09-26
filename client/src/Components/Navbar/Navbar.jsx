@@ -27,9 +27,10 @@ import {
   RiLoginCircleLine,
   RiSearchLine,
   RiCalendarEventLine,
+  RiCommunityLine,
   RiLeafLine,
 } from "react-icons/ri";
-import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, GALLERY_ENABLED } from "../../config/features";
+import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "../../config/features";
 import { logoutUser } from "../../actions/authAction";
 import UnreadBadge from "../../features/chat/components/UnreadBadge";
 import NotificationBell, { NotificationCount } from "../../features/notifications/components/NotificationBell";
@@ -131,6 +132,11 @@ const Navbar = () => {
                 <Link to="/gallery">Gallery</Link>
               </li>
             )}
+            {FORUM_ENABLED && (
+              <li>
+                <Link to="/forum">Forum</Link>
+              </li>
+            )}
             <li>
               <Link to="/aboutus">About-Us</Link>
             </li>
@@ -230,6 +236,12 @@ const Navbar = () => {
                 <RiCompassDiscoverLine className="icon" />
                 Destinations
               </Link>
+              {FORUM_ENABLED && (
+                <Link to="/forum" onClick={() => toggleMobileMenu(false)}>
+                  <RiCommunityLine className="icon" />
+                  Forum
+                </Link>
+              )}
               {GALLERY_ENABLED && (
                 <Link to="/gallery" onClick={() => toggleMobileMenu(false)}>
                   <RiImageLine className="icon" />

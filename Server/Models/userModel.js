@@ -82,6 +82,7 @@ const UserSchema = new mongoose.Schema(
         likes: { type: Boolean, default: true },
         comments: { type: Boolean, default: true },
         follows: { type: Boolean, default: true },
+        replies: { type: Boolean, default: true },
       },
     },
     posts: [

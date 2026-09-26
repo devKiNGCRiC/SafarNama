@@ -6,6 +6,7 @@ const KINDS = [
   { key: "likes", label: "Likes", hint: "When someone likes your SafarGram post" },
   { key: "comments", label: "Comments", hint: "When someone comments on your post" },
   { key: "follows", label: "New followers", hint: "When someone starts following you" },
+  { key: "replies", label: "Forum replies", hint: "When someone replies to your discussion" },
 ];
 
 // Each switch saves at once; if the server says no, the switch goes back.

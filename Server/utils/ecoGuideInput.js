@@ -1,22 +1,12 @@
 // Validates and whitelists eco-guide fields from a request body (JSON or multipart).
 // Only these fields can ever be set by a client - never author, likes or comments.
 import { GUIDE_CATEGORIES } from "../Models/ecoGuideModel.js";
+import { parseTags } from "./tags.js";
 
 export const MAX_TAGS = 8;
 export const MAX_COMMENTS = 200;
 
 const text = (value) => (typeof value === "string" ? value.trim() : undefined);
-
-// "Packing, Plastic-Free" (or an array) -> ["packing", "plastic-free"], without duplicates
-export function parseTags(value) {
-  const list = Array.isArray(value) ? value : typeof value === "string" ? value.split(",") : [];
-  const tags = [];
-  for (const raw of list) {
-    const tag = String(raw).trim().toLowerCase().replace(/^#/, "").replace(/\s+/g, "-");
-    if (tag && !tags.includes(tag)) tags.push(tag);
-  }
-  return tags;
-}
 
 export const readMinutes = (content = "") => Math.max(1, Math.ceil(content.trim().split(/\s+/).length / 200));
 

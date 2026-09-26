@@ -1,15 +1,18 @@
 import mongoose from "mongoose";
 
-// "Someone liked / commented on your post" and "someone followed you".
+// "Someone liked / commented on your post", "someone followed you" and "someone replied to your
+// forum thread".
 // Chat messages are NOT notifications: chat has its own unread badge.
 const notificationSchema = new mongoose.Schema(
   {
     recipient: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     actor: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    type: { type: String, enum: ["like", "comment", "follow"], required: true },
+    type: { type: String, enum: ["like", "comment", "follow", "reply"], required: true },
     post: { type: mongoose.Schema.Types.ObjectId, ref: "SafarPost" },
     comment: { type: mongoose.Schema.Types.ObjectId, ref: "SafarComment" },
-    text: { type: String, maxlength: 120 }, // comment snippet
+    thread: { type: mongoose.Schema.Types.ObjectId, ref: "ForumThread" },
+    reply: { type: mongoose.Schema.Types.ObjectId, ref: "ForumReply" },
+    text: { type: String, maxlength: 120 }, // comment / reply snippet
     readAt: { type: Date, default: null },
   },
   { timestamps: true },

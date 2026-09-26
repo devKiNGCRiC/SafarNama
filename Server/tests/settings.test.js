@@ -49,15 +49,15 @@ test("settings need a login and never expose secrets", async () => {
   assert.equal(res.body.data.account.email, u.user.email);
   assert.equal("password" in res.body.data.account, false);
   assert.equal(JSON.stringify(res.body).includes("Token"), false);
-  assert.deepEqual(res.body.data.preferences.notifications, { likes: true, comments: true, follows: true });
+  assert.deepEqual(res.body.data.preferences.notifications, { likes: true, comments: true, follows: true, replies: true });
 });
 
 test("notification preferences: partial updates, strict validation, and they persist", async () => {
   const u = await createUser();
   const res = await api.prefs(u, { notifications: { likes: false } });
   assert.equal(res.status, 200);
-  assert.deepEqual(res.body.data.notifications, { likes: false, comments: true, follows: true });
-  assert.deepEqual((await api.get(u)).body.data.preferences.notifications, { likes: false, comments: true, follows: true });
+  assert.deepEqual(res.body.data.notifications, { likes: false, comments: true, follows: true, replies: true });
+  assert.deepEqual((await api.get(u)).body.data.preferences.notifications, { likes: false, comments: true, follows: true, replies: true });
 
   for (const bad of [{}, { notifications: { likes: "no" } }, { notifications: { shouting: true } }, { notifications: [] }]) {
     assert.equal((await api.prefs(u, bad)).status, 400, JSON.stringify(bad));

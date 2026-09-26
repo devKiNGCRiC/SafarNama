@@ -34,7 +34,7 @@ import AuthRoute from "./Routes/authRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
 import UserRoute from "./Routes/UserRoute.js";
 import profileRoutes from "./Routes/profileRoutes.js";
-import ForumPostRoute from "./Routes/ForumPostRoute.js";
+import forumRoutes from "./Routes/forumRoutes.js";
 import bookingRoutes from "./Routes/bookingRoutes.js";
 import feedbackRoutes from "./Routes/feedbackRoutes.js";
 import contactRoutes from "./Routes/contactRoutes.js";
@@ -186,7 +186,7 @@ app.use("/admin/login", authLimiter);
 app.use("/api/v1/auth", AuthRoute);
 app.use("/admin", adminRoutes);
 app.use("/user", UserRoute);
-app.use("/forum-posts", ForumPostRoute);
+app.use("/api/v1/forum", forumRoutes);
 // Routes
 // Booking and payment are not finished yet: switched off unless ENABLE_BOOKING=true
 app.use("/api/v1/booking", featureGate("ENABLE_BOOKING", "Booking"), bookingRoutes);

@@ -18,7 +18,7 @@ import {
     RiCalendarEventLine,
     RiLeafLine
 } from 'react-icons/ri';
-import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, GALLERY_ENABLED } from '../../config/features';
+import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from '../../config/features';
 import './Sidebar.css';
 import { logoutUser } from '../../actions/authAction';
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
         ...(ECO_GUIDES_ENABLED && user?.role === 'admin'
             ? [{ path: '/admin/eco-guides', name: 'Manage guides', icon: RiSettings4Line }]
             : []),
-        // { path: '/homegram', name: 'SafarGram', icon: RiCommunityLine, protected: true },
+        ...(FORUM_ENABLED ? [{ path: '/forum', name: 'Forum', icon: RiCommunityLine }] : []),
         ...(GALLERY_ENABLED ? [{ path: '/gallery', name: 'Gallery', icon: RiImageLine }] : []),
         // { path: '/blogs', name: 'Blogs', icon: RiBookReadLine, protected: true },
     ];

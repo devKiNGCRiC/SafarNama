@@ -20,7 +20,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { FaThreads } from "react-icons/fa6";
 
 import logo from "../../Assets/logo.jpg";
-import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, GALLERY_ENABLED } from "../../config/features";
+import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "../../config/features";
 
 const Footer = () => {
   useEffect(() => {
@@ -125,6 +125,11 @@ const Footer = () => {
             {GALLERY_ENABLED && (
               <li>
                 <Link to="/gallery">Gallery</Link>
+              </li>
+            )}
+            {FORUM_ENABLED && (
+              <li>
+                <Link to="/forum">Community Forum</Link>
               </li>
             )}
           </ul>

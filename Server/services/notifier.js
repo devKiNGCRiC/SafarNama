@@ -1,10 +1,11 @@
 import UserModel from "../Models/userModel.js"; // also needed by populate()
 import "../Models/safargramPostModel.js";
+import "../Models/forumThreadModel.js";
 import Notification from "../Models/notificationModel.js";
 import ChatBlock from "../Models/chatBlockModel.js";
 
 // notification type -> the switch in Settings that controls it
-const PREF_FOR = { like: "likes", comment: "comments", follow: "follows" };
+const PREF_FOR = { like: "likes", comment: "comments", follow: "follows", reply: "replies" };
 
 const ACTOR_FIELDS = "username firstName lastName avatar";
 
@@ -22,6 +23,7 @@ export function serializeNotification(doc) {
     _id: n._id,
     type: n.type,
     actor: n.actor,
+    thread: n.thread ? { _id: n.thread._id, title: n.thread.title } : null,
     post: n.post ? { _id: n.post._id, thumb: first ? { url: first.url, type: first.type } : null } : null,
     text: n.text || "",
     createdAt: n.createdAt,
@@ -30,11 +32,11 @@ export function serializeNotification(doc) {
 }
 
 export const populateNotification = (query) =>
-  query.populate("actor", ACTOR_FIELDS).populate("post", "media");
+  query.populate("actor", ACTOR_FIELDS).populate("post", "media").populate("thread", "title");
 
 // Creates a notification and pushes it live. It must NEVER break the action that caused
 // it (a like should succeed even if notifying fails), so all errors are swallowed.
-export async function notify({ recipient, actor, type, post, comment, text }) {
+export async function notify({ recipient, actor, type, post, comment, thread, reply, text }) {
   try {
     if (!recipient || !actor || String(recipient) === String(actor)) return null; // never yourself
     if (await ChatBlock.exists({ blocker: recipient, blocked: actor })) return null; // they blocked you
@@ -43,7 +45,7 @@ export async function notify({ recipient, actor, type, post, comment, text }) {
 
     let doc;
     try {
-      doc = await Notification.create({ recipient, actor, type, post, comment, text: text?.slice(0, 120) });
+      doc = await Notification.create({ recipient, actor, type, post, comment, thread, reply, text: text?.slice(0, 120) });
     } catch (error) {
       if (error.code === 11000) return null; // already notified (like / follow toggled again)
       throw error;

@@ -24,6 +24,13 @@ test("targetPath opens the post for likes/comments and the profile for follows",
   assert.equal(targetPath({ type: "like", actor, post: null }), "/notifications"); // post was deleted
 });
 
+test("replies describe the discussion and open it (or fall back if it was deleted)", () => {
+  assert.equal(describe({ type: "reply", text: "Try October" }), "replied to your discussion: “Try October”");
+  assert.equal(describe({ type: "reply" }), "replied to your discussion");
+  assert.equal(targetPath({ type: "reply", actor, thread: { _id: "t1", title: "Coorg?" } }), "/forum/t1");
+  assert.equal(targetPath({ type: "reply", actor, thread: null }), "/notifications");
+});
+
 test("thumbUrl handles photos, videos and missing media", () => {
   assert.equal(thumbUrl({ post: { thumb: { url: "https://x/p.jpg", type: "image" } } }), "https://x/p.jpg");
   assert.equal(thumbUrl({ post: { thumb: { url: "https://x/v.mp4", type: "video" } } }), "https://x/v.jpg");

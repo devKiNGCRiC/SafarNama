@@ -13,6 +13,8 @@ export function describe(notification) {
       return notification.text ? `commented: “${notification.text}”` : "commented on your post";
     case "follow":
       return "started following you";
+    case "reply":
+      return notification.text ? `replied to your discussion: “${notification.text}”` : "replied to your discussion";
     default:
       return "did something";
   }
@@ -21,6 +23,9 @@ export function describe(notification) {
 export function targetPath(notification) {
   if (notification.type === "follow") {
     return notification.actor?.username ? `/profile/${notification.actor.username}` : "/notifications";
+  }
+  if (notification.type === "reply") {
+    return notification.thread?._id ? `/forum/${notification.thread._id}` : "/notifications";
   }
   // like / comment -> the post (if it still exists)
   return notification.post?._id ? `/safargram/post/${notification.post._id}` : "/notifications";

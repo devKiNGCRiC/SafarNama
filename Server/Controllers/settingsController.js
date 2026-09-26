@@ -3,9 +3,9 @@ import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/AppError.js";
 import { createSecureToken, logSecurityEvent, validatePasswordStrength } from "../utils/security.js";
 
-export const NOTIFICATION_KINDS = ["likes", "comments", "follows"];
+export const NOTIFICATION_KINDS = ["likes", "comments", "follows", "replies"];
 
-const DEFAULT_NOTIFICATIONS = { likes: true, comments: true, follows: true };
+const DEFAULT_NOTIFICATIONS = { likes: true, comments: true, follows: true, replies: true };
 
 // Missing values (older accounts) count as "on".
 export const notificationPrefs = (user) => ({
