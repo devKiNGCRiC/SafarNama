@@ -33,7 +33,7 @@ const Middle = () => {
             data-aos-delay="100"
           >
             <div className="promise-header">
-              <div className="promise-icon">�</div>
+              <div className="promise-icon">🌿</div>
               <h3 className="promise-title">100% Eco-Conscious</h3>
             </div>
             <p className="promise-description">
@@ -46,7 +46,7 @@ const Middle = () => {
 
           <div className="promise-card" data-aos="fade-up" data-aos-delay="200">
             <div className="promise-header">
-              <div className="promise-icon">�️</div>
+              <div className="promise-icon">🤝</div>
               <h3 className="promise-title">Authentic Experiences</h3>
             </div>
             <p className="promise-description">

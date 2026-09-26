@@ -1,0 +1,33 @@
+// Small phone-wide rules that apply to every screen.
+@media (max-width: 768px) {
+  // iPhones zoom the whole page in when a text box smaller than 16px gets focus. Keeping form
+  // fields at 16px stops that jump.
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  // no double-tap zoom delay on buttons and links
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  // fingers need at least ~40px to hit reliably (footer links were 19px tall)
+  .footer-links a {
+    display: inline-block;
+    padding: 0.55rem 0;
+  }
+  .sg-actions button,
+  .sg-delete,
+  .rp-trigger {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+}

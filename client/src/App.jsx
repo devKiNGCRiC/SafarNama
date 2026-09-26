@@ -25,6 +25,7 @@ import { ChatProvider } from "./features/chat/ChatProvider";
 import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
 import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
+import BottomNav from "./Components/BottomNav/BottomNav";
 import AdminRoute from "./Components/Routing/AdminRoute";
 import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
 
@@ -157,6 +158,7 @@ const AppContent = () => {
       <Toaster />
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <RouteEffects />
+        <BottomNav />
         <RoutedErrorBoundary>
         <Suspense fallback={<Loader />}>
           <Routes>

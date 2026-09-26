@@ -308,27 +308,38 @@
       }
 
       .promise-grid {
-        gap: 1.5rem;
+        gap: 1rem;
 
         .promise-card {
-          padding: 2rem;
+          padding: 1.25rem;
 
+          // icon and title on one row instead of stacked
           .promise-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
 
             .promise-icon {
-              font-size: 3rem;
+              font-size: 2rem;
+              flex: none;
             }
 
             .promise-title {
-              font-size: 1.5rem;
+              font-size: 1.2rem;
+              margin: 0;
             }
           }
 
           .promise-description {
-            font-size: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.55;
+          }
+
+          .promise-badge {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.9rem;
           }
         }
       }

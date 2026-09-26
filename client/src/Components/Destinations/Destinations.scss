@@ -71,7 +71,8 @@
 
     .destinations-subtitle {
       font-size: 1.05rem;
-      color: #138808;
+      color: #c3f3b0; // light green: the dark green it had was unreadable over the hero photo
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
       font-weight: 600;
       max-width: 620px;
       margin: 0 auto;
@@ -403,12 +404,24 @@
       }
     }
 
+    // one swipeable row instead of six full-width cards stacked down the page
     .destinations-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      margin: 1rem -1rem 0;
+      padding: 0 1rem 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       .destination-card {
-        height: 350px;
+        flex: 0 0 82%;
+        height: 320px;
+        scroll-snap-align: center;
       }
     }
   }

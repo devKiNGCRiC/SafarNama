@@ -1005,3 +1005,118 @@
     }
   }
 }
+
+
+// ---- Phones: a shorter, denser hero (later than the rules above so these win)
+@media screen and (max-width: 768px) {
+  .Home .sectionText {
+    padding-top: 5.5rem; // clear the fixed navbar
+
+    // three tall cards -> three slim rows: icon | text | arrow
+    .action-cards {
+      gap: 0.75rem;
+
+      .action-card {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        column-gap: 1rem;
+        padding: 0.9rem 1.1rem;
+        border-width: 1px;
+        border-radius: 16px;
+
+        .card-icon {
+          grid-row: 1 / span 2;
+          font-size: 2rem;
+          margin: 0;
+        }
+        h3 {
+          grid-column: 2;
+          margin: 0;
+          font-size: 1.05rem;
+          text-shadow: none;
+        }
+        p {
+          grid-column: 2;
+          margin: 0;
+          font-size: 0.82rem;
+          line-height: 1.35;
+        }
+        .card-arrow {
+          grid-column: 3;
+          grid-row: 1 / span 2;
+          font-size: 1.3rem;
+        }
+        &:hover {
+          transform: none;
+        }
+      }
+    }
+
+    // four numbers in a 2 x 2 block
+    .impact-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+
+      .stat-card {
+        padding: 1rem 0.6rem;
+        .stat-number {
+          font-size: 1.9rem;
+        }
+        .stat-desc {
+          display: none;
+        }
+      }
+    }
+
+    // six activities in a 3 x 2 block
+    .activities-section .activities-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+
+      .activity-card {
+        padding: 1rem 0.4rem;
+        .activity-icon {
+          font-size: 1.8rem;
+          margin-bottom: 0.4rem;
+        }
+        h3 {
+          font-size: 0.85rem;
+        }
+        p {
+          font-size: 0.72rem;
+        }
+      }
+    }
+    // "Trending": one swipeable row instead of three tall cards
+    .featured-collection {
+      .collection-header .view-all {
+        white-space: nowrap;
+        font-size: 0.95rem;
+      }
+      .destinations-grid {
+        display: flex;
+        gap: 1rem;
+        margin: 0 -1rem;
+        padding: 0 1rem 0.8rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .destination-card {
+          flex: 0 0 80%;
+          scroll-snap-align: center;
+        }
+      }
+    }
+  }
+
+  // the developer-only connection badge would sit on top of the tab bar
+  .Home .dev-badge {
+    display: none;
+  }
+}
+

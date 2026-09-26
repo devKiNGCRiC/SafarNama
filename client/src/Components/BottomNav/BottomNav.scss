@@ -1,0 +1,75 @@
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #7a8288);
+
+// Only on phones and small tablets; larger screens use the top navbar.
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body.has-bottom-nav {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900; // above page content, below dialogs and the top navbar
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom, 0px); // clears the iPhone home bar
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.09);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.07);
+  }
+
+  .bottom-nav-item {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 60px;
+    color: $muted;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.15s;
+
+    &.active {
+      color: #e8590c;
+      .bottom-nav-label {
+        font-weight: 700;
+      }
+    }
+    &:active {
+      background: rgba(255, 153, 51, 0.1);
+    }
+    &:focus-visible {
+      outline: 3px solid rgba(255, 153, 51, 0.6);
+      outline-offset: -3px;
+    }
+  }
+
+  .bottom-nav-icon {
+    position: relative;
+    display: flex;
+    // the unread count sits on the top-right corner of the icon
+    .chat-badge {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+    }
+  }
+
+  .bottom-nav-label {
+    font-size: 0.68rem;
+    line-height: 1;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
