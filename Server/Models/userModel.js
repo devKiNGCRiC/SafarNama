@@ -76,6 +76,14 @@ const UserSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
+    // Chosen in Settings. A missing value means "on".
+    preferences: {
+      notifications: {
+        likes: { type: Boolean, default: true },
+        comments: { type: Boolean, default: true },
+        follows: { type: Boolean, default: true },
+      },
+    },
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,

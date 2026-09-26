@@ -18,6 +18,7 @@ const TITLES = [
   ["/safargram", "SafarGram"],
   ["/chat", "Messages"],
   ["/notifications", "Notifications"],
+  ["/settings", "Settings"],
   ["/events", "Events"],
   ["/eco-guides", "Eco-guides"],
   ["/admin/eco-guides", "Manage guides"],

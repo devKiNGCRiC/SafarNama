@@ -1,7 +1,10 @@
-import "../Models/userModel.js"; // populate() needs the models registered
+import UserModel from "../Models/userModel.js"; // also needed by populate()
 import "../Models/safargramPostModel.js";
 import Notification from "../Models/notificationModel.js";
 import ChatBlock from "../Models/chatBlockModel.js";
+
+// notification type -> the switch in Settings that controls it
+const PREF_FOR = { like: "likes", comment: "comments", follow: "follows" };
 
 const ACTOR_FIELDS = "username firstName lastName avatar";
 
@@ -35,6 +38,8 @@ export async function notify({ recipient, actor, type, post, comment, text }) {
   try {
     if (!recipient || !actor || String(recipient) === String(actor)) return null; // never yourself
     if (await ChatBlock.exists({ blocker: recipient, blocked: actor })) return null; // they blocked you
+    const prefs = await UserModel.findById(recipient).select("preferences.notifications").lean();
+    if (prefs?.preferences?.notifications?.[PREF_FOR[type]] === false) return null; // turned off in Settings
 
     let doc;
     try {

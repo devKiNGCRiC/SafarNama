@@ -280,6 +280,15 @@ const Navbar = () => {
                     <RiUserLine className="icon" />
                     Profile
                   </button>
+                  <button
+                    onClick={() => {
+                      navigate("/settings");
+                      toggleMobileMenu(false);
+                    }}
+                  >
+                    <RiSettings4Line className="icon" />
+                    Settings
+                  </button>
                   <button className="logoutBtn" onClick={handleLogout}>
                     <RiLogoutCircleLine className="icon" />
                     Logout

@@ -48,7 +48,7 @@ const Sidebar = () => {
 
     const bottomMenuItems = [
         // { path: '/notifications', name: 'Notifications', icon: RiNotification3Line, protected: true },
-        // { path: '/settings', name: 'Settings', icon: RiSettings4Line, protected: true },
+        { path: '/settings', name: 'Settings', icon: RiSettings4Line, protected: true },
     ];
 
     const toggleSidebar = () => {
