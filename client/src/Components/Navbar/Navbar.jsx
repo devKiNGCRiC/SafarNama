@@ -29,6 +29,7 @@ import {
 } from "react-icons/ri";
 import { logoutUser } from "../../actions/authAction";
 import UnreadBadge from "../../features/chat/components/UnreadBadge";
+import NotificationBell, { NotificationCount } from "../../features/notifications/components/NotificationBell";
 
 const ProtectedLink = ({ to, children, onClick }) => {
   const navigate = useNavigate();
@@ -144,6 +145,7 @@ const Navbar = () => {
           )}
 
           <div className="navActions">
+            {isAuthenticated && <NotificationBell />}
             {!isAuthenticated && (
               <Link to="/auth" className="signUpBtn">
                 Sign Up
@@ -225,6 +227,11 @@ const Navbar = () => {
                 <RiChat3Line className="icon" />
                 Chat
                 <UnreadBadge />
+              </ProtectedLink>
+              <ProtectedLink to="/notifications" onClick={() => toggleMobileMenu(false)}>
+                <RiNotification3Line className="icon" />
+                Notifications
+                <NotificationCount />
               </ProtectedLink>
               <ProtectedLink
                 to="/blogs"

@@ -10,6 +10,7 @@ import { extractHashtags } from "../../utils/safargramText.js";
 import { validateMediaFiles } from "../../utils/safargramMediaRules.js";
 import { removeTempFiles } from "../../Middleware/safargramUpload.js";
 import { populatePost, serializePosts } from "../../services/safargramSerializer.js";
+import { unnotify } from "../../services/notifier.js";
 
 export function makePostController(media) {
   const createPost = catchAsync(async (req, res) => {
@@ -92,6 +93,7 @@ export function makePostController(media) {
       SafarSave.deleteMany({ post: id }),
       post.deleteOne(),
     ]);
+    await unnotify({ post: id });
     await media.remove(post.media); // best effort, never throws
     res.status(200).json({ success: true, message: "Post deleted" });
   });

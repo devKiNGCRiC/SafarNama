@@ -10,6 +10,7 @@ import cloudinary from '../utils/Cloudinary.js';
 import AppError from '../utils/AppError.js';
 import { assertObjectId } from '../utils/cursor.js';
 import { shouldUseCloudinary } from '../config/env.js';
+import { notify, unnotify } from '../services/notifier.js';
 
 // Profiles are created lazily elsewhere in the app, so following must not depend on both
 // people having opened their profile page first.
@@ -352,6 +353,8 @@ export const followUser = async (req, res) => {
             )
         ]);
 
+        await notify({ recipient: userId, actor: req.user._id, type: 'follow' });
+
         res.status(200).json({
             success: true,
             message: 'Successfully followed user'
@@ -383,6 +386,8 @@ export const unfollowUser = async (req, res) => {
                 { $pull: { followers: req.user._id } }
             )
         ]);
+
+        await unnotify({ type: 'follow', recipient: userId, actor: req.user._id });
 
         res.status(200).json({
             success: true,

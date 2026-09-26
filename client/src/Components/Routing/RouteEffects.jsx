@@ -17,6 +17,7 @@ const TITLES = [
   ["/safargram/saved", "Bucket list · SafarGram"],
   ["/safargram", "SafarGram"],
   ["/chat", "Messages"],
+  ["/notifications", "Notifications"],
   ["/profile", "Profile"],
   ["/auth", "Sign in"],
   ["/forgot-password", "Forgot password"],

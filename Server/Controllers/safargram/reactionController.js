@@ -4,6 +4,7 @@ import SafarPost from "../../Models/safargramPostModel.js";
 import SafarLike from "../../Models/safargramLikeModel.js";
 import SafarSave from "../../Models/safargramSaveModel.js";
 import { assertObjectId } from "../../utils/cursor.js";
+import { notify, unnotify } from "../../services/notifier.js";
 
 async function requirePost(rawId) {
   const id = assertObjectId(rawId, "post id");
@@ -29,6 +30,8 @@ export const likePost = catchAsync(async (req, res) => {
   const post = await requirePost(req.params.id);
   if (await addRecord(SafarLike, post, req.user._id)) {
     await SafarPost.updateOne({ _id: post }, { $inc: { likesCount: 1 } });
+    const owner = await SafarPost.findById(post).select("author");
+    await notify({ recipient: owner?.author, actor: req.user._id, type: "like", post });
   }
   const { likesCount } = await SafarPost.findById(post).select("likesCount");
   res.status(200).json({ success: true, data: { likesCount, likedByMe: true } });
@@ -42,6 +45,7 @@ export const unlikePost = catchAsync(async (req, res) => {
       { _id: post, likesCount: { $gt: 0 } },
       { $inc: { likesCount: -1 } },
     );
+    await unnotify({ type: "like", actor: req.user._id, post });
   }
   const { likesCount } = await SafarPost.findById(post).select("likesCount");
   res.status(200).json({ success: true, data: { likesCount, likedByMe: false } });

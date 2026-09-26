@@ -22,6 +22,7 @@ import HomePage from "./Pages/HomePage/HomePage"; // Keep home page immediate
 import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
+import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
 import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
 import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
@@ -53,6 +54,7 @@ const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
 const ForgotPassword = lazy(() => import("./Pages/Auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./Pages/Auth/ResetPassword"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
+const NotificationsPage = lazy(() => import("./features/notifications/pages/NotificationsPage"));
 const SafarDestination = lazy(
   () => import("./features/safargram/pages/DestinationPostsPage"),
 );
@@ -190,6 +192,7 @@ const AppContent = () => {
             <Route path="/safargram" element={<Shell><SafarFeed /></Shell>} />
             <Route path="/safargram/explore" element={<Shell><SafarExplore /></Shell>} />
             <Route path="/safargram/saved" element={<Shell><SafarSaved /></Shell>} />
+            <Route path="/notifications" element={<Shell><NotificationsPage /></Shell>} />
             <Route path="/chat" element={<Shell><ChatPage /></Shell>} />
             <Route path="/chat/with/:username" element={<Shell><ChatPage /></Shell>} />
             <Route path="/chat/:conversationId" element={<Shell><ChatPage /></Shell>} />
@@ -398,7 +401,9 @@ function App() {
     <div>
       <Provider store={store}>
         <ChatProvider>
-          <AppContent />
+          <NotificationsProvider>
+            <AppContent />
+          </NotificationsProvider>
         </ChatProvider>
       </Provider>
     </div>

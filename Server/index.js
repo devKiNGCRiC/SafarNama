@@ -43,6 +43,8 @@ import blogRoutes from "./Routes/BlogRoutes.js";
 import safargramRoutes from "./Routes/safargramRoutes.js";
 import newsletterRoutes from "./Routes/newsletterRoutes.js";
 import publicStatsRoutes from "./Routes/publicStatsRoutes.js";
+import notificationRoutes from "./Routes/notificationRoutes.js";
+import { configureNotifier } from "./services/notifier.js";
 import tourRoute from "./Routes/tours.js";
 import reviewRoute from "./Routes/reviews.js";
 import destinationRoutes from "./Routes/destinationRoute.js";
@@ -169,6 +171,7 @@ if (process.env.DEV_MODE === "development") {
 // HTTP server shared by Express and the chat sockets (socket.io needs the raw server)
 const server = http.createServer(app);
 const realtime = attachChatSocket(server, { origins: allowedOrigins });
+configureNotifier(realtime); // lets likes/comments/follows push notifications live
 
 //usage of routes
 app.use("/api/v1/profile", profileRoutes);
@@ -202,6 +205,7 @@ app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/safargram", safargramRoutes);
 app.use("/api/v1/newsletter", newsletterRoutes);
 app.use("/api/v1/public-stats", publicStatsRoutes);
+app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/chat", createChatRouter({ realtime }));
 
 // Handle undefined routes

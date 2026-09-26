@@ -4,6 +4,7 @@ import SafarPost from "../../Models/safargramPostModel.js";
 import SafarComment from "../../Models/safargramCommentModel.js";
 import { assertObjectId, cursorFilter, parsePaging, toPage } from "../../utils/cursor.js";
 import { AUTHOR_FIELDS } from "../../services/safargramSerializer.js";
+import { notify, unnotify } from "../../services/notifier.js";
 
 async function requirePost(rawId) {
   const id = assertObjectId(rawId, "post id");
@@ -34,6 +35,15 @@ export const addComment = catchAsync(async (req, res) => {
   const comment = await SafarComment.create({ post, author: req.user._id, text });
   await SafarPost.updateOne({ _id: post }, { $inc: { commentsCount: 1 } });
   await comment.populate("author", AUTHOR_FIELDS);
+  const owner = await SafarPost.findById(post).select("author");
+  await notify({
+    recipient: owner?.author,
+    actor: req.user._id,
+    type: "comment",
+    post,
+    comment: comment._id,
+    text,
+  });
   res.status(201).json({ success: true, data: comment });
 });
 
@@ -51,6 +61,7 @@ export const deleteComment = catchAsync(async (req, res) => {
   if (!allowed) throw new AppError("You cannot delete this comment", 403);
 
   await comment.deleteOne();
+  await unnotify({ comment: comment._id });
   if (post) {
     await SafarPost.updateOne(
       { _id: post._id, commentsCount: { $gt: 0 } },
