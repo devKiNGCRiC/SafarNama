@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Camera, Edit2, Link as LinkIcon, MapPin } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { fullName, hostnameOf, safeHref } from '../../../features/profile/utils/profileLinks';
 import './ProfileHeader.scss';
 
 import img1 from '../../../Assets/avatar.jpg';
 import img2 from '../../../Assets/img/cover.jpg';
-const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, onUpdateCoverPhoto }) => {
+const ProfileHeader = ({ user, profile, counts, isOwnProfile, onUpdateProfilePicture, onUpdateCoverPhoto }) => {
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
     const [uploadingCover, setUploadingCover] = useState(false);
 
@@ -13,9 +14,9 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
         if (!validTypes.includes(file.type)) {
-            toast.error('Please upload a valid image file (JPG or PNG)');
+            toast.error('Please upload a JPG, PNG or WEBP photo');
             return;
         }
 
@@ -29,11 +30,6 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
             const formData = new FormData();
             formData.append('avatar', file);
             
-            // Log the FormData contents for debugging
-            for (let pair of formData.entries()) {
-                console.log('Uploading',pair[0], pair[1]);
-            }
-    
             const result = await onUpdateProfilePicture(formData);
             if (result.success) {
                 toast.success('Profile picture updated successfully');
@@ -41,10 +37,10 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                 throw new Error(result.error);
             }
         } catch (error) {
-            console.error('Upload error:', error);
             toast.error(error.message || 'Failed to update profile picture');
         } finally {
             setUploadingAvatar(false);
+            e.target.value = '';
         }
     };
 
@@ -52,21 +48,22 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
         const file = e.target.files?.[0];
         if (!file) return;
     
-        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
         if (!validTypes.includes(file.type)) {
-            toast.error('Please upload a valid image file (JPG or PNG)');
+            toast.error('Please upload a JPG, PNG or WEBP photo');
             return;
         }
     
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('File size should not exceed 5MB');
+            e.target.value = '';
+            return;
+        }
+
         try {
             setUploadingCover(true);
             const formData = new FormData();
             formData.append('cover', file); // Make sure this matches your backend field name
-    
-            // Log for debugging
-            for (let pair of formData.entries()) {
-                console.log('Cover upload formData:', pair[0], pair[1]);
-            }
     
             const result = await onUpdateCoverPhoto(formData);
             
@@ -76,22 +73,10 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                 throw new Error(result?.error || 'Failed to update cover photo');
             }
         } catch (error) {
-            console.error('Cover upload error:', error);
             toast.error(error.message || 'Failed to update cover photo');
         } finally {
             setUploadingCover(false);
-        }
-    };
-
-    // In your ProfileHeader component
-    const handleUploadError = (error) => {
-        console.error('Upload error:', error);
-        if (error.response?.status === 413) {
-            toast.error('File size too large. Please upload a smaller image.');
-        } else if (error.response?.status === 415) {
-            toast.error('Invalid file type. Please upload a JPG or PNG image.');
-        } else {
-            toast.error(error.response?.data?.message || 'Failed to upload image');
+            e.target.value = '';
         }
     };
 
@@ -108,7 +93,7 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                         <input
                             type="file"
                             id="cover-upload"
-                            accept="image/jpeg,image/png,image/jpg"
+                            accept="image/jpeg,image/png,image/webp"
                             onChange={handleCoverChange}
                             disabled={uploadingCover}
                             hidden
@@ -134,7 +119,7 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                                 <input
                                     type="file"
                                     id="avatar-upload"
-                                    accept="image/jpeg,image/png,image/jpg"
+                                    accept="image/jpeg,image/png,image/webp"
                                     onChange={handleAvatarChange}
                                     disabled={uploadingAvatar}
                                     hidden
@@ -150,9 +135,7 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                 <div className="profile-info-section">
                     <div className="profile-names">
                         <h1>{user?.username}</h1>
-                        {user?.firstname && user?.lastname && (
-                            <h2>{`${user.firstname} ${user.lastname}`}</h2>
-                        )}
+                        {fullName(user) && <h2>{fullName(user)}</h2>}
                     </div>
 
                     <div className="profile-details">
@@ -167,15 +150,15 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                                     {profile.location}
                                 </span>
                             )}
-                            {profile?.website && (
-                                <a 
-                                    href={profile.website}
+                            {safeHref(profile?.website) && (
+                                <a
+                                    href={safeHref(profile.website)}
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                    rel="noopener noreferrer nofollow"
                                     className="website"
                                 >
                                     <LinkIcon size={16} />
-                                    {new URL(profile.website).hostname}
+                                    {hostnameOf(profile.website)}
                                 </a>
                             )}
                         </div>
@@ -190,13 +173,19 @@ const ProfileHeader = ({ user, profile, isOwnProfile, onUpdateProfilePicture, on
                                 <span className="stat-label">Following</span>
                             </div>
                             <div className="stat-item">
-                                <span className="stat-value">{profile?.posts?.length || 0}</span>
+                                <span className="stat-value">{counts?.posts || 0}</span>
                                 <span className="stat-label">Posts</span>
                             </div>
-                            {profile?.blogs?.length > 0 && (
+                            {counts?.blogs > 0 && (
                                 <div className="stat-item">
-                                    <span className="stat-value">{profile.blogs.length}</span>
+                                    <span className="stat-value">{counts.blogs}</span>
                                     <span className="stat-label">Blogs</span>
+                                </div>
+                            )}
+                            {counts?.photos > 0 && (
+                                <div className="stat-item">
+                                    <span className="stat-value">{counts.photos}</span>
+                                    <span className="stat-label">Photos</span>
                                 </div>
                             )}
                         </div>

@@ -25,13 +25,11 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         trim: true
     }],
+    // checked and normalised in utils/profileInput.js (http/https only)
     website: {
         type: String,
         trim: true,
-        match: [
-            /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-            'Please provide a valid URL'
-        ]
+        maxlength: 200
     },
     socialLinks: [{
         platform: {

@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-    UserPlus, 
-    UserMinus, 
-    Share2, 
-    Mail, 
-    Flag, 
-    MoreHorizontal 
-} from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { UserPlus, UserMinus, Share2, Mail } from 'lucide-react';
 import './ProfileActions.scss';
 
 const ProfileActions = ({ 
@@ -18,7 +12,6 @@ const ProfileActions = ({
     username,
     isLoading 
 }) => {
-    const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
 
     const handleFollowAction = () => {
@@ -33,9 +26,9 @@ const ProfileActions = ({
         try {
             const profileUrl = `${window.location.origin}/profile/${username}`;
             await navigator.clipboard.writeText(profileUrl);
-            // You can add a toast notification here
-        } catch (error) {
-            console.error('Failed to copy:', error);
+            toast.success('Profile link copied');
+        } catch {
+            toast.error('Could not copy the link');
         }
     };
 
@@ -72,26 +65,6 @@ const ProfileActions = ({
                 <Share2 size={18} />
             </button>
 
-            <div className="more-actions">
-                <button 
-                    className="more-button"
-                    onClick={() => setShowDropdown(!showDropdown)}
-                >
-                    <MoreHorizontal size={18} />
-                </button>
-
-                {showDropdown && (
-                    <div className="dropdown-menu">
-                        {!isOwnProfile && (
-                            <button className="dropdown-item">
-                                <Flag size={16} />
-                                <span>Report Profile</span>
-                            </button>
-                        )}
-                        {/* Add more dropdown items as needed */}
-                    </div>
-                )}
-            </div>
         </div>
     );
 };

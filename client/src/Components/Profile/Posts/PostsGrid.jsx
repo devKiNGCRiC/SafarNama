@@ -8,7 +8,6 @@ const PostsGrid = ({ posts = [] }) => {
     const navigate = useNavigate();
 
     // Debug log
-    console.log('Posts received in PostsGrid:', posts);
 
     return (
         <div className="posts-grid">

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 
@@ -8,224 +8,119 @@ import ProfileHeader from '../../Components/Profile/ProfileHeader/ProfileHeader'
 import ProfileInfo from '../../Components/Profile/ProfileInfo/ProfileInfo';
 import ProfileTabs from '../../Components/Profile/ProfileTabs/ProfileTabs';
 import ProfileEdit from '../../Components/Profile/ProfileEdit/ProfileEdit';
-// import ProfileStats from '../../Components/Profile/ProfileStats/ProfileStats';
 import ProfileActions from '../../Components/Profile/ProfileActions/ProfileActions';
 import Loader from '../../Components/Loader/Loader';
 import ErrorMessage from '../../Components/common/ErrorMessage';
+import { sameUsername } from '../../features/profile/utils/profileLinks';
 
 // Actions
-import { 
-    getProfile, 
-    updateProfile, 
-    updateProfilePicture, 
+import {
+    getProfile,
+    updateProfile,
+    updateProfilePicture,
     updateCoverPhoto,
     followUserAction,
-    unfollowUserAction 
+    unfollowUserAction
 } from '../../actions/profileActions';
+import { clearProfile } from '../../store/reducers/profileSlice';
 
 const Profile = () => {
     const { username } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Local state
     const [isEditing, setIsEditing] = useState(false);
     const [activeTab, setActiveTab] = useState('posts');
     const [loadingFollow, setLoadingFollow] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    // Redux state
-    const { 
-        profile, 
-        loading: profileLoading, 
-        error: profileError 
-    } = useSelector(state => state.profile);
-    const { user: currentUser } = useSelector(state => state.auth);
+    const [notFound, setNotFound] = useState(false);
 
-    useEffect(() => {
-        let isMounted = true;
-        const loadProfile = async () => {
-            try{
-                setIsLoading(true);
-                // If no username in URL, load current user's profile
-                const targetUsername = username || currentUser?.username;
-                console.log('Target username:', targetUsername);
+    const { profile, loading, error } = useSelector((state) => state.profile);
+    const { user: currentUser } = useSelector((state) => state.auth);
 
-                if (!targetUsername) {
-                    console.log('No target username, redirecting to auth');
-                    navigate('/auth');
-                    return;
-                }
-
-                const result = await dispatch(getProfile(targetUsername));
-                console.log('Profile load result:', result);
-
-                if (isMounted) {
-                    if (!result.success) {
-                        toast.error(result.error || 'Failed to load profile');
-                        if (result.error === 'Profile not found') {
-                            navigate('/404');
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('Profile load error:', error);
-                if (isMounted) {
-                    toast.error('Error loading profile');
-                }
-            } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
-            }
-        };
-
-        loadProfile();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [username, currentUser?.username, dispatch, navigate]);
-
-    useEffect(() => {
-        const loadProfileData = async () => {
-            try {
-                setIsLoading(true);
-                const targetUsername = username || currentUser?.username;
-                
-                if (!targetUsername) {
-                    navigate('/auth');
-                    return;
-                }
-    
-                // Log the profile data we're receiving
-                console.log('Loading profile data for:', targetUsername);
-                
-                const result = await dispatch(getProfile(targetUsername));
-                console.log('Profile load result:', result);
-    
-                if (!result.success) {
-                    toast.error(result.error || 'Failed to load profile');
-                    if (result.error === 'Profile not found') {
-                        navigate('/404');
-                    }
-                }
-            } catch (error) {
-                console.error('Profile load error:', error);
-                toast.error('Error loading profile');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-    
-        loadProfileData();
-    }, [username, currentUser?.username, dispatch, navigate]);
-
-    // Add more console logs
-    console.log('Profile from Redux:', profile);
-
-    // Check if it's own profile
-    const isOwnProfile = !username || username === currentUser?.username;
+    // "/profile" (no name) means my own profile
+    const targetUsername = username || currentUser?.username;
+    const isOwnProfile = !username || sameUsername(username, currentUser?.username);
     // The login response has `id`, not `_id`; followers are stored as user ids.
     const myId = currentUser?.id || currentUser?._id;
-    const isFollowing = (profile?.profile?.followers || []).some(
-        (f) => String(f?._id ?? f) === String(myId)
-    );
 
-    console.log('Component State:', {
-        isLoading,
-        profileLoading,
-        profile,
-        currentUser,
-        isOwnProfile
-    });
+    const load = useCallback(async () => {
+        const result = await dispatch(getProfile(username || currentUser?.username));
+        setNotFound(Boolean(result.notFound));
+    }, [dispatch, username, currentUser?.username]);
+
+    // One load per profile. The previous person's data is cleared first, so nobody ever sees
+    // someone else's profile while the new one loads.
+    useEffect(() => {
+        if (!targetUsername) {
+            navigate('/auth', { replace: true });
+            return;
+        }
+        setNotFound(false);
+        setActiveTab('posts');
+        setIsEditing(false);
+        dispatch(clearProfile());
+        load();
+    }, [targetUsername]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    if (notFound) {
+        return (
+            <div className="profile-container" style={{ padding: '120px 16px', textAlign: 'center' }}>
+                <h2>We could not find that traveller</h2>
+                <p>The profile may have been renamed or removed.</p>
+                <Link to="/safargram/explore">Find people on SafarGram</Link>
+            </div>
+        );
+    }
+    if (error && !profile) {
+        return <ErrorMessage message={error} onRetry={load} />;
+    }
+    // (also covers the split second when the store still holds the previous person's profile)
+    if (!profile || loading || !sameUsername(profile.user?.username, targetUsername)) {
+        return <Loader fullScreen />;
+    }
+
+    const isFollowing = (profile.profile?.followers || []).some((f) => String(f?._id ?? f) === String(myId));
 
     const handleProfileUpdate = async (data) => {
         const result = await dispatch(updateProfile(data));
-        if (result.success) {
-            toast.success('Profile updated successfully');
-            setIsEditing(false);
-            // Reload profile data
-            dispatch(getProfile(username));
-        } else {
-            toast.error(result.error || 'Failed to update profile');
-        }
+        if (result.success) setIsEditing(false);
+        return result;
     };
 
-    const handleFollow = async () => {
+    const changeFollow = async (follow) => {
         if (!currentUser) {
             navigate('/auth');
             return;
         }
-
         setLoadingFollow(true);
         try {
-            const result = await dispatch(followUserAction(profile.user._id));
-            if (result.success) {
-                toast.success(`Following ${username}`);
-            } else {
-                toast.error(result.error || 'Failed to follow user');
-            }
+            const action = follow ? followUserAction : unfollowUserAction;
+            const result = await dispatch(action(profile.user._id));
+            if (result.success) toast.success(follow ? `Following ${profile.user.username}` : `Unfollowed ${profile.user.username}`);
+            else toast.error(result.error || `Could not ${follow ? 'follow' : 'unfollow'} this person`);
         } finally {
             setLoadingFollow(false);
         }
-    };
-
-    const handleUnfollow = async () => {
-        setLoadingFollow(true);
-        try {
-            const result = await dispatch(unfollowUserAction(profile.user._id));
-            if (result.success) {
-                toast.success(`Unfollowed ${username}`);
-            } else {
-                toast.error(result.error || 'Failed to unfollow user');
-            }
-        } finally {
-            setLoadingFollow(false);
-        }
-    };
-
-    // Show loading state only on initial load
-    if (profileLoading && !profile) {
-        return <Loader fullScreen />;
-    }
-
-    // Show error state
-    if (profileError) {
-        return (
-            <ErrorMessage 
-                message={profileError}
-                onRetry={() => dispatch(getProfile(username || currentUser?.username))}
-            />
-        );
-    }
-
-    if (!profile) {
-        return <div>No profile data available</div>;
-    }
-
-    const profileData = {
-        ...profile.user,
-        ...profile.profile,
-        isOwnProfile
     };
 
     return (
         <div className="profile-container">
-            <ProfileHeader 
+            <ProfileHeader
                 user={profile.user}
                 profile={profile.profile}
+                counts={profile.counts}
                 isOwnProfile={isOwnProfile}
                 onUpdateProfilePicture={(file) => dispatch(updateProfilePicture(file))}
                 onUpdateCoverPhoto={(file) => dispatch(updateCoverPhoto(file))}
             />
 
-        <div className="profile-content">
+            <div className="profile-content">
                 {!isOwnProfile && (
-                    <ProfileActions 
+                    <ProfileActions
                         isOwnProfile={isOwnProfile}
                         isFollowing={isFollowing}
-                        onFollow={() => handleFollow(profile.user._id)}
-                        onUnfollow={() => handleUnfollow(profile.user._id)}
+                        onFollow={() => changeFollow(true)}
+                        onUnfollow={() => changeFollow(false)}
                         username={profile.user.username}
                         isLoading={loadingFollow}
                     />
@@ -233,7 +128,7 @@ const Profile = () => {
 
                 <div className="profile-main">
                     <div className="profile-left">
-                        <ProfileInfo 
+                        <ProfileInfo
                             user={profile.user}
                             profile={profile.profile}
                             isOwnProfile={isOwnProfile}
@@ -242,10 +137,10 @@ const Profile = () => {
                     </div>
 
                     <div className="profile-right">
-                        <ProfileTabs 
+                        <ProfileTabs
                             activeTab={activeTab}
                             setActiveTab={setActiveTab}
-                            profile={profileData}
+                            blogs={profile.blogs || []}
                             isOwnProfile={isOwnProfile}
                             username={profile.user.username}
                         />
@@ -253,9 +148,8 @@ const Profile = () => {
                 </div>
             </div>
 
-
             {isEditing && (
-                <ProfileEdit 
+                <ProfileEdit
                     user={profile.user}
                     profile={profile.profile}
                     onClose={() => setIsEditing(false)}

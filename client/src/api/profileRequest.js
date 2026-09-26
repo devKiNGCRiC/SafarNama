@@ -22,26 +22,19 @@ profileApi.interceptors.request.use(
 );
 
 // Profile API requests
+// No username means "my own profile" (/me). Never throws: resolves to { success, data | message, status }.
 export const getProfile = async (username) => {
     try {
-        console.log('Making profile request for:', username);
-        // If no username provided, use /me endpoint
-        const endpoint = username ? `/${username}` : '/me';
+        const endpoint = username ? `/${encodeURIComponent(username)}` : '/me';
         const response = await profileApi.get(endpoint);
-        console.log('Profile API response:', response);
-
         if (response.data && response.data.success) {
-            return {
-                success: true,
-                data: response.data.data
-            };
+            return { success: true, data: response.data.data };
         }
-        
-        throw new Error(response.data.message || 'Failed to fetch profile');
+        return { success: false, message: response.data?.message || 'Failed to fetch profile' };
     } catch (error) {
-        console.error('Profile request error:', error.response || error);
         return {
             success: false,
+            status: error.response?.status,
             message: error.response?.data?.message || 'Failed to fetch profile'
         };
     }
@@ -65,7 +58,6 @@ export const updateProfilePicture = async (formData) => {
         });
         return response.data;
     } catch (error) {
-        console.error('Profile picture upload error:', error.response || error);
         throw error.response?.data || error;
     }
 };
@@ -79,7 +71,6 @@ export const updateCoverPhoto = async (formData) => {
         });
         return response.data;
     } catch (error) {
-        console.error('Cover photo upload error:', error.response || error);
         throw error.response?.data || error;
     }
 };

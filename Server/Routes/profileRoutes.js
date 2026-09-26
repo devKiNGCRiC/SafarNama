@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken } from '../Middleware/authMiddleware.js';
+import { verifyToken, optionalAuth } from '../Middleware/authMiddleware.js';
 import { upload } from '../Middleware/uploadMiddleware.js';
 import {
     listSavedDestinations,
@@ -50,8 +50,8 @@ router.get('/stats', verifyToken, getStats);
 
 // Parameterised routes go LAST. '/:username' matches any single path segment,
 // so declared earlier it swallowed /saved and /stats.
-router.get('/:username/followers', getProfile);
-router.get('/:username/following', getProfile);
-router.get('/:username', getProfile);
+router.get('/:username/followers', optionalAuth, getProfile);
+router.get('/:username/following', optionalAuth, getProfile);
+router.get('/:username', optionalAuth, getProfile);
 
 export default router;

@@ -1,13 +1,14 @@
 // server/controllers/profileController.js
 import UserModel from '../Models/userModel.js';
 import ProfileModel from '../Models/profileModel.js';
-import PostModel from '../Models/postModel.js';   // Add this import
-import BlogModel from '../Models/blogModel.js';   // Add this if you have a Blog model
-import Booking from '../Models/TourBookingModel.js';   // Add this if you have a Tour model
-import AchievementModel from '../Models/achievementModel.js'; // 'Models' must match the folder name exactly (case matters on Linux)
-import fs from 'fs';
+import BlogModel from '../Models/blogModel.js';
+import SafarPost from '../Models/safargramPostModel.js';
+import GalleryPhoto from '../Models/galleryPhotoModel.js';
 import cloudinary from '../utils/Cloudinary.js';
 import AppError from '../utils/AppError.js';
+import catchAsync from '../utils/catchAsync.js';
+import { parseProfileInput } from '../utils/profileInput.js';
+import { removeTempFiles } from '../Middleware/safargramUpload.js';
 import { assertObjectId } from '../utils/cursor.js';
 import { shouldUseCloudinary } from '../config/env.js';
 import { notify, unnotify } from '../services/notifier.js';
@@ -22,267 +23,141 @@ const ensureProfile = (userId) =>
     );
 
 // Get profile
-export const getProfile = async (req, res) => {
-    try {
-        let user;
-        
-        // If accessing /me endpoint or no username provided
-        if (req.user) {
-            user = req.user;
-        } 
-        // If accessing /:username endpoint
-        else if (req.params.username) {
-            user = await UserModel.findOne({ username: req.params.username }).select('-password');
-            if (!user) {
-                return res.status(404).json({
-                    success: false,
-                    message: 'User not found'
-                });
-            }
-        } else {
-            return res.status(400).json({
-                success: false,
-                message: 'Username is required'
-            });
-        }
+// What anyone may see about a person. Email and account details are for the owner only, and
+// nothing security-related (tokens, login attempts, role, settings) is ever sent.
+const PUBLIC_USER_FIELDS = 'username firstName lastName avatar createdAt';
+const person = (u) => (u ? { _id: u._id, username: u.username, avatar: u.avatar || '', firstName: u.firstName, lastName: u.lastName } : null);
 
-        let profile = await ProfileModel.findOne({ user: user._id })
-            .populate('achievements')
-            .populate('followers', 'username avatar firstName lastName')
-            .populate('following', 'username avatar firstName lastName')
-            .populate({
-                path: 'savedPosts',
-                populate: { path: 'user', select: 'username avatar' }
-            })
-            .populate({
-                path: 'savedBlogs',
-                populate: { path: 'author', select: 'username avatar' }
-            })
-            .populate({
-                path: 'savedTours',
-                populate: { path: 'organizer', select: 'username avatar' }
-            });
+export function serializeUser(user, isOwner) {
+    return {
+        _id: user._id,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar || '',
+        createdAt: user.createdAt,
+        ...(isOwner ? { email: user.email, isEmailVerified: Boolean(user.isEmailVerified) } : {})
+    };
+}
 
-        // If profile doesn't exist, create one
-        if (!profile) {
-            profile = await ProfileModel.create({
-                user: user._id,
-                bio: '',
-                location: '',
-                interests: [],
-                socialLinks: []
-            });
-            await profile.populate('user', '-password');
-        }
+export function serializeProfile(profile) {
+    const p = profile?.toObject ? profile.toObject() : profile || {};
+    return {
+        bio: p.bio || '',
+        location: p.location || '',
+        occupation: p.occupation || '',
+        website: p.website || '',
+        interests: p.interests || [],
+        socialLinks: (p.socialLinks || []).map((l) => ({ platform: l.platform, url: l.url })),
+        coverImage: p.coverImage || '',
+        followers: (p.followers || []).map(person),
+        following: (p.following || []).map(person)
+    };
+}
 
-        // Only populate additional fields if the models exist
-        try {
-            if (profile.savedPosts?.length > 0) {
-                await profile.populate({
-                    path: 'savedPosts',
-                    populate: { path: 'user', select: 'username avatar' }
-                });
-            }
-            
-            if (profile.savedBlogs?.length > 0) {
-                await profile.populate({
-                    path: 'savedBlogs',
-                    populate: { path: 'author', select: 'username avatar' }
-                });
-            }
-            
-            if (profile.savedTours?.length > 0) {
-                await profile.populate({
-                    path: 'savedTours',
-                    populate: { path: 'organizer', select: 'username avatar' }
-                });
-            }
-        } catch (populateError) {
-            console.error('Population error:', populateError);
-            // Continue without populated fields
-        }
+const serializeBlog = (b) => ({
+    _id: b._id,
+    title: b.title,
+    excerpt: b.excerpt || '',
+    image: b.image,
+    category: b.category,
+    createdAt: b.createdAt
+});
 
-        // Send response
-        res.status(200).json({
-            success: true,
-            data: {
-                user,
-                profile
-            }
-        });
+async function buildProfileView(user, viewerId) {
+    const isOwner = Boolean(viewerId) && String(viewerId) === String(user._id);
+    const profile = await ProfileModel.findOneAndUpdate(
+        { user: user._id },
+        { $setOnInsert: { user: user._id } },
+        { upsert: true, new: true }
+    )
+        .populate('followers', 'username avatar firstName lastName')
+        .populate('following', 'username avatar firstName lastName');
 
-    } catch (error) {
-        console.error('Profile fetch error:', error);
-        res.status(error.statusCode || 500).json({
-            success: false,
-            message: error.message || 'Error fetching profile'
-        });
-    }
-};
+    const [posts, blogCount, photos, blogs] = await Promise.all([
+        SafarPost.countDocuments({ author: user._id }),
+        BlogModel.countDocuments({ user: user._id }),
+        GalleryPhoto.countDocuments({ owner: user._id }),
+        BlogModel.find({ user: user._id }).sort({ _id: -1 }).limit(24).select('title excerpt image category createdAt').lean()
+    ]);
+
+    return {
+        user: serializeUser(user, isOwner),
+        profile: serializeProfile(profile),
+        counts: {
+            followers: profile.followers.length,
+            following: profile.following.length,
+            posts,
+            blogs: blogCount,
+            photos
+        },
+        blogs: blogs.map(serializeBlog),
+        isOwnProfile: isOwner
+    };
+}
+
+export const getProfile = catchAsync(async (req, res) => {
+    // "/me" has no :username, so it means the logged-in person
+    const username = req.params.username ?? req.user?.username;
+    if (!username) throw new AppError('Username is required', 400);
+
+    const user =
+        req.params.username === undefined
+            ? req.user
+            : await UserModel.findOne({ username }).select(`${PUBLIC_USER_FIELDS} email isEmailVerified`);
+    if (!user) throw new AppError('Profile not found', 404);
+
+    res.status(200).json({ success: true, data: await buildProfileView(user, req.user?._id) });
+});
 
 // Update profile
-export const updateProfile = async (req, res) => {
-    try {
-        const {
-            firstName,
-            lastName,
-            bio,
-            location,
-            occupation,
-            website,
-            interests,
-            socialLinks
-        } = req.body;
+export const updateProfile = catchAsync(async (req, res) => {
+    const { user: userFields, profile: profileFields, errors } = parseProfileInput(req.body);
+    if (errors.length) throw new AppError(errors[0], 400);
 
-        // Find and update user basic info
-        let updatedUser = await UserModel.findByIdAndUpdate(
-            req.user._id,
-            { firstName, lastName },
-            { new: true }
-        ).select('-password');
-
-        // Find and update profile info
-        let profile = await ProfileModel.findOneAndUpdate(
+    const user = Object.keys(userFields).length
+        ? await UserModel.findByIdAndUpdate(req.user._id, { $set: userFields }, { new: true })
+        : await UserModel.findById(req.user._id);
+    if (Object.keys(profileFields).length) {
+        await ProfileModel.findOneAndUpdate(
             { user: req.user._id },
-            {
-                bio,
-                location,
-                occupation,
-                website,
-                interests,
-                socialLinks
-            },
-            { new: true, upsert: true }
+            { $set: profileFields },
+            { upsert: true }
         );
-
-        // If profile doesn't exist, create it
-        if (!profile) {
-            profile = await ProfileModel.create({
-                user: req.user._id,
-                bio,
-                location,
-                occupation,
-                website,
-                interests,
-                socialLinks
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            data: {
-                user: updatedUser,
-                profile
-            }
-        });
-    } catch (error) {
-        console.error('Profile update error:', error);
-        res.status(500).json({
-            success: false,
-            message: error.message || 'Error updating profile'
-        });
     }
-};
+
+    res.status(200).json({ success: true, data: await buildProfileView(user, req.user._id) });
+});
+
+// Uploads a temp file to Cloudinary (or keeps it locally in development) and returns its address.
+async function storeImage(file, options) {
+    if (!shouldUseCloudinary()) return `${process.env.BASE_URL}/uploads/${file.filename}`;
+    const result = await cloudinary.uploader.upload(file.path, options);
+    return result.secure_url;
+}
 
 // Update profile picture
-export const updateProfilePicture = async (req, res) => {
+export const updateProfilePicture = catchAsync(async (req, res) => {
+    if (!req.file) throw new AppError('Please choose a photo to upload', 400);
     try {
-        if (!req.file) {
-            return res.status(400).json({
-                success: false,
-                message: 'No file uploaded'
-            });
-        }
-
-        let imageUrl;
-
-        // If using cloudinary
-        if (shouldUseCloudinary()) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                folder: 'profile_pictures',
-                width: 500,
-                height: 500,
-                crop: 'fill'
-            });
-            imageUrl = result.secure_url;
-            
-            // Delete local file after upload to cloudinary
-            fs.unlinkSync(req.file.path);
-        } else {
-            // If using local storage
-            imageUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
-        }
-
-        const updatedUser = await UserModel.findByIdAndUpdate(
-            req.user._id,
-            { avatar: imageUrl },
-            { new: true }
-        ).select('-password');
-
-        res.status(200).json({
-            success: true,
-            data: updatedUser
-        });
-    } catch (error) {
-        // Delete uploaded file if there's an error
-        if (req.file) {
-            fs.unlinkSync(req.file.path);
-        }
-
-        console.error('Profile picture update error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error updating profile picture'
-        });
+        const avatar = await storeImage(req.file, { folder: 'profile_pictures', width: 500, height: 500, crop: 'fill' });
+        await UserModel.updateOne({ _id: req.user._id }, { $set: { avatar } });
+        res.status(200).json({ success: true, data: { avatar } });
+    } finally {
+        if (shouldUseCloudinary()) await removeTempFiles([req.file]); // local files are the stored copy in development
     }
-};
+});
 
-export const updateCoverPhoto = async (req, res) => {
+export const updateCoverPhoto = catchAsync(async (req, res) => {
+    if (!req.file) throw new AppError('Please choose a photo to upload', 400);
     try {
-        if (!req.file) {
-            return res.status(400).json({
-                success: false,
-                message: 'No file uploaded'
-            });
-        }
-
-        let imageUrl;
-
-        if (shouldUseCloudinary()) {
-            const result = await cloudinary.uploader.upload(req.file.path, {
-                folder: 'cover_photos',
-                width: 1200,
-                height: 400,
-                crop: 'fill'
-            });
-            imageUrl = result.secure_url;
-            fs.unlinkSync(req.file.path);
-        } else {
-            imageUrl = `${process.env.BASE_URL}/uploads/${req.file.filename}`;
-        }
-
-        const updatedProfile = await ProfileModel.findOneAndUpdate(
-            { user: req.user._id },
-            { coverImage: imageUrl },
-            { new: true }
-        );
-
-        res.status(200).json({
-            success: true,
-            data: updatedProfile
-        });
-    } catch (error) {
-        if (req.file) {
-            fs.unlinkSync(req.file.path);
-        }
-
-        console.error('Cover photo update error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error updating cover photo'
-        });
+        const coverImage = await storeImage(req.file, { folder: 'cover_photos', width: 1200, height: 400, crop: 'fill' });
+        await ProfileModel.findOneAndUpdate({ user: req.user._id }, { $set: { coverImage } }, { upsert: true });
+        res.status(200).json({ success: true, data: { coverImage } });
+    } finally {
+        if (shouldUseCloudinary()) await removeTempFiles([req.file]);
     }
-};
+});
 
 // Follow user
 export const followUser = async (req, res) => {

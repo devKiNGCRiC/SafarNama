@@ -48,6 +48,13 @@ const profileSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        // small changes to the profile being viewed (my new avatar / cover photo)
+        patchViewedUser: (state, action) => {
+            if (state.profile?.user) Object.assign(state.profile.user, action.payload);
+        },
+        patchViewedProfile: (state, action) => {
+            if (state.profile?.profile) Object.assign(state.profile.profile, action.payload);
+        },
         setSavedItems: (state, action) => {
             state.savedItems = action.payload;
         },
@@ -101,6 +108,8 @@ export const {
     currentProfileSuccess,
     profileFailure,
     updateProfileSuccess,
+    patchViewedUser,
+    patchViewedProfile,
     setSavedItems,
     setPhotos,
     setStats,

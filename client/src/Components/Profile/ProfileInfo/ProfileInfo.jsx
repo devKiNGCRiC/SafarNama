@@ -1,5 +1,6 @@
 import React from 'react';
-import { MapPin, Briefcase, Calendar, Globe, Award, Edit2, Mail, Phone, Link as LinkIcon } from 'lucide-react';
+import { MapPin, Briefcase, Calendar, Edit2, Mail, Link as LinkIcon } from 'lucide-react';
+import { fullName, platformLabel, safeHref } from '../../../features/profile/utils/profileLinks';
 import './ProfileInfo.scss';
 
 const ProfileInfo = ({ user, profile, isOwnProfile, onEditClick }) => {
@@ -22,7 +23,7 @@ const ProfileInfo = ({ user, profile, isOwnProfile, onEditClick }) => {
                         <div className="info-item">
                             <span className="label">Name</span>
                             <span className="value">
-                                {user?.firstName} {user?.lastName}
+                                {fullName(user) || user?.username}
                             </span>
                         </div>
                         {profile?.bio && (
@@ -31,20 +32,13 @@ const ProfileInfo = ({ user, profile, isOwnProfile, onEditClick }) => {
                                 <p className="value bio">{profile.bio}</p>
                             </div>
                         )}
-                        {user?.email && (
+                        {/* the server only sends the email to the owner, so other people never see it */}
+                        {isOwnProfile && user?.email && (
                             <div className="info-item">
                                 <span className="label">
-                                    <Mail size={16} /> Email
+                                    <Mail size={16} /> Email (only you can see this)
                                 </span>
                                 <span className="value">{user.email}</span>
-                            </div>
-                        )}
-                        {profile?.phone && (
-                            <div className="info-item">
-                                <span className="label">
-                                    <Phone size={16} /> Phone
-                                </span>
-                                <span className="value">{profile.phone}</span>
                             </div>
                         )}
                     </div>
@@ -89,16 +83,16 @@ const ProfileInfo = ({ user, profile, isOwnProfile, onEditClick }) => {
                     <div className="social-links">
                         <h3>Social Links</h3>
                         <div className="links-grid">
-                            {profile.socialLinks.map((link, index) => (
-                                <a 
-                                    key={index}
-                                    href={link.url}
+                            {profile.socialLinks.filter((link) => safeHref(link.url)).map((link) => (
+                                <a
+                                    key={link.platform}
+                                    href={safeHref(link.url)}
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                    rel="noopener noreferrer nofollow"
                                     className="social-link"
                                 >
                                     <LinkIcon size={16} />
-                                    <span>{link.platform}</span>
+                                    <span>{platformLabel(link.platform)}</span>
                                 </a>
                             ))}
                         </div>

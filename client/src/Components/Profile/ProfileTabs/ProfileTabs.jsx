@@ -1,27 +1,25 @@
 import React from 'react';
 import { useState } from 'react';
-import { Grid, BookOpen, Map, Bookmark, Image, Award, Navigation } from 'lucide-react';
+import { Grid, BookOpen, Bookmark, Image, Navigation } from 'lucide-react';
 import './ProfileTabs.scss';
 
 // Import grid components
 import BlogsGrid from '../Blogs/BlogsGrid';
-import ToursGrid from '../Tours/ToursGrid';
 import ProfileGallery from '../../../features/gallery/components/ProfileGallery';
-import AchievementsGrid from '../Achievements/AchievementsGrid';
 import SavedItems from '../SavedItems/SavedItems';
 import ProfileSafarGrid from '../../../features/safargram/components/ProfileSafarGrid';
 import ProfileBucketList from '../../../features/safargram/components/ProfileBucketList';
 import SavedDestinations from '../SavedDestinations/SavedDestinations';
 
-const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username }) => {
+const ProfileTabs = ({ activeTab, setActiveTab, blogs = [], isOwnProfile, username }) => {
     const [activeSubTab, setActiveSubTab] = useState('posts');
 
+    // (Tours and Achievements tabs are hidden: tours belong to booking, which is switched off, and
+    // nothing awards achievements yet.)
     const tabs = [
         { id: 'posts', label: 'SafarGram', icon: Grid },
         { id: 'blogs', label: 'Blogs', icon: BookOpen },
-        { id: 'tours', label: 'Tours', icon: Map },
-        { id: 'gallery', label: 'Gallery', icon: Image },
-        { id: 'achievements', label: 'Achievements', icon: Award }
+        { id: 'gallery', label: 'Gallery', icon: Image }
     ];
 
     if (isOwnProfile) {
@@ -58,13 +56,9 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username 
             case 'posts':
                 return <ProfileSafarGrid username={username} />;
             case 'blogs':
-                return <BlogsGrid blogs={profile?.blogs || []} />;
-            case 'tours':
-                return <ToursGrid tours={profile?.tours || []} />;
+                return <BlogsGrid blogs={blogs} isOwnProfile={isOwnProfile} />;
             case 'gallery':
                 return <ProfileGallery username={username} isOwnProfile={isOwnProfile} />;
-            case 'achievements':
-                return <AchievementsGrid achievements={profile?.achievements || []} />;
             case 'saved':
                 return (
                     <div className="saved-content">
@@ -88,9 +82,6 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username 
         }
     };
 
-     // Log the data being received
-     console.log('Profile data in tabs:', profile);
-
     return (
         <div className="profile-tabs">
             <div className="tabs-header">
@@ -102,8 +93,8 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username 
                     >
                         {React.createElement(tab.icon, { size: 20 })}
                         <span className="tab-label">{tab.label}</span>
-                        {tab.id !== 'posts' && profile?.[tab.id]?.length > 0 && (
-                            <span className="count">{profile[tab.id].length}</span>
+                        {tab.id === 'blogs' && blogs.length > 0 && (
+                            <span className="count">{blogs.length}</span>
                         )}
                     </button>
                 ))}

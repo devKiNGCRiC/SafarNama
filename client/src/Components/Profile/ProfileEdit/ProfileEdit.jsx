@@ -1,7 +1,8 @@
 // client/src/Components/Profile/ProfileEdit/ProfileEdit.jsx
 import React, { useState } from 'react';
-import { X, Camera, Plus, Trash2, Save, Link as LinkIcon } from 'lucide-react';
+import { X, Plus, Trash2, Save, Link as LinkIcon } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { SOCIAL_PLATFORMS, safeHref } from '../../../features/profile/utils/profileLinks';
 import './ProfileEdit.scss';
 
 const ProfileEdit = ({ user, profile, onClose, onSave }) => {
@@ -13,41 +14,12 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
         occupation: profile?.occupation || '',
         website: profile?.website || '',
         interests: profile?.interests || [],
-        socialLinks: profile?.socialLinks || [],
-        avatar: null,
-        coverImage: null
+        socialLinks: profile?.socialLinks || []
     });
 
-    const [imagePreview, setImagePreview] = useState({
-        avatar: user?.avatar || null,
-        cover: profile?.coverImage || null
-    });
-
+    const [saving, setSaving] = useState(false);
     const [newInterest, setNewInterest] = useState('');
     const [newSocialLink, setNewSocialLink] = useState({ platform: '', url: '' });
-
-    const handleFileChange = (e, type) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        if (!file.type.startsWith('image/')) {
-            toast.error('Please upload a valid image file');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            setImagePreview(prev => ({
-                ...prev,
-                [type]: reader.result
-            }));
-            setFormData(prev => ({
-                ...prev,
-                [type]: file
-            }));
-        };
-        reader.readAsDataURL(file);
-    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -59,8 +31,12 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
 
     const handleAddInterest = () => {
         if (!newInterest.trim()) return;
-        if (formData.interests.includes(newInterest.trim())) {
+        if (formData.interests.some((i) => i.toLowerCase() === newInterest.trim().toLowerCase())) {
             toast.error('Interest already exists');
+            return;
+        }
+        if (formData.interests.length >= 10) {
+            toast.error('You can add up to 10 interests');
             return;
         }
         setFormData(prev => ({
@@ -83,14 +59,23 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
             return;
         }
 
-        if (!newSocialLink.url.startsWith('http')) {
-            toast.error('Please enter a valid URL starting with http:// or https://');
+        const url = safeHref(newSocialLink.url);
+        if (!url) {
+            toast.error('Please enter a valid web address, like https://instagram.com/yourname');
+            return;
+        }
+        if (formData.socialLinks.length >= 5) {
+            toast.error('You can add up to 5 links');
+            return;
+        }
+        if (formData.socialLinks.some((l) => l.platform === newSocialLink.platform)) {
+            toast.error('You already added a link for that platform');
             return;
         }
 
         setFormData(prev => ({
             ...prev,
-            socialLinks: [...prev.socialLinks, { ...newSocialLink }]
+            socialLinks: [...prev.socialLinks, { platform: newSocialLink.platform, url }]
         }));
         setNewSocialLink({ platform: '', url: '' });
     };
@@ -107,24 +92,21 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
         try {
             //const data = new FormData();
 
-            // Create a clean data object without null or undefined values
+            // Send every field, empty ones included, so a bio / website / list can be cleared.
+            // The server checks and cleans each value and explains what is wrong.
             const updateData = {
-                firstName: formData.firstName || undefined,
-                lastName: formData.lastName || undefined,
-                bio: formData.bio || undefined,
-                location: formData.location || undefined,
-                occupation: formData.occupation || undefined,
-                website: formData.website || undefined,
-                interests: formData.interests.length > 0 ? formData.interests : undefined,
-                socialLinks: formData.socialLinks.length > 0 ? formData.socialLinks : undefined
+                firstName: formData.firstName.trim(),
+                lastName: formData.lastName.trim(),
+                bio: formData.bio.trim(),
+                location: formData.location.trim(),
+                occupation: formData.occupation.trim(),
+                website: formData.website.trim(),
+                interests: formData.interests,
+                socialLinks: formData.socialLinks
             };
-            Object.keys(updateData).forEach(key => 
-                updateData[key] === undefined && delete updateData[key]
-            );
-    
 
+            setSaving(true);
             const result = await onSave(updateData);
-        
             if (result.success) {
                 toast.success('Profile updated successfully');
                 onClose();
@@ -132,8 +114,9 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                 throw new Error(result.error || 'Failed to update profile');
             }
         } catch (error) {
-            toast.error('Failed to update profile');
-            console.error('Profile update error:', error);
+            toast.error(error.message || 'Failed to update profile');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -148,47 +131,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="edit-form">
-                    {/* <div className="image-upload-section">
-                        <div className="avatar-upload">
-                            <h3>Profile Picture</h3>
-                            <div className="preview-container">
-                                <img 
-                                    src={imagePreview.avatar || user?.avatar || '/default-avatar.jpg'} 
-                                    alt="Profile" 
-                                />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={e => handleFileChange(e, 'avatar')}
-                                    id="avatar-upload"
-                                    hidden
-                                />
-                                <label htmlFor="avatar-upload" className="upload-label">
-                                    <Camera size={20} />
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="cover-upload">
-                            <h3>Cover Photo</h3>
-                            <div className="preview-container">
-                                <img 
-                                    src={imagePreview.cover || profile?.coverImage || '/default-cover.jpg'} 
-                                    alt="Cover" 
-                                />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={e => handleFileChange(e, 'coverImage')}
-                                    id="cover-upload"
-                                    hidden
-                                />
-                                <label htmlFor="cover-upload" className="upload-label">
-                                    <Camera size={20} />
-                                </label>
-                            </div>
-                        </div>
-                    </div> */}
+                    {/* The profile picture and cover photo are changed on the profile header itself. */}
 
                     <div className="form-section">
                         <h3>Basic Information</h3>
@@ -198,6 +141,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 <input
                                     type="text"
                                     name="firstName"
+                                    maxLength={50}
                                     value={formData.firstName}
                                     onChange={handleInputChange}
                                     placeholder="Your first name"
@@ -209,6 +153,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 <input
                                     type="text"
                                     name="lastName"
+                                    maxLength={50}
                                     value={formData.lastName}
                                     onChange={handleInputChange}
                                     placeholder="Your last name"
@@ -220,6 +165,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                             <label>Bio</label>
                             <textarea
                                 name="bio"
+                                maxLength={500}
                                 value={formData.bio}
                                 onChange={handleInputChange}
                                 placeholder="Tell us about yourself..."
@@ -233,6 +179,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 <input
                                     type="text"
                                     name="location"
+                                    maxLength={80}
                                     value={formData.location}
                                     onChange={handleInputChange}
                                     placeholder="Your location"
@@ -244,6 +191,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 <input
                                     type="text"
                                     name="occupation"
+                                    maxLength={80}
                                     value={formData.occupation}
                                     onChange={handleInputChange}
                                     placeholder="Your occupation"
@@ -254,7 +202,8 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                         <div className="form-group">
                             <label>Website</label>
                             <input
-                                type="url"
+                                type="text"
+                                maxLength={200}
                                 name="website"
                                 value={formData.website}
                                 onChange={handleInputChange}
@@ -269,9 +218,10 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                             <input
                                 type="text"
                                 value={newInterest}
+                                maxLength={30}
                                 onChange={(e) => setNewInterest(e.target.value)}
                                 placeholder="Add an interest"
-                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddInterest())}
+                                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddInterest())}
                             />
                             <button 
                                 type="button" 
@@ -308,14 +258,12 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 }))}
                             >
                                 <option value="">Select Platform</option>
-                                <option value="facebook">Facebook</option>
-                                <option value="twitter">Twitter</option>
-                                <option value="instagram">Instagram</option>
-                                <option value="linkedin">LinkedIn</option>
-                                <option value="github">GitHub</option>
+                                {SOCIAL_PLATFORMS.map((p) => (
+                                    <option key={p.id} value={p.id}>{p.label}</option>
+                                ))}
                             </select>
                             <input
-                                type="url"
+                                type="text"
                                 value={newSocialLink.url}
                                 onChange={(e) => setNewSocialLink(prev => ({
                                     ...prev,
@@ -355,9 +303,9 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                         <button type="button" className="cancel-btn" onClick={onClose}>
                             Cancel
                         </button>
-                        <button type="submit" className="save-btn">
+                        <button type="submit" className="save-btn" disabled={saving}>
                             <Save size={20} />
-                            Save Changes
+                            {saving ? 'Saving…' : 'Save Changes'}
                         </button>
                     </div>
                 </form>
