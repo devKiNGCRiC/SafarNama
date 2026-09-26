@@ -249,6 +249,16 @@ $sindoor: var(--red-sindoor, #e63946);
   }
 }
 
+.ev-type-pill {
+  display: inline-block;
+  background: rgba(255, 153, 51, 0.18);
+  color: #c1502e;
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
 .ev-state {
   text-align: center;
   color: $muted;

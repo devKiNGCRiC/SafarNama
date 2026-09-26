@@ -19,6 +19,8 @@ const TITLES = [
   ["/chat", "Messages"],
   ["/notifications", "Notifications"],
   ["/events", "Events"],
+  ["/eco-guides", "Eco-guides"],
+  ["/admin/eco-guides", "Manage guides"],
   ["/admin/events", "Manage events"],
   ["/profile", "Profile"],
   ["/auth", "Sign in"],

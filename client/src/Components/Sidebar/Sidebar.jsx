@@ -15,9 +15,10 @@ import {
     RiMenuFoldLine,
     RiMenuUnfoldLine,
     RiLogoutCircleLine,
-    RiCalendarEventLine
+    RiCalendarEventLine,
+    RiLeafLine
 } from 'react-icons/ri';
-import { EVENTS_ENABLED } from '../../config/features';
+import { ECO_GUIDES_ENABLED, EVENTS_ENABLED } from '../../config/features';
 import './Sidebar.css';
 import { logoutUser } from '../../actions/authAction';
 
@@ -33,8 +34,12 @@ const Sidebar = () => {
         // { path: '/map', name: 'Map', icon: RiMapPinLine },
         { path: '/destinations', name: 'Explore', icon: RiCompassDiscoverLine },
         ...(EVENTS_ENABLED ? [{ path: '/events', name: 'Events', icon: RiCalendarEventLine }] : []),
+        ...(ECO_GUIDES_ENABLED ? [{ path: '/eco-guides', name: 'Eco-Guides', icon: RiLeafLine }] : []),
         ...(EVENTS_ENABLED && user?.role === 'admin'
             ? [{ path: '/admin/events', name: 'Manage events', icon: RiSettings4Line }]
+            : []),
+        ...(ECO_GUIDES_ENABLED && user?.role === 'admin'
+            ? [{ path: '/admin/eco-guides', name: 'Manage guides', icon: RiSettings4Line }]
             : []),
         // { path: '/homegram', name: 'SafarGram', icon: RiCommunityLine, protected: true },
         // { path: '/gallery', name: 'Gallery', icon: RiImageLine },

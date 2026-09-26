@@ -1,0 +1,229 @@
+// Eco-Guides. Buttons, tabs, chips, modal and admin table come from the shared "ev-" styles in
+// features/events/events.scss (imported by each component); this file adds the guide-specific bits.
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #808080);
+$green: var(--forest-green, #138808);
+$sindoor: var(--red-sindoor, #e63946);
+
+.gd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.gd-more {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.gd-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  .gd-cover {
+    position: relative;
+    display: block;
+    height: 170px;
+    background: linear-gradient(135deg, #b7e4a3, #138808);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gd-cover-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .gd-cat {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+  .gd-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      a {
+        color: $ink;
+        text-decoration: none;
+        &:hover {
+          color: #c1502e;
+        }
+      }
+    }
+    .gd-excerpt {
+      margin: 0;
+      flex: 1;
+      color: $ink;
+      font-size: 0.92rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .gd-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      color: $muted;
+      font-size: 0.82rem;
+      align-items: center;
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+  }
+}
+
+// article page
+.gd-article {
+  max-width: 780px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  .gd-hero {
+    max-height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #b7e4a3, #138808);
+    img {
+      display: block;
+      width: 100%;
+      max-height: 340px;
+      object-fit: cover;
+    }
+  }
+  .gd-article-body {
+    padding: 22px 28px 30px;
+    h1 {
+      margin: 8px 0 6px;
+      line-height: 1.2;
+    }
+    .gd-byline {
+      color: $muted;
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+    }
+    .gd-text p {
+      line-height: 1.75;
+      font-size: 1.04rem;
+      margin: 16px 0;
+      white-space: pre-line;
+    }
+    .gd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      a {
+        background: rgba(19, 136, 8, 0.1);
+        color: $green;
+        border-radius: 999px;
+        padding: 3px 12px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+    }
+    .gd-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      .gd-like.liked {
+        background: $sindoor;
+        color: #fff;
+        border-color: transparent;
+      }
+    }
+  }
+}
+.gd-comments {
+  max-width: 780px;
+  margin: 22px auto 0;
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 22px 22px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
+  h2 {
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+  }
+  form {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    textarea {
+      flex: 1;
+      font: inherit;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      padding: 9px 12px;
+      resize: vertical;
+      min-height: 44px;
+    }
+  }
+  .gd-comment {
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      strong {
+        color: $ink;
+      }
+      small {
+        color: $muted;
+        margin-left: 8px;
+      }
+    }
+    p {
+      margin: 4px 0 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+  .gd-empty {
+    color: $muted;
+  }
+}
+
+@media (max-width: 520px) {
+  .gd-article .gd-article-body {
+    padding: 18px 16px 24px;
+  }
+  .gd-comments form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

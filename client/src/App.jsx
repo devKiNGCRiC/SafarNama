@@ -42,7 +42,9 @@ const ItineraryBuilder = lazy(
 const Events = lazy(() => import("./features/events/pages/EventsPage"));
 const EventDetail = lazy(() => import("./features/events/pages/EventDetailPage"));
 const ManageEvents = lazy(() => import("./features/events/pages/ManageEventsPage"));
-const EcoGuides = lazy(() => import("./Pages/EcoGuides/EcoGuides"));
+const EcoGuides = lazy(() => import("./features/ecoguides/pages/GuidesPage"));
+const EcoGuideDetail = lazy(() => import("./features/ecoguides/pages/GuideDetailPage"));
+const ManageEcoGuides = lazy(() => import("./features/ecoguides/pages/ManageGuidesPage"));
 const AboutUs = lazy(() => import("./Pages/AboutUs/AboutUs"));
 const MapPage = lazy(() => import("./Pages/MapPage/MapPage"));
 const Feedback = lazy(() => import("./Pages/Feedback/Feedback"));
@@ -359,7 +361,18 @@ const AppContent = () => {
               }
             />
 
-            <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <EcoGuides /> : <Navigate to="/home" replace />} />
+            <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <div><Navbar /><EcoGuides /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route path="/eco-guides/:id" element={ECO_GUIDES_ENABLED ? <div><Navbar /><EcoGuideDetail /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route
+              path="/admin/eco-guides"
+              element={
+                ECO_GUIDES_ENABLED ? (
+                  <AdminRoute><div><Navbar /><ManageEcoGuides /><Footer /></div></AdminRoute>
+                ) : (
+                  <Navigate to="/home" replace />
+                )
+              }
+            />
             <Route path="/itinerary" element={<ItineraryBuilder />} />
             <Route path="/events" element={EVENTS_ENABLED ? <div><Navbar /><Events /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/events/:id" element={EVENTS_ENABLED ? <div><Navbar /><EventDetail /><Footer /></div> : <Navigate to="/home" replace />} />
