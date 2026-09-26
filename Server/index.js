@@ -19,13 +19,22 @@ import AppError from "./utils/AppError.js";
 //env convig
 dotenv.config();
 
+// Refuse to start with a broken configuration, and say exactly what is wrong.
+{
+  const { errors, warnings } = validateEnv();
+  warnings.forEach((w) => console.warn(`[config] warning: ${w}`));
+  if (errors.length > 0) {
+    errors.forEach((e) => console.error(`[config] ERROR: ${e}`));
+    process.exit(1);
+  }
+}
+
 //Routes
 import AuthRoute from "./Routes/authRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
 import UserRoute from "./Routes/UserRoute.js";
 import profileRoutes from "./Routes/profileRoutes.js";
 import ForumPostRoute from "./Routes/ForumPostRoute.js";
-import UploadRoute from "./Routes/UploadRoute.js";
 import bookingRoutes from "./Routes/bookingRoutes.js";
 import feedbackRoutes from "./Routes/feedbackRoutes.js";
 import contactRoutes from "./Routes/contactRoutes.js";
@@ -42,10 +51,21 @@ import { createChatRouter } from "./Routes/chatRoutes.js";
 import { attachChatSocket } from "./services/chatSocket.js";
 
 import connectDB from "./config/db.js";
+import { trustProxySetting, validateEnv } from "./config/env.js";
+import { featureGate } from "./Middleware/featureGate.js";
+import { createHealthRouter } from "./Routes/healthRoutes.js";
+import mongoose from "mongoose";
 //import DestinationsRouter from "./Routes/DestinationsRoute.js";
 
 //rest object
 const app = Express();
+
+// Behind a host's proxy the real client IP comes from X-Forwarded-For; without this every
+// visitor shares one IP and the per-IP rate limits would lock everybody out together.
+app.set("trust proxy", trustProxySetting());
+
+// Health check for the hosting platform / uptime monitor
+app.use("/health", createHealthRouter({ isDbReady: () => mongoose.connection.readyState === 1 }));
 
 //to serve images for public
 app.use(Express.static("public"));
@@ -160,12 +180,12 @@ app.use("/api/v1/auth", AuthRoute);
 app.use("/admin", adminRoutes);
 app.use("/user", UserRoute);
 app.use("/forum-posts", ForumPostRoute);
-app.use("/upload", UploadRoute);
 // Routes
-app.use("/api/v1/booking", bookingRoutes);
+// Booking and payment are not finished yet: switched off unless ENABLE_BOOKING=true
+app.use("/api/v1/booking", featureGate("ENABLE_BOOKING", "Booking"), bookingRoutes);
 app.use("/api/v1/feedback", feedbackRoutes);
 app.use("/api/v1/contact", contactRoutes);
-app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/payment", featureGate("ENABLE_BOOKING", "Payment"), paymentRoutes);
 app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/review", reviewRoute);
 //app.use('/destinations', DestinationsRouter);

@@ -22,6 +22,7 @@ import HomePage from "./Pages/HomePage/HomePage"; // Keep home page immediate
 import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
+import { BOOKING_ENABLED } from "./config/features";
 
 // Lazy Load Pages (load only when needed)
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
@@ -50,6 +51,10 @@ const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
 const SafarDestination = lazy(
   () => import("./features/safargram/pages/DestinationPostsPage"),
 );
+
+// Booking pages are only reachable when the feature is switched on.
+const BookingGate = ({ children }) =>
+  BOOKING_ENABLED ? children : <Navigate to="/home" replace />;
 
 // Logged-in page with the standard site chrome.
 const Shell = ({ children }) => (
@@ -283,6 +288,7 @@ const AppContent = () => {
             <Route
               path="/booking"
               element={
+                <BookingGate>
                 <ProtectedRoute>
                   <div>
                     <Navbar />
@@ -291,6 +297,7 @@ const AppContent = () => {
                     <Footer />
                   </div>
                 </ProtectedRoute>
+                </BookingGate>
               }
             />
 
@@ -357,10 +364,10 @@ const AppContent = () => {
 
             <Route path="/tours" element={<TourListing />} />
             <Route path="/tours/:id" element={<TourDetail />} />
-            <Route path="/payment" element={<Payment />} />
+            <Route path="/payment" element={<BookingGate><Payment /></BookingGate>} />
 
-            <Route path="/thank-you" element={<ThankYou />} />
-            <Route path="/bookings" element={<BookingHistory />} />
+            <Route path="/thank-you" element={<BookingGate><ThankYou /></BookingGate>} />
+            <Route path="/bookings" element={<BookingGate><BookingHistory /></BookingGate>} />
 
             {/* Design System Showcase (Development Only) */}
             <Route path="/design-showcase" element={<DesignShowcase />} />

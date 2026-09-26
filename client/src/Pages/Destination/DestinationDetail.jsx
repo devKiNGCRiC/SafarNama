@@ -32,6 +32,7 @@ import {
 import { BiRupee } from 'react-icons/bi';
 import { AiOutlineSwapRight } from 'react-icons/ai';
 import { API_URL } from '../../config/api';
+import { BOOKING_ENABLED } from '../../config/features';
 
 // Configure Leaflet icons
 delete L.Icon.Default.prototype._getIconUrl;
@@ -789,9 +790,11 @@ const BookingCTASection = ({ destination }) => {
         <div className="cta-card" data-aos="zoom-in">
           <div className="cta-content">
             <h2>Ready to Experience {destination.name}?</h2>
-            <p>Book your eco-friendly tour now and create unforgettable memories!</p>
+            <p>{BOOKING_ENABLED
+              ? "Book your eco-friendly tour now and create unforgettable memories!"
+              : "Explore our eco-friendly tours and start planning your trip."}</p>
             <Link 
-              to="/booking" 
+              to={BOOKING_ENABLED ? "/booking" : "/tours"} 
               state={{ destinationId: destination._id }}
               className="cta-button"
             >

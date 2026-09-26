@@ -8,6 +8,7 @@ import Footer from '../../../Components/Footer/Footer';
 import {AlertCircle} from 'lucide-react';
 import Sidebar from '../../../Components/Sidebar/Sidebar';
 import { API_URL } from '../../../config/api';
+import { BOOKING_ENABLED } from '../../../config/features';
 const TourDetail = () => {
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -147,7 +148,7 @@ const TourDetail = () => {
           {/* Booking Section */}
           <div className="booking-section">
             <div className="booking-card">
-              <h2>Book This Tour</h2>
+              <h2>{BOOKING_ENABLED ? "Book This Tour" : "Tour price"}</h2>
               <div className="price-info">
                 <span className="price">₹{tour.pricing.adult}</span>
                 <span>per person</span>
@@ -209,12 +210,13 @@ const TourDetail = () => {
                     </div>
                   </div>
 
-                <button 
-                  className="book-button"
-                  onClick={handleBookNow}
-                >
-                  Book Now
-                </button>
+                {BOOKING_ENABLED ? (
+                  <button className="book-button" onClick={handleBookNow}>
+                    Book Now
+                  </button>
+                ) : (
+                  <p className="booking-soon">Online booking is opening soon.</p>
+                )}
               </div>
             </div>
           </div>

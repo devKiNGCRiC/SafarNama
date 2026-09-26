@@ -9,6 +9,7 @@ import fs from 'fs';
 import cloudinary from '../utils/Cloudinary.js';
 import AppError from '../utils/AppError.js';
 import { assertObjectId } from '../utils/cursor.js';
+import { shouldUseCloudinary } from '../config/env.js';
 
 // Profiles are created lazily elsewhere in the app, so following must not depend on both
 // people having opened their profile page first.
@@ -195,7 +196,7 @@ export const updateProfilePicture = async (req, res) => {
         let imageUrl;
 
         // If using cloudinary
-        if (process.env.USE_CLOUDINARY === 'true') {
+        if (shouldUseCloudinary()) {
             const result = await cloudinary.uploader.upload(req.file.path, {
                 folder: 'profile_pictures',
                 width: 500,
@@ -246,7 +247,7 @@ export const updateCoverPhoto = async (req, res) => {
 
         let imageUrl;
 
-        if (process.env.USE_CLOUDINARY === 'true') {
+        if (shouldUseCloudinary()) {
             const result = await cloudinary.uploader.upload(req.file.path, {
                 folder: 'cover_photos',
                 width: 1200,
