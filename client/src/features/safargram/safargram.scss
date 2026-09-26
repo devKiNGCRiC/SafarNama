@@ -695,9 +695,12 @@
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
   margin-bottom: 12px;
-  scrollbar-width: none;
+  // One row that scrolls sideways on every screen size. The scrollbar stays visible
+  // so it is obvious there are more categories to reach (drag it, swipe, or Shift + wheel).
+  scrollbar-width: thin;
+  scrollbar-color: var(--saffron-primary, #ff9933) transparent;
   button {
     flex: 0 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.12);
