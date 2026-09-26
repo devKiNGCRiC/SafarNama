@@ -1,113 +1,96 @@
-import React from 'react';
-import { MapPin, Briefcase, Calendar, Edit2, Mail, Link as LinkIcon } from 'lucide-react';
-import { fullName, platformLabel, safeHref } from '../../../features/profile/utils/profileLinks';
+import React, { useEffect, useState } from 'react';
+import { Briefcase, Calendar, Globe, Link as LinkIcon, Lock, MapPin, Pencil } from 'lucide-react';
+import { hostnameOf, platformLabel, safeHref } from '../../../features/profile/utils/profileLinks';
 import './ProfileInfo.scss';
 
+// The "About" card: everything about the person except the name and bio (those are in the header).
+// true on screens wide enough for the side-by-side layout
+const useWideScreen = () => {
+    const query = '(min-width: 901px)';
+    const [wide, setWide] = useState(() => window.matchMedia(query).matches);
+    useEffect(() => {
+        const media = window.matchMedia(query);
+        const onChange = (e) => setWide(e.matches);
+        media.addEventListener('change', onChange);
+        return () => media.removeEventListener('change', onChange);
+    }, []);
+    return wide;
+};
+
 const ProfileInfo = ({ user, profile, isOwnProfile, onEditClick }) => {
+    const wide = useWideScreen();
+    // on phones the details are folded away so the posts are the first thing under the header
+    const [openOnPhone, setOpenOnPhone] = useState(false);
+    const website = safeHref(profile?.website);
+    const links = (profile?.socialLinks || []).filter((l) => safeHref(l.url));
+    const interests = profile?.interests || [];
+    const hasDetails = Boolean(profile?.location || profile?.occupation || website || interests.length || links.length || profile?.bio);
+
+    const joined = new Date(user?.createdAt).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+
     return (
-        <div className="profile-info-container">
-            <div className="info-header">
-                <h2>Profile Information</h2>
-                {isOwnProfile && (
-                    <button className="edit-profile-btn" onClick={onEditClick}>
-                        <Edit2 size={18} />
-                        <span>Edit Profile</span>
-                    </button>
-                )}
-            </div>
+        <section className={`pf-about ${wide || openOnPhone ? 'open' : 'folded'}`} aria-label="About">
+            {wide ? (
+                <h2>About</h2>
+            ) : (
+                <button type="button" className="pf-about-toggle" aria-expanded={openOnPhone} onClick={() => setOpenOnPhone((o) => !o)}>
+                    <h2>About</h2>
+                    <span>{openOnPhone ? 'Hide' : 'Show details'}</span>
+                </button>
+            )}
+            {(wide || openOnPhone) && (
+            <div className="pf-about-body">
 
-            <div className="info-section">
-                <div className="basic-info">
-                    <h3>Basic Information</h3>
-                    <div className="info-grid">
-                        <div className="info-item">
-                            <span className="label">Name</span>
-                            <span className="value">
-                                {fullName(user) || user?.username}
-                            </span>
-                        </div>
-                        {profile?.bio && (
-                            <div className="info-item full-width">
-                                <span className="label">Bio</span>
-                                <p className="value bio">{profile.bio}</p>
-                            </div>
-                        )}
-                        {/* the server only sends the email to the owner, so other people never see it */}
-                        {isOwnProfile && user?.email && (
-                            <div className="info-item">
-                                <span className="label">
-                                    <Mail size={16} /> Email (only you can see this)
-                                </span>
-                                <span className="value">{user.email}</span>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                <div className="location-work">
-                    {(profile?.location || profile?.occupation) && (
-                        <>
-                            <h3>Location & Work</h3>
-                            <div className="info-grid">
-                                {profile?.location && (
-                                    <div className="info-item">
-                                        <MapPin className="icon" size={16} />
-                                        <span>{profile.location}</span>
-                                    </div>
-                                )}
-                                {profile?.occupation && (
-                                    <div className="info-item">
-                                        <Briefcase className="icon" size={16} />
-                                        <span>{profile.occupation}</span>
-                                    </div>
-                                )}
-                            </div>
-                        </>
+            {!hasDetails && (
+                <div className="pf-about-empty">
+                    <p>{isOwnProfile ? 'Tell other travellers about yourself: add a bio, where you are based and what you love.' : 'This traveller has not added any details yet.'}</p>
+                    {isOwnProfile && (
+                        <button type="button" className="pf-btn primary small" onClick={onEditClick}>
+                            <Pencil size={14} /> Complete your profile
+                        </button>
                     )}
                 </div>
+            )}
 
-                {profile?.interests && profile.interests.length > 0 && (
-                    <div className="interests-section">
-                        <h3>Interests</h3>
-                        <div className="interests-grid">
-                            {profile.interests.map((interest, index) => (
-                                <span key={index} className="interest-tag">
-                                    {interest}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+            <ul className="pf-facts">
+                {profile?.location && <li><MapPin size={16} /> <span>{profile.location}</span></li>}
+                {profile?.occupation && <li><Briefcase size={16} /> <span>{profile.occupation}</span></li>}
+                {website && (
+                    <li>
+                        <Globe size={16} />
+                        <a href={website} target="_blank" rel="noopener noreferrer nofollow">{hostnameOf(website)}</a>
+                    </li>
                 )}
+                <li><Calendar size={16} /> <span>Joined {joined}</span></li>
+            </ul>
 
-                {profile?.socialLinks && profile.socialLinks.length > 0 && (
-                    <div className="social-links">
-                        <h3>Social Links</h3>
-                        <div className="links-grid">
-                            {profile.socialLinks.filter((link) => safeHref(link.url)).map((link) => (
-                                <a
-                                    key={link.platform}
-                                    href={safeHref(link.url)}
-                                    target="_blank"
-                                    rel="noopener noreferrer nofollow"
-                                    className="social-link"
-                                >
-                                    <LinkIcon size={16} />
-                                    <span>{platformLabel(link.platform)}</span>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                <div className="join-date">
-                    <Calendar size={16} />
-                    <span>Joined {new Date(user?.createdAt).toLocaleDateString('en-US', {
-                        month: 'long',
-                        year: 'numeric'
-                    })}</span>
+            {interests.length > 0 && (
+                <div className="pf-block">
+                    <h3>Interests</h3>
+                    <div className="pf-chips">{interests.map((i) => <span key={i} className="pf-chip">{i}</span>)}</div>
                 </div>
+            )}
+
+            {links.length > 0 && (
+                <div className="pf-block">
+                    <h3>Find me on</h3>
+                    <div className="pf-chips">
+                        {links.map((l) => (
+                            <a key={l.platform} className="pf-chip link" href={safeHref(l.url)} target="_blank" rel="noopener noreferrer nofollow">
+                                <LinkIcon size={13} /> {platformLabel(l.platform)}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* the server only sends the email to its owner, so other people never see it */}
+            {isOwnProfile && user?.email && (
+                <p className="pf-private"><Lock size={13} /> {user.email} <em>(only you can see this)</em></p>
+            )}
             </div>
-        </div>
+            )}
+        </section>
     );
 };
 

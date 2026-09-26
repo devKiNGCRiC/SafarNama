@@ -1,31 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { UserPlus, UserMinus, Share2, Mail } from 'lucide-react';
+import { Pencil, Settings, Share2, UserCheck, UserPlus, MessageCircle } from 'lucide-react';
 import './ProfileActions.scss';
 
-const ProfileActions = ({ 
-    isOwnProfile, 
-    isFollowing, 
-    onFollow, 
-    onUnfollow,
-    username,
-    isLoading 
-}) => {
+// The buttons next to the name. Your own profile: Edit + Settings. Someone else's: Follow + Message.
+const ProfileActions = ({ isOwnProfile, isFollowing, onFollow, onUnfollow, onEdit, username, isLoading }) => {
     const navigate = useNavigate();
 
-    const handleFollowAction = () => {
-        if (isFollowing) {
-            onUnfollow();
-        } else {
-            onFollow();
-        }
-    };
-
-    const handleShare = async () => {
+    const share = async () => {
         try {
-            const profileUrl = `${window.location.origin}/profile/${username}`;
-            await navigator.clipboard.writeText(profileUrl);
+            await navigator.clipboard.writeText(`${window.location.origin}/profile/${username}`);
             toast.success('Profile link copied');
         } catch {
             toast.error('Could not copy the link');
@@ -33,38 +18,35 @@ const ProfileActions = ({
     };
 
     return (
-        <div className="profile-actions">
-            {!isOwnProfile && (
+        <div className="pf-buttons">
+            {isOwnProfile ? (
                 <>
-                    <button 
-                        className={`follow-button ${isFollowing ? 'following' : ''}`}
-                        onClick={handleFollowAction}
-                        disabled={isLoading}
-                    >
-                        {isFollowing ? (
-                            <>
-                                <UserMinus size={18} />
-                                <span>Following</span>
-                            </>
-                        ) : (
-                            <>
-                                <UserPlus size={18} />
-                                <span>Follow</span>
-                            </>
-                        )}
+                    <button type="button" className="pf-btn primary" onClick={onEdit}>
+                        <Pencil size={16} /> Edit profile
                     </button>
-
-                    <button className="message-button" onClick={() => navigate(`/chat/with/${username}`)}>
-                        <Mail size={18} />
-                        <span>Message</span>
+                    <Link to="/settings" className="pf-btn ghost">
+                        <Settings size={16} /> Settings
+                    </Link>
+                </>
+            ) : (
+                <>
+                    <button
+                        type="button"
+                        className={`pf-btn ${isFollowing ? 'ghost' : 'primary'}`}
+                        onClick={isFollowing ? onUnfollow : onFollow}
+                        disabled={isLoading}
+                        aria-pressed={isFollowing}
+                    >
+                        {isFollowing ? <><UserCheck size={16} /> Following</> : <><UserPlus size={16} /> Follow</>}
+                    </button>
+                    <button type="button" className="pf-btn ghost" onClick={() => navigate(`/chat/with/${username}`)}>
+                        <MessageCircle size={16} /> Message
                     </button>
                 </>
             )}
-
-            <button className="share-button" onClick={handleShare}>
-                <Share2 size={18} />
+            <button type="button" className="pf-btn icon" onClick={share} aria-label="Copy profile link" title="Copy profile link">
+                <Share2 size={16} />
             </button>
-
         </div>
     );
 };

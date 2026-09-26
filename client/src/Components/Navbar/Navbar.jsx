@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Navbar.css";
+import "./NavbarCommunity.scss";
 
 // Import Logo
 import logoSVG from "../../Assets/logo.svg";
@@ -28,6 +29,7 @@ import {
   RiSearchLine,
   RiCalendarEventLine,
   RiCommunityLine,
+  RiArrowDownSLine,
   RiLeafLine,
 } from "react-icons/ri";
 import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "../../config/features";
@@ -59,6 +61,8 @@ const ProtectedLink = ({ to, children, onClick }) => {
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [communityOpen, setCommunityOpen] = useState(false);
+  const communityRef = useRef(null);
   const auth = useSelector((state) => state.auth);
   const { user, isAuthenticated } = auth || {};
   const dispatch = useDispatch();
@@ -68,6 +72,28 @@ const Navbar = () => {
   // Pages that have their own search functionality (hide navbar searchbar)
   const pagesWithSearch = ["/", "/home", "/destinations", "/tours", "/search"];
   const shouldShowSearch = !pagesWithSearch.includes(location.pathname);
+
+  // the sections that live under "Community" on the desktop bar
+  const communityLinks = [
+    EVENTS_ENABLED && { to: "/events", label: "Events" },
+    ECO_GUIDES_ENABLED && { to: "/eco-guides", label: "Eco-Guides" },
+    GALLERY_ENABLED && { to: "/gallery", label: "Gallery" },
+    FORUM_ENABLED && { to: "/forum", label: "Forum" },
+  ].filter(Boolean);
+
+  // the dropdown closes on a click elsewhere, on Escape, and when the page changes
+  useEffect(() => {
+    if (!communityOpen) return undefined;
+    const onClick = (e) => !communityRef.current?.contains(e.target) && setCommunityOpen(false);
+    const onKey = (e) => e.key === "Escape" && setCommunityOpen(false);
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [communityOpen]);
+  useEffect(() => setCommunityOpen(false), [location.pathname]);
 
   const toggleMobileMenu = (isOpen) => {
     setIsMobileMenuOpen(isOpen);
@@ -117,24 +143,26 @@ const Navbar = () => {
             <li>
               <Link to="/destinations">Destination</Link>
             </li>
-            {EVENTS_ENABLED && (
-              <li>
-                <Link to="/events">Events</Link>
-              </li>
-            )}
-            {ECO_GUIDES_ENABLED && (
-              <li>
-                <Link to="/eco-guides">Eco-Guides</Link>
-              </li>
-            )}
-            {GALLERY_ENABLED && (
-              <li>
-                <Link to="/gallery">Gallery</Link>
-              </li>
-            )}
-            {FORUM_ENABLED && (
-              <li>
-                <Link to="/forum">Forum</Link>
+            {communityLinks.length > 0 && (
+              <li className="navDropdown" ref={communityRef}>
+                <button
+                  type="button"
+                  className="navDropdownToggle"
+                  aria-haspopup="true"
+                  aria-expanded={communityOpen}
+                  onClick={() => setCommunityOpen((open) => !open)}
+                >
+                  Community <RiArrowDownSLine />
+                </button>
+                {communityOpen && (
+                  <ul className="navDropdownMenu">
+                    {communityLinks.map((link) => (
+                      <li key={link.to}>
+                        <Link to={link.to}>{link.label}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             )}
             <li>

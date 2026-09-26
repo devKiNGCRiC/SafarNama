@@ -171,6 +171,7 @@ const ProfileEdit = ({ user, profile, onClose, onSave }) => {
                                 placeholder="Tell us about yourself..."
                                 rows="4"
                             />
+                            <small className="pf-count">{formData.bio.length}/500</small>
                         </div>
 
                         <div className="form-grid">

@@ -1,198 +1,83 @@
 import React, { useState } from 'react';
-import { Camera, Edit2, Link as LinkIcon, MapPin } from 'lucide-react';
+import { Camera } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-import { fullName, hostnameOf, safeHref } from '../../../features/profile/utils/profileLinks';
+import { fullName } from '../../../features/profile/utils/profileLinks';
 import './ProfileHeader.scss';
 
-import img1 from '../../../Assets/avatar.jpg';
-import img2 from '../../../Assets/img/cover.jpg';
-const ProfileHeader = ({ user, profile, counts, isOwnProfile, onUpdateProfilePicture, onUpdateCoverPhoto }) => {
-    const [uploadingAvatar, setUploadingAvatar] = useState(false);
-    const [uploadingCover, setUploadingCover] = useState(false);
+const PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_MB = 5;
 
-    const handleAvatarChange = async (e) => {
-        const file = e.target.files?.[0];
+// Cover photo, avatar, name, short bio and the counts. `children` are the action buttons
+// (Edit / Follow / Message ...), which sit next to the name.
+const ProfileHeader = ({ user, profile, counts, isOwnProfile, onUpdateProfilePicture, onUpdateCoverPhoto, children }) => {
+    const [busy, setBusy] = useState({ avatar: false, cover: false });
+
+    // Checks the chosen photo, uploads it, and tells the person what happened.
+    const upload = async (event, field, send, done) => {
+        const file = event.target.files?.[0];
+        event.target.value = ''; // lets the same file be chosen again later
         if (!file) return;
+        if (!PHOTO_TYPES.includes(file.type)) return toast.error('Please upload a JPG, PNG or WEBP photo');
+        if (file.size > MAX_MB * 1024 * 1024) return toast.error(`The photo must be smaller than ${MAX_MB} MB`);
 
-        const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!validTypes.includes(file.type)) {
-            toast.error('Please upload a JPG, PNG or WEBP photo');
-            return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) { // 5MB limit
-            toast.error('File size should not exceed 5MB');
-            return;
-        }
-
+        setBusy((b) => ({ ...b, [field]: true }));
         try {
-            setUploadingAvatar(true);
             const formData = new FormData();
-            formData.append('avatar', file);
-            
-            const result = await onUpdateProfilePicture(formData);
-            if (result.success) {
-                toast.success('Profile picture updated successfully');
-            } else {
-                throw new Error(result.error);
-            }
-        } catch (error) {
-            toast.error(error.message || 'Failed to update profile picture');
+            formData.append(field, file);
+            const result = await send(formData);
+            if (result?.success) toast.success(done);
+            else toast.error(result?.error || 'The upload failed. Please try again.');
         } finally {
-            setUploadingAvatar(false);
-            e.target.value = '';
+            setBusy((b) => ({ ...b, [field]: false }));
         }
     };
 
-    const handleCoverChange = async (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-    
-        const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!validTypes.includes(file.type)) {
-            toast.error('Please upload a JPG, PNG or WEBP photo');
-            return;
-        }
-    
-        if (file.size > 5 * 1024 * 1024) {
-            toast.error('File size should not exceed 5MB');
-            e.target.value = '';
-            return;
-        }
-
-        try {
-            setUploadingCover(true);
-            const formData = new FormData();
-            formData.append('cover', file); // Make sure this matches your backend field name
-    
-            const result = await onUpdateCoverPhoto(formData);
-            
-            if (result?.success) {
-                toast.success('Cover photo updated successfully');
-            } else {
-                throw new Error(result?.error || 'Failed to update cover photo');
-            }
-        } catch (error) {
-            toast.error(error.message || 'Failed to update cover photo');
-        } finally {
-            setUploadingCover(false);
-            e.target.value = '';
-        }
-    };
+    const displayName = fullName(user) || user?.username;
+    const initial = (user?.username || '?')[0].toUpperCase();
 
     return (
-        <div className="profile-header">
-            <div className="cover-photo-container">
-                <img 
-                    src={profile?.coverImage || img2 } 
-                    alt="Cover"
-                    className="cover-photo"
-                />
+        <header className="pf-header">
+            <div
+                className={`pf-cover ${profile?.coverImage ? 'has-image' : ''}`}
+                style={profile?.coverImage ? { backgroundImage: `url(${profile.coverImage})` } : undefined}
+            >
                 {isOwnProfile && (
-                    <div className="cover-controls">
-                        <input
-                            type="file"
-                            id="cover-upload"
-                            accept="image/jpeg,image/png,image/webp"
-                            onChange={handleCoverChange}
-                            disabled={uploadingCover}
-                            hidden
-                        />
-                        <label htmlFor="cover-upload" className="upload-button">
-                            <Camera size={18} />
-                            <span>{uploadingCover ? 'Uploading...' : 'Change Cover'}</span>
-                        </label>
-                    </div>
+                    <label className="pf-cover-edit" title="Change cover photo">
+                        <input type="file" accept={PHOTO_TYPES.join(',')} hidden disabled={busy.cover}
+                            onChange={(e) => upload(e, 'cover', onUpdateCoverPhoto, 'Cover photo updated')} />
+                        <Camera size={16} /> <span>{busy.cover ? 'Uploading…' : 'Change cover'}</span>
+                    </label>
                 )}
             </div>
 
-            <div className="profile-header-main">
-                <div className="profile-photo-section">
-                    <div className="profile-photo-container">
-                        <img 
-                            src={user?.avatar || img1 } 
-                            alt={user?.username}
-                            className="profile-photo"
-                        />
-                        {isOwnProfile && (
-                            <div className="photo-controls">
-                                <input
-                                    type="file"
-                                    id="avatar-upload"
-                                    accept="image/jpeg,image/png,image/webp"
-                                    onChange={handleAvatarChange}
-                                    disabled={uploadingAvatar}
-                                    hidden
-                                />
-                                <label htmlFor="avatar-upload" className="upload-button">
-                                    <Camera size={16} />
-                                </label>
-                            </div>
-                        )}
-                    </div>
+            <div className="pf-head-body">
+                <div className="pf-avatar">
+                    {user?.avatar ? <img src={user.avatar} alt={user.username} /> : <b aria-hidden="true">{initial}</b>}
+                    {isOwnProfile && (
+                        <label className="pf-avatar-edit" title="Change profile picture">
+                            <input type="file" accept={PHOTO_TYPES.join(',')} hidden disabled={busy.avatar}
+                                onChange={(e) => upload(e, 'avatar', onUpdateProfilePicture, 'Profile picture updated')} />
+                            <Camera size={15} />
+                            <span className="sr-only">Change profile picture</span>
+                        </label>
+                    )}
+                    {busy.avatar && <span className="pf-avatar-busy" aria-label="Uploading" />}
                 </div>
 
-                <div className="profile-info-section">
-                    <div className="profile-names">
-                        <h1>{user?.username}</h1>
-                        {fullName(user) && <h2>{fullName(user)}</h2>}
-                    </div>
-
-                    <div className="profile-details">
-                        {profile?.bio && (
-                            <p className="bio">{profile.bio}</p>
-                        )}
-
-                        <div className="meta-info">
-                            {profile?.location && (
-                                <span className="location">
-                                    <MapPin size={16} />
-                                    {profile.location}
-                                </span>
-                            )}
-                            {safeHref(profile?.website) && (
-                                <a
-                                    href={safeHref(profile.website)}
-                                    target="_blank"
-                                    rel="noopener noreferrer nofollow"
-                                    className="website"
-                                >
-                                    <LinkIcon size={16} />
-                                    {hostnameOf(profile.website)}
-                                </a>
-                            )}
-                        </div>
-
-                        <div className="profile-stats">
-                            <div className="stat-item">
-                                <span className="stat-value">{profile?.followers?.length || 0}</span>
-                                <span className="stat-label">Followers</span>
-                            </div>
-                            <div className="stat-item">
-                                <span className="stat-value">{profile?.following?.length || 0}</span>
-                                <span className="stat-label">Following</span>
-                            </div>
-                            <div className="stat-item">
-                                <span className="stat-value">{counts?.posts || 0}</span>
-                                <span className="stat-label">Posts</span>
-                            </div>
-                            {counts?.blogs > 0 && (
-                                <div className="stat-item">
-                                    <span className="stat-value">{counts.blogs}</span>
-                                    <span className="stat-label">Blogs</span>
-                                </div>
-                            )}
-                            {counts?.photos > 0 && (
-                                <div className="stat-item">
-                                    <span className="stat-value">{counts.photos}</span>
-                                    <span className="stat-label">Photos</span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                <div className="pf-identity">
+                    <h1>{displayName}</h1>
+                    <p className="pf-handle">@{user?.username}</p>
+                    {profile?.bio && <p className="pf-bio">{profile.bio}</p>}
+                    <ul className="pf-stats">
+                        <li><b>{counts?.posts || 0}</b> <span>Posts</span></li>
+                        <li><b>{profile?.followers?.length || 0}</b> <span>Followers</span></li>
+                        <li><b>{profile?.following?.length || 0}</b> <span>Following</span></li>
+                    </ul>
                 </div>
+
+                <div className="pf-actions">{children}</div>
             </div>
-        </div>
+        </header>
     );
 };
 

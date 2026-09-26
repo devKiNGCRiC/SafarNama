@@ -1,369 +1,215 @@
-.profile-header {
-    position: relative;
-    margin-bottom: 2rem;
-    background: white;
-    border-radius: 15px;
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #7a8288);
+
+.pf-header {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden; // rounds the cover's corners
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-    .cover-photo-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        background: var(--background-light);
-        overflow: hidden;
-
-        .cover-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-
-            &:hover {
-                transform: scale(1.02);
-            }
-        }
-
-        .cover-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            
-            .upload-button {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.75rem 1.25rem;
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 30px;
-                color: var(--text-primary);
-                font-size: 0.9rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-                &:hover {
-                    background: white;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                }
-
-                &:disabled {
-                    opacity: 0.7;
-                    cursor: not-allowed;
-                }
-            }
-        }
-    }
-
-    .profile-header-main {
-        position: relative;
-        padding: 0 2rem 2rem;
-        margin-top: -60px;
-
-        .profile-photo-section {
-            margin-bottom: 1rem;
-
-            .profile-photo-container {
-                position: relative;
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                border: 4px solid white;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                background: white;
-                overflow: hidden;
-
-                .profile-photo {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                .photo-controls {
-                    position: absolute;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-
-                    .upload-button {
-                        width: 36px;
-                        height: 36px;
-                        border-radius: 50%;
-                        background: white;
-                        color: var(--text-primary);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-
-                        &:hover {
-                            transform: scale(1.1);
-                            background: var(--primary-color);
-                            color: white;
-                        }
-                    }
-                }
-
-                &:hover .photo-controls {
-                    opacity: 1;
-                }
-            }
-        }
-
-        .profile-info-section {
-            .profile-names {
-                margin-bottom: 1rem;
-
-                h1 {
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    color: var(--text-primary);
-                    margin-bottom: 0.25rem;
-                }
-
-                h2 {
-                    font-size: 1.1rem;
-                    color: var(--text-secondary);
-                    font-weight: 500;
-                }
-            }
-
-            .profile-details {
-                .bio {
-                    font-size: 1rem;
-                    color: var(--text-primary);
-                    line-height: 1.6;
-                    margin-bottom: 1rem;
-                    max-width: 600px;
-                }
-
-                .meta-info {
-                    display: flex;
-                    gap: 1.5rem;
-                    margin-bottom: 1.5rem;
-                    color: var(--text-secondary);
-                    font-size: 0.95rem;
-
-                    span, a {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.5rem;
-                    }
-
-                    a {
-                        color: var(--primary-color);
-                        text-decoration: none;
-                        transition: color 0.3s ease;
-
-                        &:hover {
-                            color: darken(#2ecc71, 10%);
-                        }
-                    }
-                }
-
-                .profile-stats {
-                    display: flex;
-                    gap: 2rem;
-
-                    .stat-item {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 0.25rem;
-
-                        .stat-value {
-                            font-size: 1.2rem;
-                            font-weight: 600;
-                            color: var(--text-primary);
-                        }
-
-                        .stat-label {
-                            font-size: 0.9rem;
-                            color: var(--text-secondary);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
-@media (max-width: 768px) {
-    .profile-header {
-        .cover-photo-container {
-            height: 200px;
-
-            .cover-controls {
-                .upload-button span {
-                    display: none;
-                }
-            }
-        }
-
-        .profile-header-main {
-            padding: 0 1rem 1.5rem;
-            margin-top: -40px;
-
-            .profile-photo-container {
-                width: 120px;
-                height: 120px;
-            }
-
-            .profile-names {
-                h1 {
-                    font-size: 1.5rem;
-                }
-            }
-
-            .profile-stats {
-                overflow-x: auto;
-                padding-bottom: 0.5rem;
-                
-                &::-webkit-scrollbar {
-                    height: 4px;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background: var(--primary-color);
-                    border-radius: 2px;
-                }
-            }
-        }
-    }
+// cover: the photo, or a warm gradient when there is none
+.pf-cover {
+  position: relative;
+  height: 230px;
+  background:
+    linear-gradient(120deg, rgba(255, 153, 51, 0.95), rgba(230, 100, 60, 0.9) 45%, rgba(19, 136, 8, 0.85));
+  background-size: cover;
+  background-position: center;
+  &.has-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 55%, rgba(0, 0, 0, 0.25)); // keeps the edge readable
+  }
+}
+.pf-cover-edit {
+  position: absolute;
+  z-index: 2;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: $ink;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  &:hover {
+    background: #fff;
+  }
 }
 
-.profile-header {
-    position: relative;
-    margin-bottom: 2rem;
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+// avatar + identity + actions in one row; the avatar overlaps the cover
+.pf-head-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  column-gap: 22px;
+  align-items: start;
+  padding: 0 26px 22px;
+}
 
-    .cover-photo-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        background: var(--background-light);
-        overflow: hidden;
+.pf-avatar {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin-top: -66px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  background: linear-gradient(135deg, $saffron, #ff6b35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  b {
+    color: #fff;
+    font-size: 3rem;
+  }
+}
+.pf-avatar-edit {
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: $ink;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  &:hover {
+    background: #fff4e5;
+  }
+}
+.pf-avatar-busy {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 40%;
+    border: 3px solid $saffron;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: pf-spin 0.8s linear infinite;
+  }
+}
+@keyframes pf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-        .cover-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.pf-identity {
+  padding-top: 14px;
+  min-width: 0;
+  h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    line-height: 1.2;
+    color: $ink;
+    overflow-wrap: anywhere;
+  }
+  .pf-handle {
+    margin: 2px 0 0;
+    color: $muted;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .pf-bio {
+    margin: 10px 0 0;
+    max-width: 62ch;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+}
 
-        .cover-controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            z-index: 2;
+.pf-stats {
+  display: flex;
+  gap: 26px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  b {
+    font-size: 1.15rem;
+    color: $ink;
+  }
+  span {
+    color: $muted;
+    font-size: 0.9rem;
+  }
+}
 
-            .upload-button {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.75rem 1.25rem;
-                background: rgba(255, 255, 255, 0.9);
-                border: none;
-                border-radius: 30px;
-                color: var(--text-primary);
-                font-size: 0.9rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.pf-actions {
+  padding-top: 16px;
+}
 
-                &:hover {
-                    background: white;
-                    transform: translateY(-2px);
-                }
-
-                &:disabled {
-                    opacity: 0.7;
-                    cursor: not-allowed;
-                }
-            }
-        }
+// tablet / phone: everything centres and stacks
+@media (max-width: 760px) {
+  .pf-cover {
+    height: 150px;
+  }
+  .pf-head-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 0 16px 18px;
+  }
+  .pf-avatar {
+    width: 104px;
+    height: 104px;
+    margin-top: -52px;
+    b {
+      font-size: 2.4rem;
     }
-
-    .profile-header-main {
-        padding: 0 2rem 2rem;
-        margin-top: -60px;
-        position: relative;
-        z-index: 1;
-
-        .profile-photo-section {
-            margin-bottom: 1rem;
-
-            .profile-photo-container {
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-                border: 4px solid white;
-                overflow: hidden;
-                background: white;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                position: relative;
-
-                .profile-photo {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                .photo-controls {
-                    position: absolute;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    transition: opacity 0.3s ease;
-
-                    .upload-button {
-                        width: 36px;
-                        height: 36px;
-                        border-radius: 50%;
-                        background: white;
-                        border: none;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-
-                        &:hover {
-                            transform: scale(1.1);
-                        }
-                    }
-                }
-
-                &:hover .photo-controls {
-                    opacity: 1;
-                }
-            }
-        }
-
-        .profile-info-section {
-            .profile-names {
-                h1 {
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    margin-bottom: 0.25rem;
-                }
-
-                h2 {
-                    font-size: 1.1rem;
-                    color: var(--text-secondary);
-                }
-            }
-        }
+  }
+  .pf-identity {
+    padding-top: 10px;
+    h1 {
+      font-size: 1.45rem;
     }
+    .pf-bio {
+      margin-inline: auto;
+    }
+  }
+  .pf-stats {
+    justify-content: center;
+    gap: 22px;
+  }
+  .pf-actions {
+    width: 100%;
+    padding-top: 14px;
+  }
 }

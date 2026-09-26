@@ -1,0 +1,94 @@
+// Extra navbar rules: the "Community" dropdown, and desktop sizing that no longer overflows now
+// that the site has more sections. (Navbar.jsx imports the compiled Navbar.css for the rest.)
+
+// keep every link on one line and scale the bar with the screen
+.navBar .navBarDesktop {
+  margin-left: clamp(1rem, 3vw, 8rem);
+  gap: clamp(0.5rem, 1vw, 1rem);
+  min-width: 0;
+
+  .navLinks {
+    gap: clamp(0.6rem, 1.3vw, 1.2rem);
+    flex-shrink: 0;
+    li a,
+    li .navDropdownToggle {
+      font-size: clamp(0.88rem, 1.05vw, 1.15rem);
+      white-space: nowrap;
+    }
+  }
+
+  .searchBar {
+    min-width: 120px;
+    margin: 0 clamp(0.5rem, 1.5vw, 2rem);
+  }
+}
+
+// the search box is a luxury: drop it before the links get squeezed
+@media (max-width: 1180px) {
+  .navBar .navBarDesktop .searchBar {
+    display: none;
+  }
+}
+
+// ---- Community dropdown
+.navBar .navBarDesktop .navLinks .navDropdown {
+  position: relative;
+
+  .navDropdownToggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0.5rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--blackColor, #1f1f1f);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover,
+    &[aria-expanded='true'] {
+      color: var(--primaryColor, #ef5a24);
+      border-bottom-color: var(--primaryColor, #ef5a24);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--primaryColor, #ef5a24);
+      outline-offset: 3px;
+    }
+    svg {
+      transition: transform 0.2s;
+    }
+    &[aria-expanded='true'] svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .navDropdownMenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -12px;
+    min-width: 190px;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    z-index: 1200;
+
+    li a {
+      display: block;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 9px;
+      font-size: 1rem;
+      &:hover {
+        background: rgba(255, 153, 51, 0.14);
+        color: var(--primaryColor, #ef5a24);
+        border: 0;
+      }
+    }
+  }
+}

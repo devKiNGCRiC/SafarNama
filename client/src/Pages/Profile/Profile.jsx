@@ -23,6 +23,7 @@ import {
     unfollowUserAction
 } from '../../actions/profileActions';
 import { clearProfile } from '../../store/reducers/profileSlice';
+import './Profile.scss';
 
 const Profile = () => {
     const { username } = useParams();
@@ -64,7 +65,7 @@ const Profile = () => {
 
     if (notFound) {
         return (
-            <div className="profile-container" style={{ padding: '120px 16px', textAlign: 'center' }}>
+            <div className="pf-page" style={{ textAlign: 'center' }}>
                 <h2>We could not find that traveller</h2>
                 <p>The profile may have been renamed or removed.</p>
                 <Link to="/safargram/explore">Find people on SafarGram</Link>
@@ -104,47 +105,47 @@ const Profile = () => {
     };
 
     return (
-        <div className="profile-container">
-            <ProfileHeader
-                user={profile.user}
-                profile={profile.profile}
-                counts={profile.counts}
-                isOwnProfile={isOwnProfile}
-                onUpdateProfilePicture={(file) => dispatch(updateProfilePicture(file))}
-                onUpdateCoverPhoto={(file) => dispatch(updateCoverPhoto(file))}
-            />
-
-            <div className="profile-content">
-                {!isOwnProfile && (
+        <div className="pf-page">
+            <div className="pf-shell">
+                <ProfileHeader
+                    user={profile.user}
+                    profile={profile.profile}
+                    counts={profile.counts}
+                    isOwnProfile={isOwnProfile}
+                    onUpdateProfilePicture={(file) => dispatch(updateProfilePicture(file))}
+                    onUpdateCoverPhoto={(file) => dispatch(updateCoverPhoto(file))}
+                >
                     <ProfileActions
                         isOwnProfile={isOwnProfile}
                         isFollowing={isFollowing}
                         onFollow={() => changeFollow(true)}
                         onUnfollow={() => changeFollow(false)}
+                        onEdit={() => setIsEditing(true)}
                         username={profile.user.username}
                         isLoading={loadingFollow}
                     />
-                )}
+                </ProfileHeader>
 
-                <div className="profile-main">
-                    <div className="profile-left">
+                <div className="pf-main">
+                    <aside className="pf-side">
                         <ProfileInfo
                             user={profile.user}
                             profile={profile.profile}
                             isOwnProfile={isOwnProfile}
                             onEditClick={() => setIsEditing(true)}
                         />
-                    </div>
+                    </aside>
 
-                    <div className="profile-right">
+                    <main className="pf-content">
                         <ProfileTabs
                             activeTab={activeTab}
                             setActiveTab={setActiveTab}
                             blogs={profile.blogs || []}
+                            counts={profile.counts}
                             isOwnProfile={isOwnProfile}
                             username={profile.user.username}
                         />
-                    </div>
+                    </main>
                 </div>
             </div>
 
