@@ -11,18 +11,12 @@ import {
     updateProfile,
     updateProfilePicture,
     updateCoverPhoto,
-    addProfilePhoto,
     //getAchievements,
     followUser,
     unfollowUser,
     getSavedItems,
     toggleSaveItem,
-    getPhotos,
     getStats,
-    likePhoto,
-    unlikePhoto,
-    commentOnPhoto,
-    deleteComment
 } from '../Controllers/profileController.js';
 
 const router = express.Router();
@@ -33,13 +27,7 @@ router.put('/update', verifyToken, updateProfile);
 router.put('/picture', verifyToken, upload.single('avatar'), updateProfilePicture);
 router.put('/cover', verifyToken, upload.single('cover'), updateCoverPhoto);
 
-// Photo routes
-router.get('/photos', verifyToken, getPhotos);
-router.post('/photos', verifyToken, upload.single('photo'), addProfilePhoto);
-router.post('/photos/:photoId/like', verifyToken, likePhoto);
-router.delete('/photos/:photoId/like', verifyToken, unlikePhoto);
-router.post('/photos/:photoId/comments', verifyToken, commentOnPhoto);
-router.delete('/photos/:photoId/comments/:commentId', verifyToken, deleteComment);
+// (Travel photos live in the Gallery: /api/v1/gallery)
 
 // Achievement routes
 //router.get('/achievements', verifyToken, getAchievements);
@@ -61,7 +49,7 @@ router.delete('/saved-destinations/:id', verifyToken, unsaveDestination);
 router.get('/stats', verifyToken, getStats);
 
 // Parameterised routes go LAST. '/:username' matches any single path segment,
-// so declared earlier it swallowed /photos, /saved and /stats.
+// so declared earlier it swallowed /saved and /stats.
 router.get('/:username/followers', getProfile);
 router.get('/:username/following', getProfile);
 router.get('/:username', getProfile);

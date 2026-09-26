@@ -6,7 +6,7 @@ import './ProfileTabs.scss';
 // Import grid components
 import BlogsGrid from '../Blogs/BlogsGrid';
 import ToursGrid from '../Tours/ToursGrid';
-import GalleryGrid from '../Gallery/GalleryGrid';
+import ProfileGallery from '../../../features/gallery/components/ProfileGallery';
 import AchievementsGrid from '../Achievements/AchievementsGrid';
 import SavedItems from '../SavedItems/SavedItems';
 import ProfileSafarGrid from '../../../features/safargram/components/ProfileSafarGrid';
@@ -62,7 +62,7 @@ const ProfileTabs = ({ activeTab, setActiveTab, profile, isOwnProfile, username 
             case 'tours':
                 return <ToursGrid tours={profile?.tours || []} />;
             case 'gallery':
-                return <GalleryGrid photos={profile?.photos || []} />;
+                return <ProfileGallery username={username} isOwnProfile={isOwnProfile} />;
             case 'achievements':
                 return <AchievementsGrid achievements={profile?.achievements || []} />;
             case 'saved':

@@ -84,19 +84,6 @@ export const updateCoverPhoto = async (formData) => {
     }
 };
 
-export const addProfilePhoto = async (formData) => {
-    try {
-        const response = await profileApi.post('/photos', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || error;
-    }
-};
-
 export const followUser = async (userId) => {
     try {
         const response = await profileApi.post(`/follow/${userId}`);
@@ -136,15 +123,6 @@ export const toggleSaveItem = async (type, itemId) => {
 export const getProfileStats = async () => {
     try {
         const response = await profileApi.get('/stats');
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || error;
-    }
-};
-
-export const getPhotos = async () => {
-    try {
-        const response = await profileApi.get('/photos');
         return response.data;
     } catch (error) {
         throw error.response?.data || error;

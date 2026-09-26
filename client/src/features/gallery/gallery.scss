@@ -1,0 +1,449 @@
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #808080);
+$green: var(--forest-green, #138808);
+$sindoor: var(--red-sindoor, #e63946);
+
+.gl-page {
+  min-height: 100vh;
+  padding: 90px 14px 50px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255, 153, 51, 0.16), transparent 38%),
+    radial-gradient(circle at 92% 12%, rgba(19, 136, 8, 0.1), transparent 38%),
+    var(--cream-marble, #fff8e7);
+}
+.gl-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gl-head {
+  margin-bottom: 14px;
+  h1 {
+    margin: 0;
+    font-family: "Shrikhand", cursive;
+    color: #c1502e;
+    font-size: 2rem;
+  }
+  p {
+    margin: 4px 0 0;
+    color: $muted;
+  }
+}
+
+// buttons + small bits
+.gl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, $saffron, #ff6b35);
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  &.ghost {
+    background: transparent;
+    color: $ink;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    &.liked {
+      background: $sindoor;
+      color: #fff;
+      border-color: transparent;
+    }
+  }
+}
+.gl-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 10px;
+  color: #c1502e;
+  font-weight: 600;
+  cursor: pointer;
+}
+.gl-muted {
+  color: $muted;
+  margin: 6px 0;
+}
+.gl-error {
+  color: $sindoor;
+}
+
+// wall
+.gl-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  .gl-search {
+    flex: 1 1 240px;
+    max-width: 420px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 999px;
+    padding: 9px 16px;
+    font: inherit;
+    background: #fff;
+  }
+}
+.gl-state {
+  text-align: center;
+  color: $muted;
+  padding: 50px 14px;
+  h3 {
+    margin: 10px 0 4px;
+    color: $ink;
+  }
+}
+.gl-masonry {
+  column-width: 230px;
+  column-gap: 14px;
+}
+.gl-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  break-inside: avoid;
+  background: #eadfc8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  .gl-tile-frame {
+    display: block;
+    position: relative;
+    height: 0;
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+  }
+  .gl-tile-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 26px 10px 8px;
+    color: #fff;
+    font-size: 0.82rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+    opacity: 0;
+    transition: opacity 0.2s;
+    span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+  &:hover img,
+  &:focus-visible img {
+    transform: scale(1.04);
+  }
+  &:hover .gl-tile-overlay,
+  &:focus-visible .gl-tile-overlay {
+    opacity: 1;
+  }
+}
+@media (hover: none) {
+  .gl-tile .gl-tile-overlay {
+    opacity: 1; // no hover on touch screens
+  }
+}
+.gl-more {
+  text-align: center;
+  margin-top: 10px;
+}
+
+// lightbox + shared photo view
+.gl-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  .gl-close,
+  .gl-nav {
+    position: absolute;
+    z-index: 2;
+    border: 0;
+    border-radius: 999px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background: rgba(255, 255, 255, 0.32);
+    }
+  }
+  .gl-close {
+    top: 14px;
+    right: 14px;
+  }
+  .gl-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    &.prev {
+      left: 14px;
+    }
+    &.next {
+      right: 14px;
+    }
+  }
+}
+.gl-viewer {
+  width: 100%;
+  max-width: 1040px;
+  max-height: 92vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  &.inline {
+    max-height: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  }
+}
+.gl-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr);
+  width: 100%;
+  min-height: 0;
+}
+.gl-view-image {
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  img {
+    max-width: 100%;
+    max-height: 92vh;
+    object-fit: contain;
+    display: block;
+  }
+}
+.gl-view-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  min-height: 0;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.gl-owner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  .gl-owner-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $ink;
+    text-decoration: none;
+    small {
+      display: block;
+      color: $muted;
+    }
+  }
+  .gl-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, $saffron, #ff6b35);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .gl-owner-actions {
+    display: flex;
+    gap: 4px;
+    button {
+      border: 0;
+      background: none;
+      color: $muted;
+      padding: 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      &:hover {
+        background: rgba(0, 0, 0, 0.06);
+        color: $ink;
+      }
+    }
+  }
+}
+.gl-caption {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.gl-place {
+  margin: 0;
+  color: #c1502e;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+.gl-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.gl-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  label {
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  textarea,
+  input {
+    font: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+}
+.gl-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+.gl-comments {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 10px;
+  min-height: 0;
+  h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+  }
+  .gl-comment-list {
+    overflow-y: auto;
+    max-height: 32vh;
+  }
+  .gl-comment {
+    padding: 6px 0;
+    p {
+      margin: 0;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+    small {
+      color: $muted;
+    }
+  }
+  .gl-comment-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    input {
+      flex: 1;
+      min-width: 0;
+      font: inherit;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 999px;
+      padding: 8px 14px;
+    }
+  }
+}
+
+// upload modal
+.gl-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  h2 {
+    margin: 0 0 8px;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 4px;
+  }
+  input:not([type="file"]),
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 9px 11px;
+    font: inherit;
+  }
+  .gl-preview {
+    display: block;
+    margin-top: 10px;
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .gl-overlay {
+    padding: 0;
+    align-items: stretch;
+  }
+  .gl-viewer {
+    max-height: none;
+    border-radius: 0;
+    overflow-y: auto;
+  }
+  .gl-view {
+    grid-template-columns: 1fr;
+  }
+  .gl-view-image img {
+    max-height: 60vh;
+  }
+  .gl-view-side {
+    max-height: none;
+    overflow: visible;
+  }
+  .gl-overlay .gl-nav {
+    display: none; // on phones the arrows would cover the picture; close and pick another
+  }
+  .gl-masonry {
+    column-width: 150px;
+    column-gap: 10px;
+  }
+  .gl-tile {
+    margin-bottom: 10px;
+  }
+}

@@ -9,9 +9,7 @@ import {
     profileFailure,
     updateProfileSuccess,
     setSavedItems,
-    setPhotos,
     setStats,
-    addPhoto,
     toggleSaveItemSuccess,
     updateFollowStatus
 } from '../store/reducers/profileSlice';
@@ -142,18 +140,6 @@ export const updateCoverPhoto = (formData) => async (dispatch) => {
     }
 };
 
-export const addProfilePhoto = (formData) => async (dispatch) => {
-    dispatch(profileStart());
-    try {
-        const { data } = await profileApi.addProfilePhoto(formData);
-        dispatch(addPhoto(data));
-        return { success: true, data };
-    } catch (error) {
-        dispatch(profileFailure(error.message));
-        return { success: false, error: error.message };
-    }
-};
-
 const currentUserId = (getState) => {
     const me = getState().auth.user;
     return me?.id || me?._id;
@@ -203,16 +189,6 @@ export const fetchProfileStats = () => async (dispatch) => {
     try {
         const { data } = await profileApi.getProfileStats();
         dispatch(setStats(data));
-        return { success: true, data };
-    } catch (error) {
-        return { success: false, error: error.message };
-    }
-};
-
-export const fetchPhotos = () => async (dispatch) => {
-    try {
-        const { data } = await profileApi.getPhotos();
-        dispatch(setPhotos(data));
         return { success: true, data };
     } catch (error) {
         return { success: false, error: error.message };

@@ -23,7 +23,7 @@ import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
 import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
-import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED } from "./config/features";
+import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED, GALLERY_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
 import AdminRoute from "./Components/Routing/AdminRoute";
 import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
@@ -59,6 +59,8 @@ const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
 const ForgotPassword = lazy(() => import("./Pages/Auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./Pages/Auth/ResetPassword"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
+const GalleryPage = lazy(() => import("./features/gallery/pages/GalleryPage"));
+const GalleryPhotoPage = lazy(() => import("./features/gallery/pages/PhotoPage"));
 const SettingsPage = lazy(() => import("./features/settings/pages/SettingsPage"));
 const NotificationsPage = lazy(() => import("./features/notifications/pages/NotificationsPage"));
 const SafarDestination = lazy(
@@ -363,6 +365,8 @@ const AppContent = () => {
               }
             />
 
+            <Route path="/gallery" element={GALLERY_ENABLED ? <div><Navbar /><GalleryPage /><Footer /></div> : <Navigate to="/home" replace />} />
+            <Route path="/gallery/:id" element={GALLERY_ENABLED ? <div><Navbar /><GalleryPhotoPage /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <div><Navbar /><EcoGuides /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/eco-guides/:id" element={ECO_GUIDES_ENABLED ? <div><Navbar /><EcoGuideDetail /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route
