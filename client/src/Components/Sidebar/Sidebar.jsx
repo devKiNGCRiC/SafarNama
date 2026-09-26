@@ -35,15 +35,10 @@ const Sidebar = () => {
         { path: '/destinations', name: 'Explore', icon: RiCompassDiscoverLine },
         ...(EVENTS_ENABLED ? [{ path: '/events', name: 'Events', icon: RiCalendarEventLine }] : []),
         ...(ECO_GUIDES_ENABLED ? [{ path: '/eco-guides', name: 'Eco-Guides', icon: RiLeafLine }] : []),
-        ...(EVENTS_ENABLED && user?.role === 'admin'
-            ? [{ path: '/admin/events', name: 'Manage events', icon: RiSettings4Line }]
-            : []),
-        ...(ECO_GUIDES_ENABLED && user?.role === 'admin'
-            ? [{ path: '/admin/eco-guides', name: 'Manage guides', icon: RiSettings4Line }]
-            : []),
         ...(FORUM_ENABLED ? [{ path: '/forum', name: 'Forum', icon: RiCommunityLine }] : []),
         ...(GALLERY_ENABLED ? [{ path: '/gallery', name: 'Gallery', icon: RiImageLine }] : []),
         // { path: '/blogs', name: 'Blogs', icon: RiBookReadLine, protected: true },
+        ...(user?.role === 'admin' ? [{ path: '/admin', name: 'Admin', icon: RiSettings4Line }] : []),
     ];
 
     const bottomMenuItems = [

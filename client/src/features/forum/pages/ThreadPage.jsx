@@ -21,6 +21,7 @@ import {
 import ReplyItem from "../components/ReplyItem";
 import ThreadForm from "../components/ThreadForm";
 import useRequireLogin from "../hooks/useRequireLogin";
+import ReportButton from "../../reports/ReportButton";
 import { timeAgo } from "../../safargram/utils/timeAgo";
 import { categoryLabel, replyCountText, splitParagraphs, threadBadges, withAcceptedFirst } from "../utils/forumFormat";
 import "../forum.scss";
@@ -177,6 +178,7 @@ const ThreadPage = () => {
               <Bookmark size={16} fill={thread.savedByMe ? "currentColor" : "none"} /> {thread.savedByMe ? "Saved" : "Save"}
             </button>
             <button type="button" className="fm-btn ghost" onClick={share}><Share2 size={16} /> Share</button>
+            {!isOwner && <ReportButton type="FORUM_THREAD" targetId={id} />}
             {canEdit && <button type="button" className="fm-btn ghost" onClick={() => setEditing(true)}>Edit</button>}
             {canEdit && <button type="button" className="fm-btn ghost danger" onClick={remove}>Delete</button>}
             {isAdmin && (

@@ -9,22 +9,6 @@ const SENSITIVE_FIELDS =
 // body (role, active, accountStatus, ...) is ignored.
 const UPDATABLE_FIELDS = ["firstName", "lastName", "username", "avatar"];
 
-//get all users (admin only - enforced in the route)
-export const getAllUsers = async (req, res) => {
-  try {
-    const users = await UserModel.find({}).select(SENSITIVE_FIELDS);
-    return res.status(200).send({
-      userCount: users.length,
-      success: true,
-      message: "all users data",
-      users,
-    });
-  } catch (error) {
-    console.error("getAllUsers error:", error);
-    res.status(500).json({ success: false, message: "Failed to fetch users" });
-  }
-};
-
 //get a User
 export const getUser = async (req, res) => {
   try {

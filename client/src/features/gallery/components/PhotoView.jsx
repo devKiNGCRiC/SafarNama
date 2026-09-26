@@ -13,6 +13,7 @@ import {
   updatePhoto,
 } from "../api";
 import { formatDay, photoAlt } from "../utils/galleryFormat";
+import ReportButton from "../../reports/ReportButton";
 import "../gallery.scss";
 
 // One photo, big: picture, owner, caption, like / share, comments and (for the owner) edit / delete.
@@ -188,6 +189,7 @@ const PhotoView = ({ photo, onChange, onDeleted }) => {
             <Heart size={16} fill={detail.likedByMe ? "currentColor" : "none"} /> {detail.likeCount}
           </button>
           <button type="button" className="gl-btn ghost" onClick={share}><Share2 size={16} /> Share</button>
+          {!isOwner && <ReportButton type="GALLERY_PHOTO" targetId={detail._id} />}
         </div>
 
         <div className="gl-comments">

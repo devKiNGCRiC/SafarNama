@@ -63,6 +63,12 @@ const GalleryPage = lazy(() => import("./features/gallery/pages/GalleryPage"));
 const GalleryPhotoPage = lazy(() => import("./features/gallery/pages/PhotoPage"));
 const ForumPage = lazy(() => import("./features/forum/pages/ForumPage"));
 const ForumThreadPage = lazy(() => import("./features/forum/pages/ThreadPage"));
+const AdminDashboard = lazy(() => import("./features/admin/pages/AdminDashboard"));
+const AdminUsers = lazy(() => import("./features/admin/pages/AdminUsers"));
+const AdminReports = lazy(() => import("./features/admin/pages/AdminReports"));
+const AdminMessages = lazy(() => import("./features/admin/pages/AdminMessages"));
+const AdminDestinations = lazy(() => import("./Pages/Admin/AdminDestinations"));
+const AdminDestinationForm = lazy(() => import("./Pages/Admin/DestinationForm"));
 const SettingsPage = lazy(() => import("./features/settings/pages/SettingsPage"));
 const NotificationsPage = lazy(() => import("./features/notifications/pages/NotificationsPage"));
 const SafarDestination = lazy(
@@ -72,6 +78,17 @@ const SafarDestination = lazy(
 // Booking pages are only reachable when the feature is switched on.
 const BookingGate = ({ children }) =>
   BOOKING_ENABLED ? children : <Navigate to="/home" replace />;
+
+// Admin-only page with the standard site chrome (the page brings its own admin tabs).
+const AdminShell = ({ children }) => (
+  <AdminRoute>
+    <div>
+      <Navbar />
+      {children}
+      <Footer />
+    </div>
+  </AdminRoute>
+);
 
 // Logged-in page with the standard site chrome.
 const Shell = ({ children }) => (
@@ -345,6 +362,14 @@ const AppContent = () => {
               }
             />
 
+            {/* Admin area (admins only) */}
+            <Route path="/admin" element={<AdminShell><AdminDashboard /></AdminShell>} />
+            <Route path="/admin/users" element={<AdminShell><AdminUsers /></AdminShell>} />
+            <Route path="/admin/reports" element={<AdminShell><AdminReports /></AdminShell>} />
+            <Route path="/admin/messages" element={<AdminShell><AdminMessages /></AdminShell>} />
+            <Route path="/admin/destinations" element={<AdminShell><AdminDestinations /></AdminShell>} />
+            <Route path="/admin/destinations/new" element={<AdminShell><AdminDestinationForm /></AdminShell>} />
+            <Route path="/admin/destinations/edit/:id" element={<AdminShell><AdminDestinationForm /></AdminShell>} />
             <Route path="/forum" element={FORUM_ENABLED ? <div><Navbar /><ForumPage /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/forum/:id" element={FORUM_ENABLED ? <div><Navbar /><ForumThreadPage /><Footer /></div> : <Navigate to="/home" replace />} />
             <Route path="/communityforum" element={<Navigate to="/forum" replace />} />

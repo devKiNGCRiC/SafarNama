@@ -1,0 +1,333 @@
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #808080);
+$green: var(--forest-green, #138808);
+$sindoor: var(--red-sindoor, #e63946);
+
+.ad-page {
+  min-height: 100vh;
+  padding: 90px 14px 50px;
+  background: var(--cream-marble, #fff8e7);
+}
+.ad-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  h1 {
+    margin: 0 0 12px;
+    font-family: "Shrikhand", cursive;
+    color: #c1502e;
+  }
+  h3 {
+    margin: 22px 0 8px;
+  }
+}
+.ad-title {
+  margin: 18px 0 8px;
+}
+.ad-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $saffron transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  a {
+    flex: none;
+    padding: 9px 16px;
+    color: $muted;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    &.active {
+      color: $ink;
+      border-bottom-color: $saffron;
+    }
+  }
+}
+.ad-state {
+  text-align: center;
+  color: $muted;
+  padding: 40px 0;
+}
+.ad-muted {
+  color: $muted;
+  margin: 4px 0;
+}
+.ad-more {
+  text-align: center;
+  margin-top: 14px;
+}
+
+.ad-btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, $saffron, #ff6b35);
+  text-decoration: none;
+  &.ghost {
+    background: transparent;
+    color: $ink;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  &.danger {
+    background: $sindoor;
+  }
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+.ad-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #c1502e;
+  font-weight: 600;
+  cursor: pointer;
+  &.danger {
+    color: $sindoor;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+.ad-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin-left: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.08);
+  color: $ink;
+  &.active {
+    background: rgba(19, 136, 8, 0.14);
+    color: $green;
+  }
+  &.suspended,
+  &.alert {
+    background: rgba(230, 57, 70, 0.13);
+    color: $sindoor;
+  }
+  &.deactivated {
+    background: rgba(0, 0, 0, 0.1);
+    color: $muted;
+  }
+  &.admin {
+    background: rgba(255, 153, 51, 0.25);
+    color: #9a4a00;
+  }
+  &.reason {
+    background: rgba(255, 153, 51, 0.18);
+    color: #9a4a00;
+  }
+}
+
+// dashboard
+.ad-attention,
+.ad-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+.ad-attention {
+  margin-bottom: 4px;
+}
+.ad-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: $ink;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  b {
+    font-size: 1.7rem;
+  }
+  span {
+    color: $muted;
+    font-size: 0.86rem;
+  }
+  &.alert {
+    border-left: 4px solid $sindoor;
+    b {
+      color: $sindoor;
+    }
+  }
+}
+a.ad-stat:hover {
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.14);
+}
+.ad-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+.ad-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 4px 18px 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+}
+.ad-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  &:last-child {
+    border-bottom: 0;
+  }
+  small {
+    color: $muted;
+    display: block;
+  }
+  > small {
+    flex: none;
+  }
+}
+
+// users
+.ad-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  input,
+  select {
+    font: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: #fff;
+  }
+  input {
+    flex: 1 1 260px;
+  }
+}
+.ad-table-wrap {
+  overflow-x: auto;
+}
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  th,
+  td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    vertical-align: top;
+  }
+  th {
+    background: rgba(255, 153, 51, 0.13);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  td a {
+    color: $ink;
+  }
+  small {
+    color: $muted;
+  }
+  .ad-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+}
+
+// reports + messages
+.ad-subtabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  button {
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    &.active {
+      background: linear-gradient(135deg, $saffron, #ff6b35);
+      color: #fff;
+      border-color: transparent;
+    }
+  }
+}
+.ad-report,
+.ad-message {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+}
+.ad-report {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  .ad-report-main {
+    display: flex;
+    gap: 14px;
+    flex: 1 1 320px;
+    min-width: 0;
+    img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex: none;
+    }
+  }
+  .ad-report-top .ad-pill:first-child {
+    margin-left: 0;
+  }
+  .ad-report-text {
+    margin: 6px 0 2px;
+    overflow-wrap: anywhere;
+  }
+  .ad-report-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+.ad-message {
+  header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    small {
+      color: $muted;
+    }
+    a {
+      color: #c1502e;
+    }
+  }
+  p {
+    margin: 8px 0 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .ad-stars {
+    color: #e8a000;
+    letter-spacing: 2px;
+  }
+}

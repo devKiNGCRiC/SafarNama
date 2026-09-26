@@ -1,0 +1,94 @@
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #808080);
+$sindoor: var(--red-sindoor, #e63946);
+
+.rp-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: $muted;
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+  &:hover {
+    color: $sindoor;
+  }
+}
+.rp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.rp-modal {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  color: $ink;
+  h3 {
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 10px;
+    color: $muted;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .rp-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    margin: 4px 0;
+    cursor: pointer;
+  }
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
+    font: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  .rp-error {
+    color: $sindoor;
+    margin: 8px 0 0;
+  }
+  .rp-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+  }
+}
+.rp-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--saffron-primary, #ff9933), #ff6b35);
+  &.ghost {
+    background: transparent;
+    color: $ink;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}

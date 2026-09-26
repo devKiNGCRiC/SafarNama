@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import AdminLayout from '../../features/admin/components/AdminLayout';
 import './DestinationForm.css';
 import { API_URL } from '../../config/api';
 
@@ -33,6 +35,7 @@ const DestinationForm = () => {
       setFormData(res.data.data);
     } catch (error) {
       console.error('Error fetching destination:', error);
+      toast.error('Could not load this destination');
     }
   };
 
@@ -44,9 +47,11 @@ const DestinationForm = () => {
       } else {
         await axios.post(`${API_URL}/api/v1/destinations`, formData);
       }
+      toast.success(isEditMode ? 'Destination updated' : 'Destination added');
       navigate('/admin/destinations');
     } catch (error) {
       console.error('Error saving destination:', error);
+      toast.error(error.response?.data?.message || 'Could not save the destination');
     }
   };
 
@@ -85,6 +90,7 @@ const DestinationForm = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="destination-form">
       <h1>{isEditMode ? 'Edit Destination' : 'Add New Destination'}</h1>
       
@@ -274,6 +280,7 @@ const DestinationForm = () => {
         </div>
       </form>
     </div>
+    </AdminLayout>
   );
 };
 

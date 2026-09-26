@@ -7,6 +7,7 @@ import { deletePost, likePost, savePost, unlikePost, unsavePost } from "../api";
 import { timeAgo } from "../utils/timeAgo";
 import CaptionText from "./CaptionText";
 import MediaCarousel from "./MediaCarousel";
+import ReportButton from "../../reports/ReportButton";
 import "../safargram.scss";
 
 const PostCard = ({ post, onChange, onDeleted, detail = false }) => {
@@ -62,6 +63,9 @@ const PostCard = ({ post, onChange, onDeleted, detail = false }) => {
             </Link>
           )}
         </div>
+        {author && String(author._id) !== String(myId) && (
+          <ReportButton type="SAFARGRAM_POST" targetId={post._id} label="" />
+        )}
         {canDelete && (
           <button type="button" className="sg-delete" aria-label="Delete post" onClick={handleDelete}>
             <Trash2 size={18} />

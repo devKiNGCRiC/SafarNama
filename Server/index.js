@@ -32,6 +32,7 @@ dotenv.config();
 //Routes
 import AuthRoute from "./Routes/authRoutes.js";
 import adminRoutes from "./Routes/adminRoutes.js";
+import reportRoutes from "./Routes/reportRoutes.js";
 import UserRoute from "./Routes/UserRoute.js";
 import profileRoutes from "./Routes/profileRoutes.js";
 import forumRoutes from "./Routes/forumRoutes.js";
@@ -182,9 +183,9 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/auth/login", authLimiter);
 app.use("/api/v1/auth/signup", authLimiter);
 app.use("/api/v1/auth/register", authLimiter);
-app.use("/admin/login", authLimiter);
 app.use("/api/v1/auth", AuthRoute);
-app.use("/admin", adminRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/reports", reportRoutes);
 app.use("/user", UserRoute);
 app.use("/api/v1/forum", forumRoutes);
 // Routes

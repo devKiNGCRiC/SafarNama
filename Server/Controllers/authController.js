@@ -253,6 +253,14 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    // Suspended by an admin
+    if (user.accountStatus === "suspended") {
+      return res.status(403).json({
+        success: false,
+        message: "Your account has been suspended. Please contact support.",
+      });
+    }
+
     // Check if account is locked
     if (user.isLocked()) {
       return res.status(423).json({

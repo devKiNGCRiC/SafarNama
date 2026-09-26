@@ -5,6 +5,7 @@ import { CheckCircle2, Heart } from "lucide-react";
 import { deleteReply, likeReply, unlikeReply, updateReply } from "../api";
 import { timeAgo } from "../../safargram/utils/timeAgo";
 import useRequireLogin from "../hooks/useRequireLogin";
+import ReportButton from "../../reports/ReportButton";
 import "../forum.scss";
 
 // One reply: like, edit / delete (own), delete (thread owner / admin), and mark as the answer.
@@ -85,6 +86,7 @@ const ReplyItem = ({ reply, canModerate, canAccept, onChange, onDeleted, onAccep
             <button type="button" className="fm-link" onClick={() => { setDraft(reply.content); setEditing(true); }}>Edit</button>
           )}
           {(isMine || canModerate) && <button type="button" className="fm-link danger" onClick={remove}>Delete</button>}
+          {!isMine && <ReportButton type="FORUM_REPLY" targetId={reply._id} />}
         </footer>
       )}
     </div>
