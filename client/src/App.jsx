@@ -37,9 +37,7 @@ const AllDestinations = lazy(
 const DestinationDetail = lazy(
   () => import("./Pages/Destination/DestinationDetail"),
 );
-const ItineraryBuilder = lazy(
-  () => import("./Pages/Itinerary/ItineraryBuilder"),
-);
+const ItineraryBuilder = lazy(() => import("./features/itinerary/pages/ItineraryPage"));
 const Events = lazy(() => import("./features/events/pages/EventsPage"));
 const EventDetail = lazy(() => import("./features/events/pages/EventDetailPage"));
 const ManageEvents = lazy(() => import("./features/events/pages/ManageEventsPage"));

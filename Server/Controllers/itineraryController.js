@@ -1,192 +1,117 @@
 // controllers/itineraryController.js
-import Itinerary from '../Models/itineraryModel.js';
-import { createError } from '../utils/error.js';
+import "../Models/userModel.js"; // populate() needs it registered
+import Itinerary from "../Models/itineraryModel.js";
+import Destination from "../Models/destinationModel.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/AppError.js";
+import { assertObjectId } from "../utils/cursor.js";
+import { generateItinerary, INTEREST_NAMES, PACES } from "../services/itineraryGenerator.js";
+import { parseGenerateInput, parseItineraryInput } from "../utils/itineraryInput.js";
 
-// Create new itinerary
-export const createItinerary = async (req, res) => {
-  try {
-    // Add user ID from authenticated request
-    const newItinerary = new Itinerary({
-      ...req.body,
-      creator: req.user._id
-    });
-    
-    const savedItinerary = await newItinerary.save();
-    
-    res.status(201).json({
-      success: true,
-      message: "Itinerary created successfully",
-      data: savedItinerary
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to create itinerary",
-      error: err.message
-    });
+export const MAX_ITINERARIES_PER_PERSON = 100;
+
+const STOP_FIELDS = "name images address category";
+const withDetails = (query) => query.populate("destinations.destination", STOP_FIELDS).populate("creator", "username");
+
+const PLANNER_FIELDS =
+  "name address images category rating featured activities location bestTimeToVisit seasonality.peakSeason.months seasonality.offSeason.months";
+
+const isOwner = (itinerary, user) => Boolean(user) && itinerary.creator && String(itinerary.creator._id ?? itinerary.creator) === String(user._id);
+const canSee = (itinerary, user) => itinerary.isTemplate || isOwner(itinerary, user) || user?.role === "admin";
+
+async function assertDestinationsExist(stops) {
+  const ids = [...new Set(stops.map((s) => String(s.destination)))];
+  if ((await Destination.countDocuments({ _id: { $in: ids } })) !== ids.length) {
+    throw new AppError("One of the destinations does not exist (any more)", 400);
   }
-};
+}
 
+export const makeItineraryController = () => ({
+  // "Plan my trip": nothing is saved; the visitor gets a plan they can edit and save.
+  generate: catchAsync(async (req, res) => {
+    const { data, errors } = parseGenerateInput(req.body);
+    if (errors.length) throw new AppError(errors[0], 400);
 
-// Get all itineraries
-export const getAllItineraries = async (req, res, next) => {
-  try {
-    const itineraries = await Itinerary.find()
-      .populate('destinations.destination', 'name images address category')
-      .populate('creator', 'name');
-    
-    res.status(200).json({
-      success: true,
-      message: "Successfully fetched all itineraries",
-      data: itineraries
-    });
-  } catch (err) {
-    next(createError(500, "Failed to fetch itineraries"));
-  }
-};
+    const destinations = await Destination.find({}).select(PLANNER_FIELDS).lean();
+    const { plan, error } = generateItinerary(destinations, data);
+    if (error) throw new AppError(error, 404);
+    res.status(200).json({ success: true, data: plan });
+  }),
 
-// Get single itinerary
-export const getItinerary = async (req, res, next) => {
-  try {
-    const itinerary = await Itinerary.findById(req.params.id)
-      .populate('destinations.destination', 'name images address category description activities')
-      .populate('creator', 'name');
+  // What the "Plan my trip" form can offer (kept here so the page never drifts from the rules)
+  options: catchAsync(async (req, res) => {
+    res.status(200).json({ success: true, data: { interests: INTEREST_NAMES, paces: Object.keys(PACES), maxDays: 14 } });
+  }),
 
-    if (!itinerary) {
-      return next(createError(404, "Itinerary not found"));
+  // Curated templates: public. Everyone else's itineraries are private.
+  listTemplates: catchAsync(async (req, res) => {
+    const rows = await withDetails(Itinerary.find({ isTemplate: true }).sort({ _id: -1 }).limit(50));
+    res.status(200).json({ success: true, data: rows });
+  }),
+
+  listAll: catchAsync(async (req, res) => {
+    const rows = await withDetails(Itinerary.find().sort({ _id: -1 }).limit(200));
+    res.status(200).json({ success: true, data: rows });
+  }),
+
+  getOne: catchAsync(async (req, res) => {
+    const id = assertObjectId(req.params.id, "itinerary id");
+    const itinerary = await withDetails(Itinerary.findById(id));
+    // someone else's private itinerary looks exactly like one that does not exist
+    if (!itinerary || !canSee(itinerary, req.user)) throw new AppError("Itinerary not found", 404);
+    res.status(200).json({ success: true, data: itinerary });
+  }),
+
+  byDestination: catchAsync(async (req, res) => {
+    const id = assertObjectId(req.params.destinationId, "destination id");
+    const rows = await withDetails(Itinerary.find({ isTemplate: true, "destinations.destination": id }).sort({ _id: -1 }).limit(50));
+    res.status(200).json({ success: true, data: rows });
+  }),
+
+  mine: catchAsync(async (req, res) => {
+    const userId = assertObjectId(req.params.userId, "user id");
+    if (userId !== String(req.user._id) && req.user.role !== "admin") {
+      throw new AppError("You can only view your own itineraries", 403);
     }
+    const rows = await withDetails(Itinerary.find({ creator: userId }).sort({ _id: -1 }).limit(MAX_ITINERARIES_PER_PERSON));
+    res.status(200).json({ success: true, data: rows });
+  }),
 
-    res.status(200).json({
-      success: true,
-      message: "Successfully fetched itinerary",
-      data: itinerary
-    });
-  } catch (err) {
-    next(createError(500, "Failed to fetch itinerary"));
-  }
-};
-
-// Update itinerary
-export const updateItinerary = async (req, res) => {
-    try {
-      const itinerary = await Itinerary.findById(req.params.id);
-      
-      // Check if itinerary exists
-      if (!itinerary) {
-        return res.status(404).json({
-          success: false,
-          message: "Itinerary not found"
-        });
-      }
-      
-      // Check if user owns the itinerary or is admin
-      if (itinerary.creator.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-        return res.status(403).json({
-          success: false,
-          message: "You can only update your own itineraries"
-        });
-      }
-  
-      const updatedItinerary = await Itinerary.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
-        { new: true }
-      ).populate('destinations.destination');
-  
-      res.status(200).json({
-        success: true,
-        message: "Successfully updated itinerary",
-        data: updatedItinerary
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: "Failed to update itinerary",
-        error: err.message
-      });
+  create: catchAsync(async (req, res) => {
+    const { data, errors } = parseItineraryInput(req.body, { isAdmin: req.user.role === "admin" });
+    if (errors.length) throw new AppError(errors[0], 400);
+    if ((await Itinerary.countDocuments({ creator: req.user._id })) >= MAX_ITINERARIES_PER_PERSON) {
+      throw new AppError(`You can keep up to ${MAX_ITINERARIES_PER_PERSON} itineraries. Delete some to add more.`, 400);
     }
-  };
+    await assertDestinationsExist(data.destinations);
 
-// Delete itinerary
-export const deleteItinerary = async (req, res) => {
-    try {
-      const itinerary = await Itinerary.findById(req.params.id);
-      
-      if (!itinerary) {
-        return res.status(404).json({
-          success: false,
-          message: "Itinerary not found"
-        });
-      }
-  
-      // Check if user owns the itinerary or is admin
-      if (itinerary.creator.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-        return res.status(403).json({
-          success: false,
-          message: "You can only delete your own itineraries"
-        });
-      }
-  
-      await Itinerary.findByIdAndDelete(req.params.id);
-      
-      res.status(200).json({
-        success: true,
-        message: "Successfully deleted itinerary"
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: "Failed to delete itinerary",
-        error: err.message
-      });
-    }
-  };
+    const saved = await Itinerary.create({ ...data, creator: req.user._id });
+    const populated = await withDetails(Itinerary.findById(saved._id));
+    res.status(201).json({ success: true, message: "Itinerary created successfully", data: populated });
+  }),
 
-// Get itineraries by destination
-export const getItinerariesByDestination = async (req, res, next) => {
-  try {
-    const { destinationId } = req.params;
-    const itineraries = await Itinerary.find({
-      'destinations.destination': destinationId
-    })
-    .populate('destinations.destination', 'name images address')
-    .populate('creator', 'name');
+  update: catchAsync(async (req, res) => {
+    const id = assertObjectId(req.params.id, "itinerary id");
+    const itinerary = await Itinerary.findById(id);
+    if (!itinerary) throw new AppError("Itinerary not found", 404);
+    if (!isOwner(itinerary, req.user) && req.user.role !== "admin") throw new AppError("You can only update your own itineraries", 403);
 
-    res.status(200).json({
-      success: true,
-      message: "Successfully fetched itineraries for destination",
-      data: itineraries
-    });
-  } catch (err) {
-    next(createError(500, "Failed to fetch itineraries for destination"));
-  }
-};
+    const { data, errors } = parseItineraryInput(req.body, { existing: itinerary, isAdmin: req.user.role === "admin" });
+    if (errors.length) throw new AppError(errors[0], 400);
+    if (data.destinations) await assertDestinationsExist(data.destinations);
 
-// Get user's itineraries
-export const getUserItineraries = async (req, res) => {
-    try {
-      // Check if user is requesting their own itineraries or is admin
-      if (req.params.userId !== req.user._id.toString() && req.user.role !== 'admin') {
-        return res.status(403).json({
-          success: false,
-          message: "You can only view your own itineraries"
-        });
-      }
-  
-      const itineraries = await Itinerary.find({ creator: req.params.userId })
-        .populate('destinations.destination', 'name images address')
-        .populate('creator', 'name');
-  
-      res.status(200).json({
-        success: true,
-        message: "Successfully fetched user's itineraries",
-        data: itineraries
-      });
-    } catch (err) {
-      res.status(500).json({
-        success: false,
-        message: "Failed to fetch user's itineraries",
-        error: err.message
-      });
-    }
-  };
+    Object.assign(itinerary, data); // only whitelisted fields; creator can never change
+    await itinerary.save();
+    const populated = await withDetails(Itinerary.findById(itinerary._id));
+    res.status(200).json({ success: true, message: "Successfully updated itinerary", data: populated });
+  }),
+
+  remove: catchAsync(async (req, res) => {
+    const id = assertObjectId(req.params.id, "itinerary id");
+    const itinerary = await Itinerary.findById(id);
+    if (!itinerary) throw new AppError("Itinerary not found", 404);
+    if (!isOwner(itinerary, req.user) && req.user.role !== "admin") throw new AppError("You can only delete your own itineraries", 403);
+    await itinerary.deleteOne();
+    res.status(200).json({ success: true, message: "Successfully deleted itinerary" });
+  }),
+});

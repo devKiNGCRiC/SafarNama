@@ -1,51 +1,44 @@
 // routes/itineraryRoutes.js
-import express from 'express';
-import rateLimit from 'express-rate-limit';
+import express from "express";
+import rateLimit from "express-rate-limit";
+import { makeItineraryController } from "../Controllers/itineraryController.js";
+import { verifyToken, isAdmin, optionalAuth } from "../Middleware/authMiddleware.js";
 
+export const DEFAULT_ITINERARY_LIMITS = {
+  general: { windowMs: 15 * 60 * 1000, max: 200 },
+  generate: { windowMs: 15 * 60 * 1000, max: 30 }, // planning reads every destination, so it is limited harder
+};
 
-import {
-  createItinerary,
-  getAllItineraries,
-  getItinerary,
-  updateItinerary,
-  deleteItinerary,
-  getItinerariesByDestination,
-  getUserItineraries
-} from '../Controllers/itineraryController.js';
-import { verifyToken, isAdmin } from '../Middleware/authMiddleware.js'; // Assuming you have authentication middleware
+const limiter = (config, message) =>
+  rateLimit({ ...config, standardHeaders: true, legacyHeaders: false, message: { success: false, message } });
 
-const router = express.Router();
+// /api/v1/itineraries. `limits` is injectable so tests are not slowed by rate limits.
+export function createItineraryRouter({ limits = DEFAULT_ITINERARY_LIMITS } = {}) {
+  const router = express.Router();
+  const itineraries = makeItineraryController();
 
-// Create rate limiter
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
-  });
+  router.use(limiter(limits.general, "Too many requests. Please try again later."));
 
-// Apply rate limiting to all itinerary routes
-router.use(limiter);
+  // Public: the planner, its options, and admin-curated templates
+  router.post("/generate", limiter(limits.generate, "You are planning too fast. Please try again in a few minutes."), itineraries.generate);
+  router.get("/options", itineraries.options);
+  router.get("/", itineraries.listTemplates);
+  router.get("/destination/:destinationId", itineraries.byDestination);
 
-// Public routes
-router.get('/', getAllItineraries);
-router.get('/:id', getItinerary);
-router.get('/destination/:destinationId', getItinerariesByDestination);
+  // Logged-in people: their own itineraries
+  router.get("/user/:userId", verifyToken, itineraries.mine);
+  router.post("/", verifyToken, itineraries.create);
 
-// Protected routes (require authentication)
-router.use(verifyToken); // Apply authentication to all routes below
+  // Admin list of everything (fixed path, so it must come before "/:id")
+  router.get("/admin/all", verifyToken, isAdmin, itineraries.listAll);
+  router.delete("/admin/:id", verifyToken, isAdmin, itineraries.remove);
 
-// User specific routes
-// Protected routes
-router.post('/', verifyToken, createItinerary);
-router.get('/user/:userId', verifyToken, getUserItineraries);
-router.put('/:id', verifyToken, updateItinerary);
-router.delete('/:id', verifyToken, deleteItinerary);
+  // One itinerary: public templates, or your own (a bad token just means "logged out")
+  router.get("/:id", optionalAuth, itineraries.getOne);
+  router.put("/:id", verifyToken, itineraries.update);
+  router.delete("/:id", verifyToken, itineraries.remove);
 
-// Admin only routes
-router.use(isAdmin); // Apply admin check to all routes below
+  return router;
+}
 
-router.get('/admin/all', verifyToken, isAdmin, getAllItineraries); // Get all itineraries with sensitive data
-router.delete('/admin/:id', verifyToken, isAdmin, deleteItinerary);
- // Admin can delete any itinerary
-
-
-export default router;
+export default createItineraryRouter();
