@@ -209,7 +209,7 @@ const EcoMap = () => {
                                     </div>
                                     <button
                                         className="view-details-btn"
-                                        onClick={() => navigate(`/destination/${destination._id}`)}
+                                        onClick={() => navigate(`/destinations/${destination._id}`)}
                                     >
                                         View Details
                                     </button>

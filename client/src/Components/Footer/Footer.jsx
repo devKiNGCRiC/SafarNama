@@ -106,16 +106,10 @@ const Footer = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/destination">Destinations</Link>
+              <Link to="/destinations">Destinations</Link>
             </li>
             <li>
               <Link to="/blogs">Travel Blog</Link>
-            </li>
-            <li>
-              <Link to="/events">Events</Link>
-            </li>
-            <li>
-              <Link to="/communityforum">Community Forum</Link>
             </li>
           </ul>
         </div>
@@ -135,9 +129,6 @@ const Footer = () => {
             </li>
             <li>
               <Link to="/feedback">Feedback</Link>
-            </li>
-            <li>
-              <a href="#">Terms & Conditions</a>
             </li>
           </ul>
         </div>

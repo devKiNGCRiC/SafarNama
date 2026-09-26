@@ -52,6 +52,7 @@ The server refuses to start (and prints why) if `MONGO_DB`, `JWT_SECRET_KEY` or,
 |---|---|
 | `VITE_API_URL` | your Render URL, e.g. `https://safarnama-api.onrender.com` (no trailing slash) |
 | `VITE_ENABLE_BOOKING` | `false` |
+| `VITE_ENABLE_EVENTS`, `VITE_ENABLE_ECO_GUIDES` | `false` (these sections are hidden until they are finished) |
 | `VITE_GOOGLE_CLIENT_ID` / `VITE_FACEBOOK_APP_ID` | only if you use social login |
 
 (Netlify works too: `client/Public/_redirects` provides the same page-refresh fix.)

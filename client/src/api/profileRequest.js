@@ -152,3 +152,31 @@ export const getPhotos = async () => {
 };
 
 export default profileApi;
+
+// ---- saved destinations (stored on the user)
+export const getSavedDestinations = async () => {
+    try {
+        const response = await profileApi.get('/saved-destinations');
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error;
+    }
+};
+
+export const saveDestination = async (destinationId) => {
+    try {
+        const response = await profileApi.post(`/saved-destinations/${destinationId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error;
+    }
+};
+
+export const unsaveDestination = async (destinationId) => {
+    try {
+        const response = await profileApi.delete(`/saved-destinations/${destinationId}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error;
+    }
+};

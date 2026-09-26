@@ -154,20 +154,25 @@ export const addProfilePhoto = (formData) => async (dispatch) => {
     }
 };
 
-export const followUserAction = (userId) => async (dispatch) => {
+const currentUserId = (getState) => {
+    const me = getState().auth.user;
+    return me?.id || me?._id;
+};
+
+export const followUserAction = (userId) => async (dispatch, getState) => {
     try {
-        const { data } = await profileApi.followUser(userId);
-        dispatch(updateFollowStatus({ userId, isFollowing: false }));
+        const data = await profileApi.followUser(userId);
+        dispatch(updateFollowStatus({ myId: currentUserId(getState), followed: true }));
         return { success: true, data };
     } catch (error) {
         return { success: false, error: error.message };
     }
 };
 
-export const unfollowUserAction = (userId) => async (dispatch) => {
+export const unfollowUserAction = (userId) => async (dispatch, getState) => {
     try {
-        const { data } = await profileApi.unfollowUser(userId);
-        dispatch(updateFollowStatus({ userId, isFollowing: true }));
+        const data = await profileApi.unfollowUser(userId);
+        dispatch(updateFollowStatus({ myId: currentUserId(getState), followed: false }));
         return { success: true, data };
     } catch (error) {
         return { success: false, error: error.message };

@@ -2,6 +2,11 @@ import express from 'express';
 import { verifyToken } from '../Middleware/authMiddleware.js';
 import { upload } from '../Middleware/uploadMiddleware.js';
 import {
+    listSavedDestinations,
+    saveDestination,
+    unsaveDestination
+} from '../Controllers/savedDestinationController.js';
+import {
     getProfile,
     updateProfile,
     updateProfilePicture,
@@ -46,6 +51,11 @@ router.delete('/follow/:userId', verifyToken, unfollowUser);
 // Saved items routes
 router.get('/saved', verifyToken, getSavedItems);
 router.post('/saved/:type/:itemId', verifyToken, toggleSaveItem);
+
+// Saved destinations (stored on the user; see savedDestinationController.js)
+router.get('/saved-destinations', verifyToken, listSavedDestinations);
+router.post('/saved-destinations/:id', verifyToken, saveDestination);
+router.delete('/saved-destinations/:id', verifyToken, unsaveDestination);
 
 // Stats routes
 router.get('/stats', verifyToken, getStats);

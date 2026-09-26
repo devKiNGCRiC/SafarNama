@@ -6,6 +6,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Footer from '../../Components/Footer/Footer';
 import './ItineraryBuilder.css';
+import SavedItineraries from './SavedItineraries';
 import { API_URL } from '../../config/api';
 
 const ItineraryBuilder = () => {
@@ -13,6 +14,7 @@ const ItineraryBuilder = () => {
   const [destinations, setDestinations] = useState([]);
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [itineraryName, setItineraryName] = useState('');
+  const [savedVersion, setSavedVersion] = useState(0); // bumps after a save so the list below refreshes
   const [duration, setDuration] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -164,6 +166,7 @@ const ItineraryBuilder = () => {
 
       if (response.data.success) {
         alert('Itinerary saved successfully!');
+        setSavedVersion((v) => v + 1);
         // Clear form or redirect
         setItineraryName('');
         setDuration('');
@@ -325,6 +328,7 @@ const ItineraryBuilder = () => {
           </div>
         </div>
       </div>
+      <SavedItineraries reloadKey={savedVersion} />
       <Footer />
     </>
   );

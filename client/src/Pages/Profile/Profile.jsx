@@ -125,7 +125,11 @@ const Profile = () => {
 
     // Check if it's own profile
     const isOwnProfile = !username || username === currentUser?.username;
-    const isFollowing = profile?.followers?.includes(currentUser?._id);
+    // The login response has `id`, not `_id`; followers are stored as user ids.
+    const myId = currentUser?.id || currentUser?._id;
+    const isFollowing = (profile?.profile?.followers || []).some(
+        (f) => String(f?._id ?? f) === String(myId)
+    );
 
     console.log('Component State:', {
         isLoading,
@@ -219,7 +223,7 @@ const Profile = () => {
                 {!isOwnProfile && (
                     <ProfileActions 
                         isOwnProfile={isOwnProfile}
-                        isFollowing={profile.profile.followers?.includes(currentUser?._id)}
+                        isFollowing={isFollowing}
                         onFollow={() => handleFollow(profile.user._id)}
                         onUnfollow={() => handleUnfollow(profile.user._id)}
                         username={profile.user.username}

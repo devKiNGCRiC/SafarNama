@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import "./Auth.scss";
 
 // Import Icons
@@ -22,6 +22,8 @@ import { loginSuccess } from "../../store/reducers/authSlice";
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -36,6 +38,12 @@ const Auth = () => {
       );
     }
   }, []);
+
+  // Already signed in: nothing to do here, continue to where they were going
+  if (isAuthenticated) {
+    const from = location.state?.from;
+    return <Navigate to={from ? `${from.pathname}${from.search || ""}` : "/home"} replace />;
+  }
 
   // Function to switch to login after successful registration
   const switchToLogin = () => {

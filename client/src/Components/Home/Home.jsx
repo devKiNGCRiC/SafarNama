@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./Home.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import usePublicStats from "./usePublicStats";
 
 // Imported Assets
 // Videos now hosted on Cloudinary (too large for GitHub)
@@ -29,6 +30,8 @@ const loadAos = async () => {
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const stats = usePublicStats(); // real totals from the database
   const [useVideo, setUseVideo] = useState(false); // Start with image, load video after
   const [connectionSpeed, setConnectionSpeed] = useState("4g");
   const [aosLoaded, setAosLoaded] = useState(false);
@@ -90,10 +93,8 @@ const Home = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Navigate to destinations with location parameter for filtering
-      window.location.href = `/destinations?location=${encodeURIComponent(
-        searchQuery,
-      )}`;
+      // Client-side navigation (no full reload); the destinations page reads ?q=
+      navigate(`/destinations?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
@@ -218,26 +219,27 @@ const Home = () => {
         {/* Impact Stats */}
         <div className="impact-stats" data-aos="fade-up" data-aos-delay="400">
           <div className="stat-card">
-            <div className="stat-number">500+</div>
+            <div className="stat-number">{stats ? stats.destinations : "—"}</div>
             <div className="stat-label">Destinations</div>
-            <div className="stat-desc">Across 28 States</div>
+            <div className="stat-desc">Explore across India</div>
           </div>
           <div className="stat-card">
-            <div className="stat-number">10K+</div>
-            <div className="stat-label">Happy Travelers</div>
-            <div className="stat-desc">Stories Shared</div>
+            <div className="stat-number">{stats ? stats.tours : "—"}</div>
+            <div className="stat-label">Curated Tours</div>
+            <div className="stat-desc">Eco-friendly experiences</div>
           </div>
           <div className="stat-card">
-            <div className="stat-number">100%</div>
-            <div className="stat-label">Eco-Friendly</div>
-            <div className="stat-desc">Carbon Neutral</div>
+            <div className="stat-number">{stats ? stats.blogs : "—"}</div>
+            <div className="stat-label">Travel Stories</div>
+            <div className="stat-desc">Shared by the community</div>
           </div>
           <div className="stat-card">
-            <div className="stat-number">50+</div>
-            <div className="stat-label">Local Guides</div>
-            <div className="stat-desc">Community First</div>
+            <div className="stat-number">{stats ? stats.travellers : "—"}</div>
+            <div className="stat-label">Travellers</div>
+            <div className="stat-desc">Joined SafarNama</div>
           </div>
         </div>
+
 
         {/* Popular Activities */}
         <div

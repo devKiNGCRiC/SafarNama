@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Subscribe.scss";
+import { http } from "../../config/api";
 
 //Importing Aos
 import Aos from "aos";
@@ -11,17 +12,27 @@ import { FaBell, FaCheckCircle } from "react-icons/fa";
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState({ state: "idle", message: "" }); // idle | sending | done | error
 
   useEffect(() => {
     Aos.init({ duration: 1200 });
   }, []);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
-      // Add subscription logic here
-      console.log("Subscribed:", email);
+    const value = email.trim();
+    if (!value || status.state === "sending") return;
+
+    setStatus({ state: "sending", message: "" });
+    try {
+      const res = await http.post("/api/v1/newsletter", { email: value });
+      setStatus({ state: "done", message: res.data.message });
       setEmail("");
+    } catch (error) {
+      setStatus({
+        state: "error",
+        message: error.response?.data?.message || "Could not subscribe right now. Please try again.",
+      });
     }
   };
 
@@ -92,30 +103,23 @@ const Subscribe = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <button type="submit" className="subscribe-btn">
-                  Subscribe Now
+                <button type="submit" className="subscribe-btn" disabled={status.state === "sending"}>
+                  {status.state === "sending" ? "Subscribing…" : "Subscribe Now"}
                 </button>
               </div>
+              {status.message && (
+                <p
+                  className="privacy-text"
+                  role="status"
+                  style={{ color: status.state === "error" ? "#e63946" : "#138808", fontWeight: 600 }}
+                >
+                  {status.message}
+                </p>
+              )}
               <p className="privacy-text">
                 🔒 We respect your privacy. Unsubscribe anytime.
               </p>
             </form>
-
-            {/* Stats */}
-            <div className="stats-row">
-              <div className="stat-item">
-                <strong>10K+</strong>
-                <span>Subscribers</span>
-              </div>
-              <div className="stat-item">
-                <strong>500+</strong>
-                <span>Destinations</span>
-              </div>
-              <div className="stat-item">
-                <strong>4.9★</strong>
-                <span>Rating</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

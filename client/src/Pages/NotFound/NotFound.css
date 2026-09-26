@@ -1,0 +1,56 @@
+.notfound {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 16px 40px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255, 153, 51, 0.18), transparent 40%),
+    radial-gradient(circle at 92% 12%, rgba(19, 136, 8, 0.1), transparent 40%),
+    var(--cream-marble, #fff8e7);
+}
+.notfound-card {
+  max-width: 520px;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 28px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+.notfound-code {
+  font-family: "Shrikhand", cursive;
+  font-size: 4.5rem;
+  line-height: 1;
+  background: linear-gradient(135deg, #ffd700, #ff9933 60%, #ff6b35);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.notfound-card h1 {
+  margin: 8px 0;
+  font-size: 1.6rem;
+  color: var(--charcoal, #36454f);
+}
+.notfound-card p {
+  color: var(--stone-grey, #808080);
+  margin-bottom: 20px;
+}
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.notfound-btn {
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--saffron-primary, #ff9933), #ff6b35);
+}
+.notfound-btn.ghost {
+  background: transparent;
+  color: var(--charcoal, #36454f);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}

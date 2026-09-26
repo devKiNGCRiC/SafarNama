@@ -47,50 +47,16 @@ const Review = () => {
           averageRating: response.data.averageRating,
         });
       } else {
-        // Use sample reviews if no real reviews exist
-        setReviews(getSampleReviews());
-        setStats({ totalReviews: 3, averageRating: 4.8 });
+        setReviews([]); // no real reviews yet: the section stays hidden
       }
     } catch (error) {
       console.error("Error fetching reviews:", error);
-      // Use sample reviews if API fails
-      setReviews(getSampleReviews());
-      setStats({ totalReviews: 3, averageRating: 4.8 });
+      setReviews([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Sample reviews for fallback
-  const getSampleReviews = () => [
-    {
-      _id: "1",
-      username: "Priya Sharma",
-      reviewText:
-        "Safarnama made our Ladakh trip absolutely unforgettable! The attention to detail and local insights were exceptional. Highly recommended for authentic experiences.",
-      rating: 5,
-      productId: { tourName: "Ladakh Adventure" },
-      createdAt: new Date(),
-    },
-    {
-      _id: "2",
-      username: "Rahul Verma",
-      reviewText:
-        "Best travel platform I have used! The booking process was smooth, and the tour guides were knowledgeable and friendly. Will definitely book again.",
-      rating: 5,
-      productId: { tourName: "Kerala Backwaters" },
-      createdAt: new Date(),
-    },
-    {
-      _id: "3",
-      username: "Sneha Patel",
-      reviewText:
-        "Amazing experience exploring Rajasthan with Safarnama. Every moment was well-planned and the cultural immersion was beyond expectations.",
-      rating: 5,
-      productId: { tourName: "Rajasthan Heritage" },
-      createdAt: new Date(),
-    },
-  ];
 
   const renderStars = (rating) => {
     return [...Array(5)].map((_, index) => (
@@ -117,6 +83,9 @@ const Review = () => {
       </div>
     );
   }
+
+  // Nothing to show until real travellers have left reviews (no invented testimonials)
+  if (reviews.length === 0) return null;
 
   return (
     <div className="reviews section container">

@@ -38,7 +38,7 @@ const ProtectedLink = ({ to, children, onClick }) => {
     if (!isAuthenticated) {
       e.preventDefault();
       toast.error("Please login first to access this page");
-      navigate("/auth");
+      navigate("/auth", { state: { from: { pathname: to } } });
     } else if (onClick) {
       onClick();
     }
@@ -84,7 +84,7 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      navigate(`/destinations?q=${encodeURIComponent(searchQuery)}`);
       setSearchQuery("");
       toggleMobileMenu(false);
     }
@@ -133,7 +133,7 @@ const Navbar = () => {
             <form className="searchBar" onSubmit={handleSearch}>
               <input
                 type="text"
-                placeholder="Search destinations, blogs..."
+                placeholder="Search destinations..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -233,22 +233,9 @@ const Navbar = () => {
                 <RiBookOpenLine className="icon" />
                 Blog
               </ProtectedLink>
-              <Link to="/gallery" onClick={() => toggleMobileMenu(false)}>
-                <RiImageLine className="icon" />
-                Gallery
-              </Link>
             </nav>
 
             <div className="mobileActions">
-              <button
-                onClick={() => {
-                  navigate("/chat");
-                  toggleMobileMenu(false);
-                }}
-              >
-                <RiRobot2Fill className="icon" />
-                Chat with AI
-              </button>
 
               {isAuthenticated ? (
                 <>
@@ -260,24 +247,6 @@ const Navbar = () => {
                   >
                     <RiUserLine className="icon" />
                     Profile
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate("/notifications");
-                      toggleMobileMenu(false);
-                    }}
-                  >
-                    <RiNotification3Line className="icon" />
-                    Notifications
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate("/settings");
-                      toggleMobileMenu(false);
-                    }}
-                  >
-                    <RiSettings4Line className="icon" />
-                    Settings
                   </button>
                   <button className="logoutBtn" onClick={handleLogout}>
                     <RiLogoutCircleLine className="icon" />

@@ -1,9 +1,9 @@
-// src/Components/SavedItems/SavedItems.jsx
+// Profile -> Saved -> Destinations
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import './SavedItems.css';
-import { API_URL } from '../../../config/api';
+import { getSavedDestinations, unsaveDestination } from '../../../api/profileRequest';
 
 const SavedItems = () => {
   const [savedDestinations, setSavedDestinations] = useState([]);
@@ -11,45 +11,22 @@ const SavedItems = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchSavedDestinations = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(
-          `${API_URL}/api/v1/users/saved-destinations`,
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        );
-
-        if (response.data.success) {
-          setSavedDestinations(response.data.data);
-        }
-      } catch (error) {
-        setError('Failed to fetch saved destinations');
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
+    let alive = true;
+    getSavedDestinations()
+      .then((r) => alive && setSavedDestinations(r.data))
+      .catch(() => alive && setError('Could not load your saved destinations'))
+      .finally(() => alive && setLoading(false));
+    return () => {
+      alive = false;
     };
-
-    fetchSavedDestinations();
   }, []);
 
   const removeSavedDestination = async (destinationId) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(
-        `${API_URL}/api/v1/users/saved-destinations/${destinationId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      );
-
-      setSavedDestinations(prev => 
-        prev.filter(item => item.destination._id !== destinationId)
-      );
-    } catch (error) {
-      alert('Failed to remove destination');
+      await unsaveDestination(destinationId);
+      setSavedDestinations((prev) => prev.filter((d) => d._id !== destinationId));
+    } catch (e) {
+      toast.error(e?.message || 'Failed to remove destination');
     }
   };
 
@@ -60,30 +37,24 @@ const SavedItems = () => {
     <div className="saved-items-container">
       <h2>Saved Destinations</h2>
       {savedDestinations.length === 0 ? (
-        <p className="no-saved-items">No saved destinations yet</p>
+        <p className="no-saved-items">
+          No saved destinations yet. Open a destination and tap <strong>Save</strong>.
+        </p>
       ) : (
         <div className="saved-destinations-grid">
-          {savedDestinations.map((item) => (
-            <div key={item.destination._id} className="saved-destination-card">
-              <img 
-                src={item.destination.images[0]} 
-                alt={item.destination.name} 
-                className="destination-image"
-              />
+          {savedDestinations.map((destination) => (
+            <div key={destination._id} className="saved-destination-card">
+              {destination.images?.[0] && (
+                <img src={destination.images[0]} alt={destination.name} className="destination-image" />
+              )}
               <div className="destination-info">
-                <h3>{item.destination.name}</h3>
-                <p>{item.destination.address}</p>
+                <h3>{destination.name}</h3>
+                <p>{destination.address}</p>
                 <div className="card-actions">
-                  <Link 
-                    to={`/destinations/${item.destination._id}`}
-                    className="view-btn"
-                  >
+                  <Link to={`/destinations/${destination._id}`} className="view-btn">
                     View Details
                   </Link>
-                  <button 
-                    onClick={() => removeSavedDestination(item.destination._id)}
-                    className="remove-btn"
-                  >
+                  <button onClick={() => removeSavedDestination(destination._id)} className="remove-btn">
                     Remove
                   </button>
                 </div>

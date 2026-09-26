@@ -49,7 +49,7 @@ const Events = () => {
       }
 
       const response = await axios.post(
-        `${API_URL}/api/v1/events/${eventId}/register`,
+        `${API_URL}/api/v1/events/register/${eventId}`,
         {},
         {
           headers: {

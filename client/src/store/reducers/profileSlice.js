@@ -68,14 +68,19 @@ const profileSlice = createSlice({
                 state.savedItems[type].push(itemId);
             }
         },
+        // `followed` = did the logged-in user (myId) just follow (true) or unfollow (false) the
+        // profile being viewed? The viewed profile's followers list is updated accordingly.
         updateFollowStatus: (state, action) => {
-            const { userId, isFollowing } = action.payload;
-            if (state.profile) {
-                if (isFollowing) {
-                    state.profile.followers = state.profile.followers.filter(id => id !== userId);
-                } else {
-                    state.profile.followers.push(userId);
-                }
+            const { myId, followed } = action.payload;
+            const followers = state.profile?.profile?.followers;
+            if (!Array.isArray(followers) || !myId) return;
+
+            const id = String(myId);
+            const isThere = followers.some((f) => String(f?._id ?? f) === id);
+            if (followed && !isThere) {
+                followers.push(id);
+            } else if (!followed && isThere) {
+                state.profile.profile.followers = followers.filter((f) => String(f?._id ?? f) !== id);
             }
         },
         clearProfile: (state) => {

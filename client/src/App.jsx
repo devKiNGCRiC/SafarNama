@@ -22,7 +22,9 @@ import HomePage from "./Pages/HomePage/HomePage"; // Keep home page immediate
 import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
-import { BOOKING_ENABLED } from "./config/features";
+import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED } from "./config/features";
+import RouteEffects from "./Components/Routing/RouteEffects";
+import RoutedErrorBoundary from "./Components/Routing/RoutedErrorBoundary";
 
 // Lazy Load Pages (load only when needed)
 const Auth = lazy(() => import("./Pages/Auth/Auth"));
@@ -48,6 +50,9 @@ const SafarTag = lazy(() => import("./features/safargram/pages/TagPage"));
 const SafarSaved = lazy(() => import("./features/safargram/pages/BucketListPage"));
 const SafarExplore = lazy(() => import("./features/safargram/pages/ExplorePage"));
 const ChatPage = lazy(() => import("./features/chat/pages/ChatPage"));
+const ForgotPassword = lazy(() => import("./Pages/Auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./Pages/Auth/ResetPassword"));
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 const SafarDestination = lazy(
   () => import("./features/safargram/pages/DestinationPostsPage"),
 );
@@ -122,6 +127,8 @@ const AppContent = () => {
     <div className="App">
       <Toaster />
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <RouteEffects />
+        <RoutedErrorBoundary>
         <Suspense fallback={<Loader />}>
           <Routes>
             {/* Public Routes */}
@@ -164,6 +171,7 @@ const AppContent = () => {
             />
 
             {/* Protected Routes */}
+            <Route path="/me" element={<Navigate to="/profile" replace />} />
             <Route
               path="/profile/:username?"
               element={
@@ -177,19 +185,7 @@ const AppContent = () => {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/me"
-              element={
-                <ProtectedRoute>
-                  <div>
-                    <Navbar />
-                    <Sidebar />
-                    <Profile />
-                    <Footer />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
+            
             <Route path="/homegram" element={<Navigate to="/safargram" replace />} />
             <Route path="/safargram" element={<Shell><SafarFeed /></Shell>} />
             <Route path="/safargram/explore" element={<Shell><SafarExplore /></Shell>} />
@@ -357,9 +353,9 @@ const AppContent = () => {
               }
             />
 
-            <Route path="/eco-guides" element={<EcoGuides />} />
+            <Route path="/eco-guides" element={ECO_GUIDES_ENABLED ? <EcoGuides /> : <Navigate to="/home" replace />} />
             <Route path="/itinerary" element={<ItineraryBuilder />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="/events" element={EVENTS_ENABLED ? <Events /> : <Navigate to="/home" replace />} />
             <Route path="/FAQ" element={<FAQ />} />
 
             <Route path="/tours" element={<TourListing />} />
@@ -369,16 +365,29 @@ const AppContent = () => {
             <Route path="/thank-you" element={<BookingGate><ThankYou /></BookingGate>} />
             <Route path="/bookings" element={<BookingGate><BookingHistory /></BookingGate>} />
 
+            {/* Password reset (the emailed link opens /reset-password/:token) */}
+            <Route
+              path="/forgot-password"
+              element={<div><Navbar /><ForgotPassword /><Footer /></div>}
+            />
+            <Route
+              path="/reset-password/:token"
+              element={<div><Navbar /><ResetPassword /><Footer /></div>}
+            />
+
             {/* Design System Showcase (Development Only) */}
-            <Route path="/design-showcase" element={<DesignShowcase />} />
+            <Route path="/design-showcase" element={import.meta.env.DEV ? <DesignShowcase /> : <Navigate to="/home" replace />} />
 
             {/* <Route path='/tours' element={<Tours />} />
                         <Route path='/tours/:id' element={<TourDetail />} />
                         <Route path='/tours/search' element={<SearchResultList />} />
                         <Route path="/payments" element={<Payment />} />
                         <Route path="/thankyou" element={<ThankYou />} /> */}
+            {/* Any other address */}
+            <Route path="*" element={<div><Navbar /><NotFound /><Footer /></div>} />
           </Routes>
         </Suspense>
+        </RoutedErrorBoundary>
       </Router>
     </div>
   );

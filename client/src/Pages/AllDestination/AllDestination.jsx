@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import {
   FiMapPin,
@@ -33,6 +33,19 @@ const AllDestinations = () => {
   const [selectedSeason, setSelectedSeason] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [showFilters, setShowFilters] = useState(false);
+
+  // Links elsewhere on the site open this page pre-filtered:
+  //   /destinations?q=Goa   /destinations?location=Kashmir   /destinations?activity=Trekking
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    const text = searchParams.get("q") || searchParams.get("location");
+    if (text) setSearchTerm(text);
+    const activity = searchParams.get("activity");
+    if (activity) {
+      setSelectedActivity(activity);
+      setShowFilters(true); // make the active filter visible so it can be cleared
+    }
+  }, [searchParams]);
 
   // Unique categories and activities
   const categories = [

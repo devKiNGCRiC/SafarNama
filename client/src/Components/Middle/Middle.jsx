@@ -41,7 +41,7 @@ const Middle = () => {
               to ensure your travel leaves a positive impact on nature and
               culture.
             </p>
-            <div className="promise-badge">Certified Green</div>
+            <div className="promise-badge">Eco-conscious travel</div>
           </div>
 
           <div className="promise-card" data-aos="fade-up" data-aos-delay="200">
@@ -70,7 +70,7 @@ const Middle = () => {
               Travel with confidence. 24/7 support, verified accommodations, and
               trained guides ensure your safety at every step of the journey.
             </p>
-            <div className="promise-badge">Trusted by 10K+</div>
+            <div className="promise-badge">Safety first</div>
           </div>
 
           <div
@@ -87,18 +87,6 @@ const Middle = () => {
               at fair prices that support local economies directly.
             </p>
             <div className="promise-badge">Price Match</div>
-          </div>
-        </div>
-
-        {/* Trust Indicator */}
-        <div className="trust-banner" data-aos="zoom-in" data-aos-delay="500">
-          <div className="trust-content">
-            <span className="trust-icon">🏆</span>
-            <p className="trust-text">
-              <strong>Award-Winning Service</strong> • Rated 4.9/5 by 5,000+
-              travelers
-            </p>
-            <span className="trust-icon">🏆</span>
           </div>
         </div>
       </div>

@@ -41,6 +41,8 @@ import contactRoutes from "./Routes/contactRoutes.js";
 import paymentRoutes from "./Routes/paymentRoutes.js";
 import blogRoutes from "./Routes/BlogRoutes.js";
 import safargramRoutes from "./Routes/safargramRoutes.js";
+import newsletterRoutes from "./Routes/newsletterRoutes.js";
+import publicStatsRoutes from "./Routes/publicStatsRoutes.js";
 import tourRoute from "./Routes/tours.js";
 import reviewRoute from "./Routes/reviews.js";
 import destinationRoutes from "./Routes/destinationRoute.js";
@@ -198,6 +200,8 @@ app.use("/api/v1/events", eventRoutes);
 //Blog Routes
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/safargram", safargramRoutes);
+app.use("/api/v1/newsletter", newsletterRoutes);
+app.use("/api/v1/public-stats", publicStatsRoutes);
 app.use("/api/v1/chat", createChatRouter({ realtime }));
 
 // Handle undefined routes

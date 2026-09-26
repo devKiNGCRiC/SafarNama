@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { getSavedDestinations, saveDestination, unsaveDestination } from '../../api/profileRequest';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -59,23 +62,42 @@ const HeroSection = ({ destination }) => {
     }
   };
 
-  const handleSave = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Please login to save destinations');
-        return;
-      }
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-      await axios.post(
-        `${API_URL}/api/v1/users/saved-destinations/${destination._id}`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setIsSaved(true);
-      alert('Destination saved successfully!');
+  // Is this place already in the user's saved list?
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setIsSaved(false);
+      return undefined;
+    }
+    let alive = true;
+    getSavedDestinations()
+      .then((r) => alive && setIsSaved(r.data.some((d) => d._id === destination._id)))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [isAuthenticated, destination._id]);
+
+  const handleSave = async () => {
+    if (!isAuthenticated) {
+      toast.error('Please log in to save destinations');
+      navigate('/auth', { state: { from: { pathname: window.location.pathname } } });
+      return;
+    }
+    try {
+      if (isSaved) {
+        await unsaveDestination(destination._id);
+        setIsSaved(false);
+        toast.success('Removed from your saved destinations');
+      } else {
+        await saveDestination(destination._id);
+        setIsSaved(true);
+        toast.success('Saved to your profile');
+      }
     } catch (error) {
-      alert(error.response?.data?.message || 'Error saving destination');
+      toast.error(error?.message || 'Could not update your saved destinations');
     }
   };
 

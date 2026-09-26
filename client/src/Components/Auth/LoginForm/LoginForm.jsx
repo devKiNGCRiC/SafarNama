@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { loginUser } from '../../../actions/authAction';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { RiLockPasswordLine , RiUserLine } from 'react-icons/ri';
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { loading } = useSelector((state) => state.auth);
     
     const [formData, setFormData] = useState({
@@ -77,7 +78,9 @@ const LoginForm = () => {
 
                 if (response.success) {
                     toast.success('Successfully logged in!');
-                    navigate('/'); // or your desired redirect path
+                    // back to the page they were trying to open (see ProtectedRoute), else Home
+                    const from = location.state?.from;
+                    navigate(from ? `${from.pathname}${from.search || ''}` : '/home', { replace: true });
                 } else {
                     setErrors({ submit: response.error || 'Login failed' });
                     toast.error(response.error || 'Login failed');
