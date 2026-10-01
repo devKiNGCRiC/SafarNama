@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import "./Footer.scss";
 import { Link } from "react-router-dom";
 
-//Importing Aos
-import Aos from "aos";
-import "aos/dist/aos.css";
+import { ensureAos } from "../../config/aos";
 
 //Imported icons
 import {
@@ -24,7 +22,7 @@ import { ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } fr
 
 const Footer = () => {
   useEffect(() => {
-    Aos.init({ duration: 1200 });
+    ensureAos();
   }, []);
 
   const currentYear = new Date().getFullYear();

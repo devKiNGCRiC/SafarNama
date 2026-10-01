@@ -12,8 +12,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Footer from '../../Components/Footer/Footer';
 import Loader from '../../Components/Loader/Loader';
-import Aos from 'aos';
-import 'aos/dist/aos.css';
+import { ensureAos } from '../../config/aos';
 
 // Importing Icons
 import { 
@@ -1136,12 +1135,7 @@ const DestinationDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // Initialize AOS
-    Aos.init({ 
-      duration: 1000,
-      once: true,
-      offset: 100 
-    });
+    ensureAos();
 
     // Fetch destination data
     const fetchDestination = async () => {

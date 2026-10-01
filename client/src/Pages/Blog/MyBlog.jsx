@@ -6,16 +6,7 @@ import axios from "axios";
 import BlogCard from "../../Components/BlogCard/BlogCard";
 import { FiEdit, FiBookOpen, FiPlus, FiGlobe } from "react-icons/fi";
 import { API_URL } from '../../config/api';
-
-// Lazy load AOS
-let Aos;
-const loadAos = async () => {
-  if (!Aos) {
-    Aos = (await import("aos")).default;
-    await import("aos/dist/aos.css");
-  }
-  return Aos;
-};
+import { ensureAos } from '../../config/aos';
 
 const MyBlog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -64,12 +55,7 @@ const MyBlog = () => {
 
   useEffect(() => {
     getUserBlog();
-    loadAos().then((AosModule) => {
-      AosModule.init({
-        duration: 1000,
-        once: true,
-      });
-    });
+    ensureAos();
   }, []);
 
   if (loading) {

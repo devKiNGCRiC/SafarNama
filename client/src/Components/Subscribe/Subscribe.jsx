@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Subscribe.scss";
 import { http } from "../../config/api";
 
-//Importing Aos
-import Aos from "aos";
-import "aos/dist/aos.css";
+import { ensureAos } from "../../config/aos";
 
 //Import icons
 import { MdEmail, MdNotifications } from "react-icons/md";
@@ -15,7 +13,7 @@ const Subscribe = () => {
   const [status, setStatus] = useState({ state: "idle", message: "" }); // idle | sending | done | error
 
   useEffect(() => {
-    Aos.init({ duration: 1200 });
+    ensureAos();
   }, []);
 
   const handleSubscribe = async (e) => {

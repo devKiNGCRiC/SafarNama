@@ -9,9 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Importing AOS
-import Aos from "aos";
-import "aos/dist/aos.css";
+import { ensureAos } from "../../config/aos";
 
 // Imported icons
 import {
@@ -32,7 +30,7 @@ const Review = () => {
   const nextRef = useRef(null);
 
   useEffect(() => {
-    Aos.init({ duration: 1200, once: true });
+    ensureAos();
     fetchReviews();
   }, []);
 

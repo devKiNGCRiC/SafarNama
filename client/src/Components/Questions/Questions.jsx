@@ -3,13 +3,11 @@ import React, { useEffect } from "react";
 import "./Questions.scss";
 import Accordion from "./Accordion";
 
-//Importing Aos
-import Aos from "aos";
-import "aos/dist/aos.css";
+import { ensureAos } from "../../config/aos";
 
 const Questions = () => {
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    ensureAos();
   }, []);
 
   const [active, setActive] = useState(null);

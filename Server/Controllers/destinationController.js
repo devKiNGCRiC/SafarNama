@@ -60,7 +60,9 @@ export const deleteDestination = async (req, res) => {
 // Get all destinations
 export const getAllDestinations = async (req, res) => {
   try {
-    const destinations = await Destination.find();
+    // .lean() skips building full Mongoose documents (getters, virtuals, change-tracking) for
+    // what is just a read-only JSON response - same output, meaningfully less work per request.
+    const destinations = await Destination.find().lean();
     res.status(200).json({
       success: true,
       message: "Successfully fetched destinations",

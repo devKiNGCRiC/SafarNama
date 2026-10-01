@@ -38,47 +38,57 @@ export function ChatProvider({ children }) {
       return undefined;
     }
 
-    const socket = openChatSocket(token);
-    socketRef.current = socket;
+    // `openChatSocket` loads socket.io-client on demand; `cancelled` stops a slow-resolving
+    // import from wiring up a socket after the token changed again or the provider unmounted.
+    let cancelled = false;
+    openChatSocket(token).then((socket) => {
+      if (cancelled) {
+        socket.close();
+        return;
+      }
+      socketRef.current = socket;
 
-    const sendWatchList = () => {
-      if (watched.current.size) socket.emit("presence:watch", { userIds: [...watched.current].slice(0, 100) });
-    };
+      const sendWatchList = () => {
+        if (watched.current.size) socket.emit("presence:watch", { userIds: [...watched.current].slice(0, 100) });
+      };
 
-    socket.on("connect", () => {
-      setConnected(true);
-      sendWatchList(); // re-subscribe after every reconnect
-      refreshUnread(); // catch up on anything missed while offline
+      socket.on("connect", () => {
+        setConnected(true);
+        sendWatchList(); // re-subscribe after every reconnect
+        refreshUnread(); // catch up on anything missed while offline
+      });
+      socket.on("disconnect", () => setConnected(false));
+
+      socket.on("presence:state", ({ online }) =>
+        setOnlineIds((prev) => {
+          const next = new Set(prev);
+          watched.current.forEach((id) => next.delete(id));
+          online.forEach((id) => next.add(id));
+          return next;
+        }),
+      );
+      socket.on("presence", ({ userId, online }) =>
+        setOnlineIds((prev) => {
+          const next = new Set(prev);
+          if (online) next.add(userId);
+          else next.delete(userId);
+          return next;
+        }),
+      );
+
+      // Fan every event out to whoever subscribed, and keep the badge fresh.
+      socket.onAny((event, payload) => {
+        handlers.current.get(event)?.forEach((fn) => fn(payload));
+        if (UNREAD_EVENTS.includes(event)) refreshUnread();
+      });
+
+      refreshUnread();
     });
-    socket.on("disconnect", () => setConnected(false));
 
-    socket.on("presence:state", ({ online }) =>
-      setOnlineIds((prev) => {
-        const next = new Set(prev);
-        watched.current.forEach((id) => next.delete(id));
-        online.forEach((id) => next.add(id));
-        return next;
-      }),
-    );
-    socket.on("presence", ({ userId, online }) =>
-      setOnlineIds((prev) => {
-        const next = new Set(prev);
-        if (online) next.add(userId);
-        else next.delete(userId);
-        return next;
-      }),
-    );
-
-    // Fan every event out to whoever subscribed, and keep the badge fresh.
-    socket.onAny((event, payload) => {
-      handlers.current.get(event)?.forEach((fn) => fn(payload));
-      if (UNREAD_EVENTS.includes(event)) refreshUnread();
-    });
-
-    refreshUnread();
     return () => {
+      cancelled = true;
       clearTimeout(refreshTimer.current);
-      socket.close();
+      socketRef.current?.close();
       socketRef.current = null;
       setConnected(false);
     };

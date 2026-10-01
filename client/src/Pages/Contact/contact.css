@@ -54,7 +54,7 @@
     font-size: 18px;
     color: #fff;
 }
-.info-details li i {
+.info-details li svg {
     background: #F44770;
     padding: 12px;
     border-radius: 50%;
@@ -75,7 +75,7 @@
 .social-icons li {
     display: inline-block;
 }
-.social-icons li i {
+.social-icons li svg {
     background: #F44770;
     color: #fff;
     padding: 15px;
@@ -85,7 +85,7 @@
     cursor: pointer;
     transition: all .5s;
 }
-.social-icons li i:hover {
+.social-icons li svg:hover {
     background: #fff;
     color: #000000;
 }

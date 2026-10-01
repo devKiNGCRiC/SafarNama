@@ -7,16 +7,7 @@ import BlogCard from "../../Components/BlogCard/BlogCard";
 import { FiSearch, FiEdit, FiBookOpen, FiCalendar } from "react-icons/fi";
 import { AiOutlineSwapRight } from "react-icons/ai";
 import { API_URL } from '../../config/api';
-
-// Lazy load AOS
-let Aos;
-const loadAos = async () => {
-  if (!Aos) {
-    Aos = (await import("aos")).default;
-    await import("aos/dist/aos.css");
-  }
-  return Aos;
-};
+import { ensureAos } from '../../config/aos';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -47,14 +38,8 @@ const Blogs = () => {
 
   const categories = ["All", "Travel", "Adventure", "Culture", "Food", "Tips"];
 
-  // Initialize AOS
   useEffect(() => {
-    loadAos().then((AosModule) => {
-      AosModule.init({
-        duration: 1000,
-        once: true,
-      });
-    });
+    ensureAos();
   }, []);
 
   // Get all blogs

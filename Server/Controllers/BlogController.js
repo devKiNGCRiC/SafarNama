@@ -10,7 +10,8 @@ export const getAllBlogsController = async (req, res) => {
     const blogs = await blogModel
       .find({})
       .sort({ createdAt: -1 })
-      .populate("user", "username");
+      .populate("user", "username")
+      .lean();
     return res.status(200).send({
       success: true,
       BlogCount: blogs.length,

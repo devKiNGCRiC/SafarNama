@@ -263,16 +263,16 @@ const destinationSchema = new mongoose.Schema(
       ref: 'Itinerary'
     }]
   },
-  { timestamps: true,
-     // Add indexes for common queries
-     indexes: [
-      { category: 1 },
-      { featured: 1 },
-      { "reviews.rating": 1 },
-      { createdAt: -1 }
-    ]
-   }
+  { timestamps: true }
 );
+
+// `indexes` is not a real Mongoose schema option (it was silently ignored, so none of these
+// ever existed) - every list/filter query below was doing a full collection scan. Declared as
+// `.index()` calls instead, which Mongoose actually builds.
+destinationSchema.index({ category: 1 });
+destinationSchema.index({ featured: 1 });
+destinationSchema.index({ "reviews.rating": 1 });
+destinationSchema.index({ createdAt: -1 });
 
 // Index for location-based queries
 destinationSchema.index({ location: '2dsphere' });

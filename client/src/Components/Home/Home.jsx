@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./Home.scss";
 import { Link, useNavigate } from "react-router-dom";
 import usePublicStats from "./usePublicStats";
+import { ensureAos } from "../../config/aos";
 
 // Imported Assets
 // Videos now hosted on Cloudinary (too large for GitHub)
@@ -18,35 +19,16 @@ import img1 from "../../Assets/chandratal-lake.jpg";
 import img2 from "../../Assets/intro1.jpg";
 import img3 from "../../Assets/nav.jpg";
 
-// Lazy load AOS only when needed
-let Aos;
-const loadAos = async () => {
-  if (!Aos) {
-    Aos = (await import("aos")).default;
-    await import("aos/dist/aos.css");
-  }
-  return Aos;
-};
-
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const stats = usePublicStats(); // real totals from the database
   const [useVideo, setUseVideo] = useState(false); // Start with image, load video after
   const [connectionSpeed, setConnectionSpeed] = useState("4g");
-  const [aosLoaded, setAosLoaded] = useState(false);
 
   // Check network speed and device capability
   useEffect(() => {
-    // Load AOS animations asynchronously
-    loadAos().then((AosModule) => {
-      AosModule.init({
-        duration: 1000, // Reduced from 2000ms
-        once: true, // Animate only once
-        disable: "mobile", // Disable on mobile for better performance
-      });
-      setAosLoaded(true);
-    });
+    ensureAos(); // the hero section's own data-aos elements
 
     // Defer video loading
     const timer = setTimeout(() => {

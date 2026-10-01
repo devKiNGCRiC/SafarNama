@@ -54,7 +54,8 @@ export const getAllTours = async (req, res) => {
 
     const tours = await Tour.find(query)
       .populate('destination', 'name address images')
-      .sort({ 'schedule.date': 1 });
+      .sort({ 'schedule.date': 1 })
+      .lean();
 
     res.status(200).json({
       success: true,
