@@ -199,13 +199,13 @@ const Home = () => {
           <Link to="/destinations" className="action-card explore">
             <div className="card-icon">🗺️</div>
             <h3>Explore Destinations</h3>
-            <p>500+ eco-friendly spots across India</p>
+            <p>Eco-friendly spots across India</p>
             <span className="card-arrow">→</span>
           </Link>
-          <Link to="/tours" className="action-card plan">
+          <Link to="/itinerary" className="action-card plan">
             <div className="card-icon">📅</div>
             <h3>Plan Your Yatra</h3>
-            <p>Customized sustainable travel packages</p>
+            <p>Build your own day-by-day itinerary</p>
             <span className="card-arrow">→</span>
           </Link>
           <Link to="/destinations" className="action-card discover">
@@ -255,7 +255,7 @@ const Home = () => {
             >
               <div className="activity-icon">🥾</div>
               <h3>Trekking</h3>
-              <p>50+ Trails</p>
+              <p>Find trails</p>
             </Link>
             <Link
               to="/destinations?activity=River Rafting"
@@ -263,7 +263,7 @@ const Home = () => {
             >
               <div className="activity-icon">🚣</div>
               <h3>River Rafting</h3>
-              <p>15+ Rapids</p>
+              <p>Find rapids</p>
             </Link>
             <Link
               to="/destinations?activity=Wildlife Safari"
@@ -271,12 +271,12 @@ const Home = () => {
             >
               <div className="activity-icon">🦁</div>
               <h3>Wildlife Safari</h3>
-              <p>20+ Parks</p>
+              <p>Find parks</p>
             </Link>
             <Link to="/destinations?activity=Camping" className="activity-card">
               <div className="activity-icon">🏕️</div>
               <h3>Camping</h3>
-              <p>100+ Sites</p>
+              <p>Find campsites</p>
             </Link>
             <Link
               to="/destinations?activity=Paragliding"
@@ -284,7 +284,7 @@ const Home = () => {
             >
               <div className="activity-icon">🪂</div>
               <h3>Paragliding</h3>
-              <p>10+ Spots</p>
+              <p>Find spots</p>
             </Link>
             <Link
               to="/destinations?activity=Scuba Diving"
@@ -292,7 +292,7 @@ const Home = () => {
             >
               <div className="activity-icon">🤿</div>
               <h3>Scuba Diving</h3>
-              <p>8+ Islands</p>
+              <p>Find islands</p>
             </Link>
           </div>
         </div>

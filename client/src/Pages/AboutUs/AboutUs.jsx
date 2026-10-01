@@ -18,15 +18,14 @@ const AboutUs = () => {
       <section className="features-section">
         <h2 className='h2'>What We Offer</h2>
         <ul className='ul'>
-          <li className='li'><strong>Dynamic Booking System:</strong> We streamline your trip planning with a one-stop solution for booking accommodations and travel tickets.</li>
-          <li className='li'><strong>Interactive Map-Based Platform:</strong> Explore eco-tourism destinations with real-time data and details.</li>
-          <li className='li'><strong>Comprehensive Travel Planning System:</strong> Customize your trip to fit your passions and values.</li>
-          <li className='li'><strong>Community-Driven Environment:</strong> Share your experiences with fellow eco-tourists.</li>
-          <li className='li'><strong>Educational Resources:</strong> Learn about sustainable tourism practices and environmental impact.</li>
+          <li className='li'><strong>Itinerary Planner:</strong> Tell us how many days you have and what you enjoy, and get a day-by-day route built from our destinations that you can edit and save.</li>
+          <li className='li'><strong>Interactive Map-Based Platform:</strong> Explore eco-tourism destinations and their details on an interactive map.</li>
+          <li className='li'><strong>SafarGram Community:</strong> Share photos and stories from your trips, and follow fellow eco-travellers.</li>
+          <li className='li'><strong>Community Forum:</strong> Ask questions and swap advice with other travellers.</li>
+          <li className='li'><strong>Eco-Guides:</strong> Practical tips on sustainable tourism practices and reducing your environmental impact.</li>
           <li className='li'><strong>Off-Beat Eco-Tourism Areas:</strong> Discover hidden gems and lesser-known destinations.</li>
-          <li className='li'><strong>Real-Time Travel Assistance:</strong> Get live weather updates and route suggestions for safe, enjoyable journeys.</li>
-          <li className='li'><strong>Local Culture and Traditions:</strong> Immerse yourself in regional festivals, traditions, and local cuisines.</li>
-          <li className='li'><strong>Connecting with Nature:</strong> Participate in conservation efforts and engage with the environment.</li>
+          <li className='li'><strong>Events:</strong> Find and register for local eco-tourism events, including community clean-up drives.</li>
+          <li className='li'><strong>Local Culture and Traditions:</strong> Read about regional festivals, traditions and local cuisines on each destination's page.</li>
         </ul>
       </section>
 

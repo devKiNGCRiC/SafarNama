@@ -57,15 +57,14 @@ const Contact = () => {
         <div className="box-wrapper">
           <div className="info-wrap">
             <h2 className="info-title">Contact Information</h2>
-            <h3 className="info-sub-title">Fill up the form and our Team will get back to you within 24 hours</h3>
+            <h3 className="info-sub-title">Fill up the form and we'll get back to you as soon as we can</h3>
             <ul className="info-details">
-              <li><i className="fas fa-phone-alt"></i> <a href="tel:+1235235598">+ 1235 2355 98</a></li>
+              <li><i className="fas fa-phone-alt"></i> <a href="tel:+918732093825">+91 8732093825</a></li>
               <li><i className="fas fa-paper-plane"></i> <a href="mailto:safarnama252935@gmail.com">safarnama252935@gmail.com</a></li>
-              <li><i className="fas fa-globe"></i> <a href="#">yoursite.com</a></li>
             </ul>
             <ul className="social-icons">
               <li><a href="https://www.facebook.com/profile.php?id=61567204745011"><i className="fab fa-facebook"></i></a></li>
-              <li><a href="https://www.threads.net/@safarnama_rkcbharat?invite=0"><i className="fab fa-twitter"></i></a></li>
+              <li><a href="https://www.threads.net/@safarnama_rkcbharat?invite=0"><i className="fas fa-at"></i></a></li>
               <li><a href="https://www.instagram.com/safarnama_rkcbharat"><i className="fab fa-instagram"></i></a></li>
             </ul>
           </div>

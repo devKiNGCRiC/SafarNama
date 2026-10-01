@@ -37,9 +37,8 @@ const Middle = () => {
               <h3 className="promise-title">100% Eco-Conscious</h3>
             </div>
             <p className="promise-description">
-              Every journey is carbon-neutral. We partner with local communities
-              to ensure your travel leaves a positive impact on nature and
-              culture.
+              Discover destinations chosen for their natural and cultural value, with eco-guides
+              and community tips to help you travel lightly and respectfully.
             </p>
             <div className="promise-badge">Eco-conscious travel</div>
           </div>
@@ -50,11 +49,10 @@ const Middle = () => {
               <h3 className="promise-title">Authentic Experiences</h3>
             </div>
             <p className="promise-description">
-              From hidden Himalayan trails to coastal villages, discover the
-              real India through stories and experiences curated by local
-              experts.
+              From hidden Himalayan trails to coastal villages, discover the real India through
+              trip stories, photos and tips shared by fellow travellers on SafarGram.
             </p>
-            <div className="promise-badge">Local First</div>
+            <div className="promise-badge">Community-powered</div>
           </div>
 
           <div
@@ -64,13 +62,13 @@ const Middle = () => {
           >
             <div className="promise-header">
               <div className="promise-icon">🛡️</div>
-              <h3 className="promise-title">Safe & Secure</h3>
+              <h3 className="promise-title">Plan With Confidence</h3>
             </div>
             <p className="promise-description">
-              Travel with confidence. 24/7 support, verified accommodations, and
-              trained guides ensure your safety at every step of the journey.
+              Build a day-by-day itinerary from real destination details, with safety and permit
+              information included where it's available.
             </p>
-            <div className="promise-badge">Safety first</div>
+            <div className="promise-badge">Know before you go</div>
           </div>
 
           <div
@@ -79,14 +77,14 @@ const Middle = () => {
             data-aos-delay="400"
           >
             <div className="promise-header">
-              <div className="promise-icon">💰</div>
-              <h3 className="promise-title">Best Value Guarantee</h3>
+              <div className="promise-icon">🗺️</div>
+              <h3 className="promise-title">Free to Explore</h3>
             </div>
             <p className="promise-description">
-              Transparent pricing with no hidden costs. Get premium experiences
-              at fair prices that support local economies directly.
+              Browse destinations, build itineraries and join the community at no cost. No hidden
+              charges, no account required just to look around.
             </p>
-            <div className="promise-badge">Price Match</div>
+            <div className="promise-badge">Always free to explore</div>
           </div>
         </div>
       </div>

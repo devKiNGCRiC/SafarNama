@@ -4,24 +4,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Connect to MongoDB
+// Days from now, at local midnight - keeps the seeded schedule in the future no matter when
+// this script is actually run (a hardcoded date would go stale and seed an unbookable tour).
+const daysFromNow = (days) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
-mongoose.connect(process.env.MONGO_DB)
-  .then(() => app.listen(PORT , () => console.log(`Server Running on ${process.env.DEV_MODE} mode at ${PORT}`))
-        ).catch((error) => console.log(error));
 // Insert data
 async function insertTours() {
   try {
     const tours = [
-      
+
       {
         name: "Valley of Flowers Photography Tour",
         destination: "6755a384edba70268c480bb5", // Replace with a valid Destination ObjectId
         description: "Capture the Valley of Flowers like never before.",
         duration: { days: 6, nights: 5 },
         schedule: [
-          { date: new Date("2025-08-01"), maxParticipants: 15 },
-          { date: new Date("2025-09-10"), maxParticipants: 20 }
+          { date: daysFromNow(60), maxParticipants: 15 },
+          { date: daysFromNow(100), maxParticipants: 20 }
         ],
         pricing: { adult: 6000, child: 3500 , groupDiscount: { minPeople: 8, percentage: 8 }},
         includes: ["Professional Photographer", "Trekking Gear"],
@@ -51,4 +54,8 @@ async function insertTours() {
   }
 }
 
-insertTours();
+// Connect, then seed - insertTours() used to run before the connection was ready.
+mongoose
+  .connect(process.env.MONGO_DB)
+  .then(insertTours)
+  .catch((error) => console.log(error));

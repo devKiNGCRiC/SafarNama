@@ -20,7 +20,6 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
-import { MdVerified } from "react-icons/md";
 
 const Review = () => {
   const [reviews, setReviews] = useState([]);
@@ -111,16 +110,8 @@ const Review = () => {
             <div className="stars">{renderStars(stats.averageRating)}</div>
           </div>
           <div className="statCard">
-            <div className="statNumber">{stats.totalReviews}+</div>
-            <div className="statLabel">Happy Travelers</div>
-            <MdVerified className="verifiedIcon" />
-          </div>
-          <div className="statCard">
-            <div className="statNumber">98%</div>
-            <div className="statLabel">Satisfaction Rate</div>
-            <div className="satisfactionBar">
-              <div className="satisfactionFill"></div>
-            </div>
+            <div className="statNumber">{stats.totalReviews}</div>
+            <div className="statLabel">{stats.totalReviews === 1 ? "Review" : "Reviews"}</div>
           </div>
         </div>
 
@@ -221,7 +212,6 @@ const Review = () => {
                         <span className="reviewDate">
                           {formatDate(review.createdAt)}
                         </span>
-                        <MdVerified className="verifiedBadge" />
                       </div>
                     </div>
                   </SwiperSlide>
@@ -238,16 +228,12 @@ const Review = () => {
         {/* Trust Badges */}
         <div className="trustBadges" data-aos="fade-up" data-aos-delay="300">
           <div className="badge">
-            <MdVerified className="badgeIcon" />
-            <span>Verified Reviews</span>
-          </div>
-          <div className="badge">
             <FaStar className="badgeIcon" />
-            <span>Top Rated</span>
+            <span>{stats.averageRating.toFixed(1)} average rating</span>
           </div>
           <div className="badge">
             <FaUserCircle className="badgeIcon" />
-            <span>Real Travelers</span>
+            <span>Written by real travellers</span>
           </div>
         </div>
       </div>

@@ -23,22 +23,22 @@ const FAQ = () => {
     ],
     booking: [
       {
-        question: "How do I book an eco-tour?",
-        answer: "You can book through our website by selecting your desired destination and following the booking process. Make sure you're logged in to your account."
+        question: "Can I book a tour through SafarNama?",
+        answer: "Tour booking is not available yet. In the meantime, you can browse destinations, build a day-by-day itinerary with our planner, and save it for your trip."
       },
       {
-        question: "What is your cancellation policy?",
-        answer: "Our standard cancellation policy allows free cancellation up to 48 hours before the tour. Different terms may apply for special tours."
+        question: "How do I register for an event?",
+        answer: "Open the Events page, pick an upcoming event and press Register. You'll need to be logged in. You can cancel your registration any time before the event from the same page, as long as spots remain."
       }
     ],
     sustainability: [
       {
         question: "How do you ensure environmental protection?",
-        answer: "We work with certified eco-friendly partners, implement waste reduction programs, support local conservation efforts, and educate visitors about environmental protection."
+        answer: "Our Eco-Guides share practical tips from the community on travelling lightly, and many destinations list known sustainability initiatives. We don't operate tours ourselves, so the day-to-day choices are up to you and the operators you travel with."
       },
       {
-        question: "What sustainable practices do you follow?",
-        answer: "We minimize plastic use, support local communities, use renewable energy where possible, and follow sustainable waste management practices."
+        question: "What sustainable practices do you promote?",
+        answer: "Our Eco-Guides and Community Forum cover things like reducing plastic use, choosing local businesses, and respecting wildlife and protected areas. Community-run clean-up events are also listed on the Events page when they're happening near you."
       }
     ]
   };

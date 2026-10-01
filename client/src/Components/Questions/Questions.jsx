@@ -17,7 +17,7 @@ const Questions = () => {
   const faqs = [
     {
       title: "How do I choose the right travel destination for me?",
-      desc: "Consider your interests, budget, available time, and travel style. Our travel experts can help you find destinations that match your preferences, whether you're seeking adventure, relaxation, cultural experiences, or nature exploration.",
+      desc: "Consider your interests, budget, available time, and travel style. Use the filters on the Destinations page to browse by category, or tell our itinerary planner what you enjoy and it will suggest a route from our destinations.",
     },
     {
       title: "What are the best times to visit Spiti Valley?",
@@ -25,7 +25,7 @@ const Questions = () => {
     },
     {
       title: "Is the Kedarnath trek very difficult?",
-      desc: "The Kedarnath trek is moderate in difficulty, covering 16 km from Gaurikund. It requires basic fitness and acclimatization. Helicopter services and pony rides are available for those who prefer alternatives. We recommend proper preparation and consulting with our travel advisors.",
+      desc: "The Kedarnath trek is moderate in difficulty, covering 16 km from Gaurikund. It requires basic fitness and acclimatization. Helicopter services and pony rides are available locally for those who prefer alternatives. Prepare properly and check current conditions before you go.",
     },
     {
       title: "Where is Valley of Flowers located?",
@@ -33,7 +33,7 @@ const Questions = () => {
     },
     {
       title: "Do I need travel insurance?",
-      desc: "Yes, we strongly recommend travel insurance for all trips. It covers medical emergencies, trip cancellations, lost luggage, and other unforeseen circumstances. We can help you choose the right coverage based on your destination and activities.",
+      desc: "We recommend travel insurance for all trips. It typically covers medical emergencies, trip cancellations, lost luggage, and other unforeseen circumstances. Compare policies from an insurer based on your destination and planned activities.",
     },
     {
       title: "What documents do I need for domestic travel?",

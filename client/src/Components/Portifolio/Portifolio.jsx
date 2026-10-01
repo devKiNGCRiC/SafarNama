@@ -38,13 +38,13 @@ const Portifolio = () => {
                     <div className="features-grid">
                         <div className="feature-card" data-aos='fade-right'>
                             <div className="feature-icon">
-                                <img src={icon1} alt="Safety Icon"/>
+                                <img src={icon1} alt="Planning Icon"/>
                             </div>
 
                             <div className="feature-info">
-                                <h3>Safety & Support</h3>
+                                <h3>Plan Responsibly</h3>
                                 <p>
-                                    Your safety is our top priority with trusted travel guides and 24/7 support. We ensure a secure, worry-free journey while you explore nature responsibly.
+                                    Itineraries built from real destination details, with permit and safety information included where we have it, so you can explore nature responsibly.
                                 </p>
                             </div>
                         </div>
@@ -64,13 +64,13 @@ const Portifolio = () => {
 
                         <div className="feature-card" data-aos='fade-left' data-aos-delay="200">
                             <div className="feature-icon">
-                                <img src={icon3} alt="Support Icon"/>
+                                <img src={icon3} alt="Community Icon"/>
                             </div>
 
                             <div className="feature-info">
-                                <h3>24/7 Customer Support</h3>
+                                <h3>A Growing Community</h3>
                                 <p>
-                                    Our dedicated team is available 24/7 to assist you with any travel queries or concerns. Enjoy seamless support throughout your eco-tourism journey with SafarNama.
+                                    Ask questions in the Community Forum, chat with fellow travellers, and get tips from people who have been there. Send us a message any time through Contact Us.
                                 </p>
                             </div>
                         </div>

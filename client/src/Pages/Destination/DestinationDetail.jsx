@@ -827,15 +827,15 @@ const BookingCTASection = ({ destination }) => {
           <div className="cta-features">
             <div className="feature">
               <FiAward />
-              <span>Best Price Guarantee</span>
+              <span>Free Itinerary Planner</span>
             </div>
             <div className="feature">
               <MdEco />
-              <span>Eco-Friendly Tours</span>
+              <span>Eco-Friendly Destinations</span>
             </div>
             <div className="feature">
               <MdSecurity />
-              <span>Safe & Secure</span>
+              <span>Safety Info Included</span>
             </div>
           </div>
         </div>
