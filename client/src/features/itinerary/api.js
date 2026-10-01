@@ -22,5 +22,10 @@ export const updateItinerary = (id, payload) => http.put(`${BASE}/${id}`, payloa
 export const deleteItinerary = (id) => http.delete(`${BASE}/${id}`).then(body);
 export const getTemplates = () => http.get(BASE).then(body);
 
+// admin: every itinerary (templates and private trips), and promoting/demoting a template
+export const getAllItinerariesAdmin = () => http.get(`${BASE}/admin/all`).then(body);
+export const setItineraryTemplate = (id, isTemplate) => updateItinerary(id, { isTemplate });
+export const deleteItineraryAdmin = (id) => http.delete(`${BASE}/admin/${id}`).then(body);
+
 // destinations to pick from when adding a stop by hand
 export const getDestinations = () => http.get("/api/v1/destinations").then(body);

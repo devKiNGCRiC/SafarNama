@@ -10,6 +10,7 @@ const TABS = [
   ["/admin/events", "Events"],
   ["/admin/eco-guides", "Guides"],
   ["/admin/destinations", "Destinations"],
+  ["/admin/itineraries", "Itineraries"],
 ];
 
 // Page frame for the admin screens: title, section tabs, then the page itself.

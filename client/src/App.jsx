@@ -23,6 +23,7 @@ import { Toaster } from "react-hot-toast";
 import { loginSuccess } from "./store/reducers/authSlice";
 import { ChatProvider } from "./features/chat/ChatProvider";
 import { NotificationsProvider } from "./features/notifications/NotificationsProvider";
+import { StoriesProvider } from "./features/stories/StoriesProvider";
 import { BOOKING_ENABLED, ECO_GUIDES_ENABLED, EVENTS_ENABLED, FORUM_ENABLED, GALLERY_ENABLED } from "./config/features";
 import RouteEffects from "./Components/Routing/RouteEffects";
 import BottomNav from "./Components/BottomNav/BottomNav";
@@ -66,6 +67,7 @@ const AdminDashboard = lazy(() => import("./features/admin/pages/AdminDashboard"
 const AdminUsers = lazy(() => import("./features/admin/pages/AdminUsers"));
 const AdminReports = lazy(() => import("./features/admin/pages/AdminReports"));
 const AdminMessages = lazy(() => import("./features/admin/pages/AdminMessages"));
+const AdminItineraries = lazy(() => import("./features/admin/pages/AdminItineraries"));
 const AdminDestinations = lazy(() => import("./Pages/Admin/AdminDestinations"));
 const AdminDestinationForm = lazy(() => import("./Pages/Admin/DestinationForm"));
 const SettingsPage = lazy(() => import("./features/settings/pages/SettingsPage"));
@@ -367,6 +369,7 @@ const AppContent = () => {
             <Route path="/admin/users" element={<AdminShell><AdminUsers /></AdminShell>} />
             <Route path="/admin/reports" element={<AdminShell><AdminReports /></AdminShell>} />
             <Route path="/admin/messages" element={<AdminShell><AdminMessages /></AdminShell>} />
+            <Route path="/admin/itineraries" element={<AdminShell><AdminItineraries /></AdminShell>} />
             <Route path="/admin/destinations" element={<AdminShell><AdminDestinations /></AdminShell>} />
             <Route path="/admin/destinations/new" element={<AdminShell><AdminDestinationForm /></AdminShell>} />
             <Route path="/admin/destinations/edit/:id" element={<AdminShell><AdminDestinationForm /></AdminShell>} />
@@ -443,7 +446,9 @@ function App() {
       <Provider store={store}>
         <ChatProvider>
           <NotificationsProvider>
+          <StoriesProvider>
             <AppContent />
+          </StoriesProvider>
           </NotificationsProvider>
         </ChatProvider>
       </Provider>

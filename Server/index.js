@@ -54,6 +54,7 @@ import itineraryRoutes from "./Routes/itineraryRoutes.js";
 import eventRoutes from "./Routes/eventRoutes.js";
 import settingsRoutes from "./Routes/settingsRoutes.js";
 import galleryRoutes from "./Routes/galleryRoutes.js";
+import storyRoutes from "./Routes/storyRoutes.js";
 import { createChatRouter } from "./Routes/chatRoutes.js";
 import { attachChatSocket } from "./services/chatSocket.js";
 
@@ -205,6 +206,7 @@ app.use("/api/v1/itineraries", itineraryRoutes);
 app.use("/api/v1/events", eventRoutes);
 app.use("/api/v1/settings", settingsRoutes);
 app.use("/api/v1/gallery", galleryRoutes);
+app.use("/api/v1/stories", storyRoutes);
 //Blog Routes
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/safargram", safargramRoutes);

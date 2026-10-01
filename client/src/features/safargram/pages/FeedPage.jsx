@@ -7,6 +7,7 @@ import Wordmark from "../components/Wordmark";
 import PostCard from "../components/PostCard";
 import CreatePostModal from "../components/CreatePostModal";
 import SafarLayout from "../components/SafarLayout";
+import StoryRing from "../../stories/components/StoryRing";
 import "../safargram.scss";
 
 function FeedList({ tab }) {
@@ -97,6 +98,8 @@ const FeedPage = () => {
           <Camera size={16} style={{ verticalAlign: "-3px" }} /> Share your journey
         </button>
       </div>
+
+      <StoryRing />
 
       <div className="sg-tabs">
         <button className={tab === "discover" ? "active" : ""} onClick={() => setTab("discover")}>

@@ -1,0 +1,410 @@
+$saffron: var(--saffron-primary, #ff9933);
+$ink: var(--charcoal, #36454f);
+$muted: var(--stone-grey, #7a8288);
+$green: var(--forest-green, #138808);
+$sindoor: var(--red-sindoor, #e63946);
+
+// ---- the ring of circles
+.st-ring {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.st-ring-item {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 68px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  small {
+    max-width: 68px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    color: $ink;
+  }
+}
+.st-ring-avatar {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  padding: 2.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e2e2; // "seen" / empty ring
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+  }
+  b {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: linear-gradient(135deg, $saffron, #ff6b35);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+  &.unseen {
+    background: linear-gradient(135deg, #ff9933, #ff6b35, $sindoor);
+  }
+  .st-ring-add {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: $saffron;
+    color: #fff;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.st-ring-add-more {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 58px;
+  margin-top: 0;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #fff;
+  color: $muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    color: $saffron;
+    border-color: $saffron;
+  }
+}
+
+// ---- shared bits
+.st-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, $saffron, #ff6b35);
+  &.ghost {
+    background: transparent;
+    color: $ink;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+.st-sub {
+  color: $muted;
+}
+.st-error {
+  color: $sindoor;
+  margin: 8px 0 0;
+}
+.st-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+// ---- create story modal
+.st-create {
+  width: 100%;
+  max-width: 420px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  color: $ink;
+  h2 {
+    margin: 0 0 12px;
+  }
+  label:not(.st-dropzone) {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 4px;
+  }
+  input:not([type="file"]) {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font: inherit;
+  }
+}
+.st-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 220px;
+  border: 2px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  background: rgba(255, 153, 51, 0.06);
+  span {
+    color: $muted;
+    font-weight: 600;
+    padding: 12px;
+  }
+  small {
+    display: block;
+    font-weight: 400;
+    margin-top: 4px;
+    font-size: 0.8rem;
+  }
+  &.has-preview {
+    border-style: solid;
+    background: #000;
+  }
+  img,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+.st-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  margin-top: 12px;
+  overflow: hidden;
+  span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(135deg, $saffron, #ff6b35);
+    transition: width 0.2s;
+  }
+}
+.st-create-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+// ---- the full-screen viewer
+.st-viewer {
+  background: #000;
+  padding: 0;
+}
+.st-viewer-frame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.st-bars {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px 0;
+}
+.st-bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  i {
+    display: block;
+    height: 100%;
+    background: #fff;
+  }
+}
+.st-viewer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+}
+.st-viewer-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  min-width: 0;
+  strong,
+  small {
+    display: block;
+  }
+  small {
+    color: rgba(255, 255, 255, 0.75);
+  }
+}
+.st-viewer-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, $saffron, #ff6b35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  b {
+    color: #fff;
+  }
+  &.small {
+    width: 28px;
+    height: 28px;
+  }
+}
+.st-viewer-tools {
+  display: flex;
+  gap: 6px;
+  flex: none;
+  button {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+.st-viewer-media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  img,
+  video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+.st-tap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  &.left {
+    left: 0;
+  }
+  &.right {
+    right: 0;
+  }
+}
+.st-caption {
+  padding: 10px 16px 4px;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.st-viewer-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 16px 14px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+}
+.st-viewers-sheet {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+}
+.st-viewers-panel {
+  width: 100%;
+  max-height: 70%;
+  overflow-y: auto;
+  background: #fff;
+  color: $ink;
+  border-radius: 18px 18px 0 0;
+  padding: 16px;
+  h3 {
+    margin: 0 0 10px;
+  }
+  .st-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+.st-viewer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+}
+
+@media (max-width: 520px) {
+  .st-viewer {
+    padding: 0;
+  }
+  .st-viewer-frame {
+    max-width: 100%;
+  }
+}
